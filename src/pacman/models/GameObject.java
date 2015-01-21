@@ -1,7 +1,10 @@
 package pacman.models;
 
+import pacman.view.screens.GameScreen;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
@@ -13,6 +16,7 @@ public abstract class GameObject {
 	protected Texture texture;
 	protected BodyDef bodyDef;
 	protected FixtureDef fixtureDef;
+	protected Body body;
 	
 	protected GameObject(byte x, byte y, Texture texture){
 		posX = x;
@@ -24,8 +28,7 @@ public abstract class GameObject {
 		fixtureDef = new FixtureDef();
 		PolygonShape shape = new PolygonShape();
 		shape.setAsBox(texture.getWidth(), texture.getHeight());
-		fixtureDef.shape = shape;
-		
+		fixtureDef.shape = shape;		
 	}
 	
 	public abstract void update();

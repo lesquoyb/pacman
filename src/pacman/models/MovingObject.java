@@ -1,5 +1,7 @@
 package pacman.models;
 
+import pacman.view.screens.GameScreen;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
@@ -10,6 +12,8 @@ public abstract class MovingObject extends GameObject{
 	protected MovingObject(byte x, byte y, Texture texture) {
 		super(x, y, texture);
 		bodyDef.type = BodyType.KinematicBody;//we use kinematicBody as we don't want to use any physics at all for the moment
+		body = GameScreen.world.createBody(bodyDef);
+		body.createFixture(fixtureDef);
 	}
 
 
