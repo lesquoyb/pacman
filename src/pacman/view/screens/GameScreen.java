@@ -13,7 +13,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 
@@ -25,7 +24,7 @@ public class GameScreen implements Screen {
 	Texture img;
 	Map map;
 	OrthographicCamera camera;
-	World world;
+	public static World world;
 	Box2DDebugRenderer debugRenderer;
 	
 	
@@ -38,7 +37,7 @@ public class GameScreen implements Screen {
 			camera = new OrthographicCamera(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 			batch = new SpriteBatch();
 			FileHandle map1 = Gdx.files.internal("config/map1.map");
-			map = new Map(map1);
+			map = new Map( map1 );
 			Pacman pacman = new Pacman((byte)0,(byte) 0);
 			map.elements.add(pacman);
 			
@@ -52,7 +51,7 @@ public class GameScreen implements Screen {
 	public void render(float delta) {
 		
 		map.update();
-
+		
 		Gdx.gl.glClearColor(1, 1, 1, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
