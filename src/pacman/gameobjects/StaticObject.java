@@ -10,9 +10,10 @@ public abstract class StaticObject extends GameObject{
 		bodyDef.type = BodyType.StaticBody;
 		body = GameWorld.world.createBody(bodyDef);
 		body.createFixture(fixtureDef);
+		updateTextPos();
 	}
 
 	@Override
-	public void update() { /* do nothing as it's immobile */	}
+	public void update() { /* do nothing as it's a static object */	}
 
 }

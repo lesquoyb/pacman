@@ -3,7 +3,6 @@ package pacman.gameobjects;
 import graphics.TextureFactory;
 import pacman.PacmanGame;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
 public class Pacman extends Character{
@@ -35,6 +34,7 @@ public class Pacman extends Character{
 
 	@Override
 	public void update(){
+		
 		if (PacmanGame.isDownPressed()){
 			move(directions.down);
 		}
@@ -47,6 +47,9 @@ public class Pacman extends Character{
 		if (PacmanGame.isUpPressed()){
 			move(directions.up);
 		}
+		
+		
+		updateTextPos();
 	}
 	
 

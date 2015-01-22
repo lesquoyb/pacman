@@ -12,6 +12,8 @@ public abstract class GameObject {
 	protected Texture texture;
 	protected BodyDef bodyDef;
 	protected FixtureDef fixtureDef;
+	protected float textX;
+	protected float textY;
 	protected Body body;
 	public static String name;
 	
@@ -26,10 +28,15 @@ public abstract class GameObject {
 		fixtureDef.shape = shape;
 	}
 	
+	protected void updateTextPos(){
+		textX = body.getPosition().x - texture.getWidth()/2;
+		textY = body.getPosition().y -texture.getWidth()/2;
+	}
+	
 	public abstract void update();
 	
 	public void render(SpriteBatch batch){
-		batch.draw(texture, body.getPosition().x - texture.getWidth()/2 , body.getPosition().y -texture.getWidth()/2 );
+		batch.draw(texture, textX , textY );
 	}
 	
 
