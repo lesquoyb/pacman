@@ -1,71 +1,33 @@
 package pacman.view.screens;
 
-import javax.swing.JOptionPane;
-
-import pacman.gameobjects.Map;
-import pacman.gameobjects.Pacman;
+import pacman.gameobjects.GameWorld;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.World;
 
 public class GameScreen implements Screen {
 
 	
+	private GameWorld world;
 
-	SpriteBatch batch;
-	Texture img;
-	Map map;
-	OrthographicCamera camera;
-	public static World world;
-	Box2DDebugRenderer debugRenderer;
 	
 	
 	@Override
 	public void show() {
-		try {
-			world = new World(new Vector2(0,0),true);
-			debugRenderer = new Box2DDebugRenderer();
-
-			camera = new OrthographicCamera(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-			batch = new SpriteBatch();
-			FileHandle map1 = Gdx.files.internal("config/map1.map");
-			map = new Map( map1 );
-			
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, e.getMessage());
-			Gdx.app.exit();
-		}
+		world = new GameWorld();
 	}
 
 	@Override
 	public void render(float delta) {
+		world.update();
+		world.render();
 		
-		
-		map.update();
-		world.step(0.12f, 6, 2);
-
-		Gdx.gl.glClearColor(1, 1, 1, 0);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
-		batch.setProjectionMatrix(camera.projection);
-		batch.begin();
-		map.render(batch);
-		debugRenderer.render(world, camera.projection);
-		batch.end();
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		camera.viewportHeight = height;
-		camera.viewportWidth = width;		
+		world.resize(width,height);	
 	}
 
 	@Override

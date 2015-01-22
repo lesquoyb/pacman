@@ -1,7 +1,5 @@
 package pacman.gameobjects;
 
-import pacman.view.screens.GameScreen;
-
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
@@ -11,40 +9,16 @@ public abstract class MovingObject extends GameObject{
 	
 	protected MovingObject(byte x, byte y, Texture texture) {
 		super(x, y, texture);
-		bodyDef.type = BodyType.DynamicBody;//we use kinematicBody as we don't want to use any physics at all for the moment
-		body = GameScreen.world.createBody(bodyDef);
+		bodyDef.type = BodyType.DynamicBody;
+		body = GameWorld.world.createBody(bodyDef);
 		body.createFixture(fixtureDef);
 	}
 
 
 	@Override
 	public abstract void update();
-		
-	protected boolean canMove(directions d){
-		//TODO
-		return false;
-	}
+
 	
-	protected void move(directions d){
-		if ( canMove(d) ) {
-			switch(d){
-				case up:
-					posY++ ;
-					break;
-					
-				case down:
-					posY-- ;
-					break;
-					
-				case right:
-					posX++ ;
-					break;
-					
-				case left:
-					posX-- ;
-					break;
-			}
-		}
-	}
+
 	
 }

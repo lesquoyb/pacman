@@ -1,5 +1,6 @@
 package pacman.gameobjects;
 
+import graphics.TextureFactory;
 import pacman.PacmanGame;
 
 import com.badlogic.gdx.graphics.Texture;
@@ -7,14 +8,13 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Pacman extends Character{
 
-	public static final Texture pacmanTexture = new Texture("images/pacman.png");
-	
+	//public static final Texture pacmanTexture = new Texture("images/pacman.png");
+	public static final String name = "pacman";
 	
 	public Pacman(byte x, byte y) {
-		super(x, y, pacmanTexture);
+		super(x, y, TextureFactory.getTexture(name));
 	}
 
-	@Override
 	protected void move(directions d) {
 		switch(d){
 		case down:
