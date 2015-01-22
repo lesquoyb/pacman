@@ -1,4 +1,4 @@
-package pacman.models;
+package pacman.gameobjects;
 
 import com.badlogic.gdx.graphics.Texture;
 

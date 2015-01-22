@@ -1,8 +1,8 @@
-package pacman.models;
+package pacman.gameobjects;
 
 import java.util.ArrayList;
 
-import pacman.models.generators.MapGenerator;
+import pacman.generators.MapGenerator;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

@@ -1,16 +1,10 @@
 package pacman;
 
-import pacman.models.Map;
-import pacman.models.Pacman;
 import pacman.view.screens.GameScreen;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class PacmanGame extends Game {
 		

@@ -1,11 +1,11 @@
-package pacman.models;
+package pacman.gameobjects;
 
 import com.badlogic.gdx.graphics.Texture;
 
 public class Wormhole extends StaticObject{
 
 	
-	public static final Texture doorTexture = new Texture("images/door.png");
+	public static final Texture doorTexture = new Texture("images/wormhole.jpg");
 	
 	public final byte id;
 	

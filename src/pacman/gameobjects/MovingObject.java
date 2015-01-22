@@ -1,4 +1,4 @@
-package pacman.models;
+package pacman.gameobjects;
 
 import pacman.view.screens.GameScreen;
 
@@ -11,7 +11,7 @@ public abstract class MovingObject extends GameObject{
 	
 	protected MovingObject(byte x, byte y, Texture texture) {
 		super(x, y, texture);
-		bodyDef.type = BodyType.KinematicBody;//we use kinematicBody as we don't want to use any physics at all for the moment
+		bodyDef.type = BodyType.DynamicBody;//we use kinematicBody as we don't want to use any physics at all for the moment
 		body = GameScreen.world.createBody(bodyDef);
 		body.createFixture(fixtureDef);
 	}

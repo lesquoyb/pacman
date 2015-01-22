@@ -1,15 +1,15 @@
-package pacman.models.generators;
+package pacman.generators;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-import pacman.models.Floor;
-import pacman.models.Ghost;
-import pacman.models.Map;
-import pacman.models.Pacman;
-import pacman.models.Wall;
-import pacman.models.Wormhole;
+import pacman.gameobjects.Floor;
+import pacman.gameobjects.Ghost;
+import pacman.gameobjects.Map;
+import pacman.gameobjects.Pacman;
+import pacman.gameobjects.Wall;
+import pacman.gameobjects.Wormhole;
 
 import com.badlogic.gdx.files.FileHandle;
 
@@ -26,11 +26,10 @@ public class MapGenerator extends Generator{
 
 	public final static byte floor = '0';
 	public final static byte wall = '1';
-	public final static byte pacman = '2';
+	public final static byte pacman = 'p';
 	public final static byte superpacgum = '3';
 	public final static byte ghost = '4';
-	public final static byte wormhole = '5';
-	public String errorMessage;
+	public final static byte wormhole = '@';
 	
 	public Map map;
 	
@@ -111,7 +110,6 @@ public class MapGenerator extends Generator{
 			byte first = ids.get(0);
 			for(short i = 1 ; i < ids.size() ; i++){
 				byte id = ids.get(i);
-				System.out.println(i + ", " + ids.size());
 				if (id == first){
 					ids.remove(i);
 					break;

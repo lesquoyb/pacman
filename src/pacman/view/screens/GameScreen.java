@@ -2,8 +2,8 @@ package pacman.view.screens;
 
 import javax.swing.JOptionPane;
 
-import pacman.models.Map;
-import pacman.models.Pacman;
+import pacman.gameobjects.Map;
+import pacman.gameobjects.Pacman;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -38,8 +38,6 @@ public class GameScreen implements Screen {
 			batch = new SpriteBatch();
 			FileHandle map1 = Gdx.files.internal("config/map1.map");
 			map = new Map( map1 );
-			Pacman pacman = new Pacman((byte)0,(byte) 0);
-			map.elements.add(pacman);
 			
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
@@ -50,14 +48,16 @@ public class GameScreen implements Screen {
 	@Override
 	public void render(float delta) {
 		
-		map.update();
 		
+		map.update();
+		world.step(0.12f, 6, 2);
+
 		Gdx.gl.glClearColor(1, 1, 1, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		batch.setProjectionMatrix(camera.projection);
 		batch.begin();
-		//map.render(batch);
+		map.render(batch);
 		debugRenderer.render(world, camera.projection);
 		batch.end();
 	}

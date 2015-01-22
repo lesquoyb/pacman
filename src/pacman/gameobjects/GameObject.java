@@ -1,6 +1,4 @@
-package pacman.models;
-
-import pacman.view.screens.GameScreen;
+package pacman.gameobjects;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -23,11 +21,11 @@ public abstract class GameObject {
 		posY = y;
 		this.texture = texture;
 		bodyDef = new BodyDef();
-		bodyDef.position.x = x;
-		bodyDef.position.y = y;
+		bodyDef.position.x = x + texture.getWidth()/2;
+		bodyDef.position.y = y + texture.getHeight()/2;
 		fixtureDef = new FixtureDef();
 		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(texture.getWidth(), texture.getHeight());
+		shape.setAsBox(texture.getWidth()/2, texture.getHeight()/2);
 		fixtureDef.shape = shape;		
 	}
 	
