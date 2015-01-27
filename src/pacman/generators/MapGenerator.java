@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import pacman.gamelogic.Map;
 import pacman.gameobjects.Floor;
 import pacman.gameobjects.Ghost;
-import pacman.gameobjects.Map;
 import pacman.gameobjects.Pacman;
 import pacman.gameobjects.Wall;
 import pacman.gameobjects.Wormhole;
@@ -17,7 +17,7 @@ import com.badlogic.gdx.files.FileHandle;
  * map format:
  *	  each digit represents an object on the map (see the static bytes values for more details)
  *	  each line must have the same amount of object
- *	  only the wormhole digit can be followed by another digit which should be its id (from 0 to 9)
+ *	  only the wormhole digit must be followed by another digit which should be its id (from 0 to 9)
  *	  each other object is followed by a space(' ')or a new line/carriage return('\n')
  * @author baptiste
  *

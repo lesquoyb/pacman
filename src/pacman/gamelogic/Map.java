@@ -1,7 +1,8 @@
-package pacman.gameobjects;
+package pacman.gamelogic;
 
 import java.util.ArrayList;
 
+import pacman.gameobjects.GameObject;
 import pacman.generators.MapGenerator;
 
 import com.badlogic.gdx.files.FileHandle;
@@ -34,4 +35,10 @@ public class Map {
 		}
 	}
 	
+	
+	public void dispose(){
+		for(GameObject object: elements){
+			object.dispose();
+		}
+	}
 }

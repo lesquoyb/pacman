@@ -1,10 +1,11 @@
-package pacman;
+package pacman.gamelogic;
 
 import pacman.view.screens.GameScreen;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.Screen;
 
 public class PacmanGame extends Game {
 		
@@ -21,6 +22,16 @@ public class PacmanGame extends Game {
 	}
 	
 	
+	
+	
+	@Override
+	public void setScreen(Screen screen) {
+		if(screen != null){
+			screen.dispose();			
+		}
+		super.setScreen(screen);
+	}
+
 	public static boolean isLeftPressed(){
 		return Gdx.input.isKeyPressed(Keys.LEFT) || Gdx.input.isKeyPressed(Keys.Q);
 	}

@@ -1,7 +1,7 @@
 package pacman.gameobjects;
 
-import graphics.TextureFactory;
-import pacman.PacmanGame;
+import pacman.gamelogic.PacmanGame;
+import pacman.graphics.TextureFactory;
 
 import com.badlogic.gdx.math.Vector2;
 

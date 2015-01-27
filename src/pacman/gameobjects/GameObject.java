@@ -20,8 +20,8 @@ public abstract class GameObject {
 	protected GameObject(byte x, byte y, Texture texture){
 		this.texture = texture;
 		bodyDef = new BodyDef();
-		bodyDef.position.x = x ;
-		bodyDef.position.y = y ;
+		bodyDef.position.x = x *32 ;
+		bodyDef.position.y = y * 32;
 		fixtureDef = new FixtureDef();
 		PolygonShape shape = new PolygonShape();
 		shape.setAsBox(texture.getWidth()/2, texture.getHeight()/2);
@@ -30,13 +30,17 @@ public abstract class GameObject {
 	
 	protected void updateTextPos(){
 		textX = body.getPosition().x - texture.getWidth()/2;
-		textY = body.getPosition().y -texture.getWidth()/2;
+		textY = body.getPosition().y - texture.getHeight()/2;
 	}
 	
 	public abstract void update();
 	
 	public void render(SpriteBatch batch){
 		batch.draw(texture, textX , textY );
+	}
+	
+	public void dispose(){
+		texture.dispose();
 	}
 	
 

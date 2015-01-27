@@ -1,6 +1,6 @@
 package pacman.gameobjects;
 
-import graphics.TextureFactory;
+import pacman.graphics.TextureFactory;
 
 public class Floor extends StaticObject{
 
