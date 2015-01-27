@@ -7,8 +7,8 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
 public abstract class StaticObject extends GameObject{
 
-	protected StaticObject(byte x, byte y, Texture texture) {
-		super(x, y, texture);
+	protected StaticObject(byte x, byte y, Texture texture,short category, short mask) {
+		super(x, y, texture,category,mask);
 		bodyDef.type = BodyType.StaticBody;
 		body = GameWorld.world.createBody(bodyDef);
 		body.createFixture(fixtureDef);

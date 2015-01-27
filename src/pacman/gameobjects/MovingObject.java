@@ -9,8 +9,8 @@ public abstract class MovingObject extends GameObject{
 
 	enum directions {left,right,up,down};
 	
-	protected MovingObject(byte x, byte y, Texture texture) {
-		super(x, y, texture);
+	protected MovingObject(byte x, byte y, Texture texture,short category, short mask) {
+		super(x, y, texture,category, mask);
 		bodyDef.type = BodyType.DynamicBody;
 		body = GameWorld.world.createBody(bodyDef);
 		body.createFixture(fixtureDef);

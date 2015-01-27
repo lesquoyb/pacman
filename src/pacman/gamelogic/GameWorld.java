@@ -1,6 +1,14 @@
 package pacman.gamelogic;
 
+import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
+
+import pacman.gameobjects.Character;
+import pacman.gameobjects.Ghost;
+import pacman.gameobjects.Pacman;
+import pacman.gameobjects.StartingPoint;
+import pacman.gameobjects.StartingPoint.characters;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
@@ -12,13 +20,15 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 
+
 public class GameWorld {
 	
 	private SpriteBatch batch;
-	private Map map;
+	public static Map map;
 	private OrthographicCamera camera;
 	public static World world;
 	private Box2DDebugRenderer debugRenderer;
+	private ArrayList<Character> characters;
 	
 	
 	
@@ -26,17 +36,33 @@ public class GameWorld {
 		try {
 			world = new World(new Vector2(0,0),true);
 			debugRenderer = new Box2DDebugRenderer();
+			characters = new ArrayList<Character>();
 
 			camera = new OrthographicCamera(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 			batch = new SpriteBatch();
 			FileHandle map1 = Gdx.files.internal("config/map1.map");
 			map = new Map( map1 );
-			camera.projection.translate(new Vector3( - Gdx.graphics.getWidth()/2,- Gdx.graphics.getHeight()/2,0));
-
+			camera.projection.translate(new Vector3( - Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2,0));
+			for(StartingPoint startingPoint : map.getStartingPoints()){
+				characters c = startingPoint.getCharacter();
+				byte x = startingPoint.getX();
+				byte y = startingPoint.getY();
+				Character character = null;
+				switch(c){
+					case pacman:
+						character = new Pacman(x, y);
+						break;
+					case ghost:
+						character = new Ghost(x, y);
+						break;
+				}
+					characters.add(character);
+			}
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
 			Gdx.app.exit();
 		}
+
 	}
 	
 	
@@ -47,6 +73,9 @@ public class GameWorld {
 		batch.setProjectionMatrix(camera.projection);
 		batch.begin();
 			map.render(batch);
+			for(Character c : characters){
+				c.render(batch);
+			}
 			debugRenderer.render(world, camera.projection);
 		batch.end();
 	}
@@ -58,7 +87,10 @@ public class GameWorld {
 	
 	public void update(){
 		map.update();
-		world.step(0.12f, 6, 2);
+		//world.step(0.12f, 6, 2);
+		for(Character c : characters){
+			c.update();
+		}
 	}
 	
 	

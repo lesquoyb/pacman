@@ -6,8 +6,7 @@ import java.util.ArrayList;
 
 import pacman.gamelogic.Map;
 import pacman.gameobjects.Floor;
-import pacman.gameobjects.Ghost;
-import pacman.gameobjects.Pacman;
+import pacman.gameobjects.StartingPoint;
 import pacman.gameobjects.Wall;
 import pacman.gameobjects.Wormhole;
 
@@ -31,7 +30,7 @@ public class MapGenerator extends Generator{
 	public final static byte ghost = '4';
 	public final static byte wormhole = '@';
 	
-	public Map map;
+	private Map map;
 	
 	
 	public MapGenerator(FileHandle f, Map m) {
@@ -56,18 +55,18 @@ public class MapGenerator extends Generator{
 
 				switch (input){
 					case floor:
-						map.elements.add(new Floor(x,y));
+						map.addElement(new Floor(x,y));
 						break;
 					case wall:
-						map.elements.add(new Wall(x,y));
+						map.addElement(new Wall(x,y));
 						break;
 					case pacman:
-						map.elements.add(new Pacman(x, y));
+						map.addStartingPoint(new StartingPoint(x,y, StartingPoint.characters.pacman));
 						break;
 					case superpacgum:
 						break;
 					case ghost:
-						map.elements.add(new Ghost(x,y));
+						map.addStartingPoint(new StartingPoint(x,y,StartingPoint.characters.ghost ));
 						break;
 					case wormhole:
 						byte id = (byte) stream.read();
@@ -76,7 +75,7 @@ public class MapGenerator extends Generator{
 							return false;
 						}
 						ids.add(id);
-						map.elements.add(new Wormhole(x,y,id));
+						map.addElement(new Wormhole(x,y,id));
 						break;
 					case 13: // carriage return
 						
@@ -118,6 +117,8 @@ public class MapGenerator extends Generator{
 			ids.remove(0);
 		}
 		
+		map.setWidth(x);
+		map.setHeight(y);
 		
 		return true;
 	}

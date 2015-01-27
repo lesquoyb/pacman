@@ -1,5 +1,6 @@
 package pacman.gameobjects;
 
+import pacman.graphics.B2DVars;
 import pacman.graphics.TextureFactory;
 
 public class Wormhole extends StaticObject{
@@ -10,7 +11,7 @@ public class Wormhole extends StaticObject{
 	public final byte id;
 	
 	public Wormhole(byte x, byte y, byte id) {
-		super(x, y, TextureFactory.getTexture(name));
+		super(x, y, TextureFactory.getTexture(name),B2DVars.floorLayer , B2DVars.playerLayer);
 		this.id = id;
 	}
 

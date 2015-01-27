@@ -14,18 +14,32 @@ public abstract class GameObject {
 	protected FixtureDef fixtureDef;
 	protected float textX;
 	protected float textY;
+	protected byte x;
+	protected byte y;
 	protected Body body;
 	public static String name;
 	
-	protected GameObject(byte x, byte y, Texture texture){
+	protected GameObject(byte x, byte y, Texture texture,short category, short mask){
 		this.texture = texture;
+		this.x = x;
+		this.y = y;
 		bodyDef = new BodyDef();
-		bodyDef.position.x = x *32 ;
-		bodyDef.position.y = y * 32;
+		bodyDef.position.x = x *32f ;
+		bodyDef.position.y = - y * 32f;
 		fixtureDef = new FixtureDef();
+		fixtureDef.filter.categoryBits = category;
+		fixtureDef.filter.maskBits = mask;
 		PolygonShape shape = new PolygonShape();
 		shape.setAsBox(texture.getWidth()/2, texture.getHeight()/2);
 		fixtureDef.shape = shape;
+	}
+	
+	public byte getX(){
+		return x;
+	}
+	
+	public byte getY(){
+		return y;
 	}
 	
 	protected void updateTextPos(){

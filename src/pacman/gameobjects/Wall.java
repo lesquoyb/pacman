@@ -1,5 +1,6 @@
 package pacman.gameobjects;
 
+import pacman.graphics.B2DVars;
 import pacman.graphics.TextureFactory;
 
 public class Wall extends StaticObject{
@@ -8,7 +9,7 @@ public class Wall extends StaticObject{
 	public static final String name = "wall";
 	
 	public Wall(byte x, byte y) {
-		super(x, y, TextureFactory.getTexture(name));
+		super(x, y, TextureFactory.getTexture(name), B2DVars.wallLayer, B2DVars.maskAll);
 	}
 
 }
