@@ -27,7 +27,10 @@ public class MapGenerator extends Generator{
 	public final static byte wall = '1';
 	public final static byte pacman = 'p';
 	public final static byte superpacgum = '3';
-	public final static byte ghost = '4';
+	public final static byte Bghost = 'b';
+	public final static byte Rghost = 'r';
+	public final static byte Yghost = 'y';
+	public final static byte Gghost = 'g';
 	public final static byte wormhole = '@';
 	
 	private Map map;
@@ -65,9 +68,19 @@ public class MapGenerator extends Generator{
 						break;
 					case superpacgum:
 						break;
-					case ghost:
-						map.addStartingPoint(new StartingPoint(x,y,StartingPoint.characters.ghost ));
+					case Bghost :
+						map.addStartingPoint(new StartingPoint(x,y,StartingPoint.characters.Bghost ));
 						break;
+					case Rghost :
+						map.addStartingPoint(new StartingPoint(x,y,StartingPoint.characters.Rghost ));
+						break;
+					case  Yghost:
+						map.addStartingPoint(new StartingPoint(x,y,StartingPoint.characters.Yghost ));
+						break;
+					case Gghost :
+						map.addStartingPoint(new StartingPoint(x,y,StartingPoint.characters.Gghost ));
+						break;
+						
 					case wormhole:
 						byte id = (byte) stream.read();
 						if ( id < '0' || id > '9'){

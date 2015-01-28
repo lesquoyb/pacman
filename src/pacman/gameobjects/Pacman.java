@@ -61,19 +61,20 @@ public class Pacman extends Character{
 		if (PacmanGame.isUpPressed()){
 			move(directions.up);
 		}
-		
-		
+		updateTextPos();
+
+		/*
 		
 		if(! GameWorld.map.isObstacle(x,y)){
 
 			System.out.println("avant: " +textX + " " + textY);
-			updateTextPos();
 			textX += movement.x;
 			textY += movement.y;
 			x = (byte) (textX / GameWorld.map.tileWidth);
 			y = (byte) (textY / GameWorld.map.tileHeight);
 			System.out.println("après: " +textX + " " + textY);
 		}
+		*/
 	}
 	
 

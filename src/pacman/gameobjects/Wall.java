@@ -10,6 +10,7 @@ public class Wall extends StaticObject{
 	
 	public Wall(byte x, byte y) {
 		super(x, y, TextureFactory.getTexture(name), B2DVars.wallLayer, B2DVars.maskAll);
+		fixtureDef.friction = 0;
 	}
 
 }

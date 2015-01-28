@@ -1,5 +1,7 @@
 package pacman.gameobjects;
 
+import pacman.gamelogic.GameWorld;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -29,9 +31,12 @@ public abstract class GameObject {
 		fixtureDef = new FixtureDef();
 		fixtureDef.filter.categoryBits = category;
 		fixtureDef.filter.maskBits = mask;
+		//body.setUserData(this);
 		PolygonShape shape = new PolygonShape();
 		shape.setAsBox(texture.getWidth()/2, texture.getHeight()/2);
 		fixtureDef.shape = shape;
+		textX = x * GameWorld.map.tileWidth;
+		textY = y * GameWorld.map.tileHeight;
 	}
 	
 	public byte getX(){

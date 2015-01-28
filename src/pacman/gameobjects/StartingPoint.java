@@ -2,7 +2,7 @@ package pacman.gameobjects;
 
 public class StartingPoint extends Floor {
 
-	public enum characters {pacman, ghost};
+	public enum characters {pacman, Bghost, Rghost, Yghost, Gghost};
 	
 	private characters character;
 	

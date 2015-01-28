@@ -4,11 +4,14 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import pacman.gameobjects.BlueGhost;
 import pacman.gameobjects.Character;
-import pacman.gameobjects.Ghost;
+import pacman.gameobjects.GreenGhost;
 import pacman.gameobjects.Pacman;
+import pacman.gameobjects.RedGhost;
 import pacman.gameobjects.StartingPoint;
 import pacman.gameobjects.StartingPoint.characters;
+import pacman.gameobjects.YellowGhost;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
@@ -33,15 +36,21 @@ public class GameWorld {
 	
 	
 	public GameWorld(){
-		try {
+
 			world = new World(new Vector2(0,0),true);
+			//world.setContactListener(new ContactListener());
 			debugRenderer = new Box2DDebugRenderer();
 			characters = new ArrayList<Character>();
 
 			camera = new OrthographicCamera(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 			batch = new SpriteBatch();
 			FileHandle map1 = Gdx.files.internal("config/map1.map");
+			try {
 			map = new Map( map1 );
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+			Gdx.app.exit();
+		}
 			camera.projection.translate(new Vector3( - Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2,0));
 			for(StartingPoint startingPoint : map.getStartingPoints()){
 				characters c = startingPoint.getCharacter();
@@ -52,16 +61,22 @@ public class GameWorld {
 					case pacman:
 						character = new Pacman(x, y);
 						break;
-					case ghost:
-						character = new Ghost(x, y);
+					case Bghost :
+						character = new BlueGhost(x,y);
+						break;
+					case Rghost :
+						character = new RedGhost(x,y);
+						break;
+					case  Yghost:
+						character = new YellowGhost(x,y);
+						break;
+					case Gghost :
+						character = new GreenGhost(x,y);
 						break;
 				}
 					characters.add(character);
 			}
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
-			Gdx.app.exit();
-		}
+
 
 	}
 	
@@ -76,7 +91,7 @@ public class GameWorld {
 			for(Character c : characters){
 				c.render(batch);
 			}
-			debugRenderer.render(world, camera.projection);
+			//debugRenderer.render(world, camera.projection);
 		batch.end();
 	}
 	
@@ -87,7 +102,7 @@ public class GameWorld {
 	
 	public void update(){
 		map.update();
-		//world.step(0.12f, 6, 2);
+		world.step(0.12f, 6, 2);
 		for(Character c : characters){
 			c.update();
 		}

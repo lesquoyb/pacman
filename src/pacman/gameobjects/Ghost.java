@@ -1,22 +1,16 @@
 package pacman.gameobjects;
 
-import pacman.graphics.TextureFactory;
+import com.badlogic.gdx.graphics.Texture;
 
-public class Ghost extends Character{
+public abstract class Ghost extends Character{
 
 	//public static final Texture ghostTexture = new Texture("images/ghost.png");
-	public static final String name = "ghost32";
-	public Ghost(byte x, byte y) {
-		super(x, y, TextureFactory.getTexture(name));
+
+	public Ghost(byte x, byte y, Texture tex) {
+		super(x, y, tex);
 	}
 
 	@Override
-	public void update() {
-		
-		// TODO IA des fantomes
-		
-		updateTextPos();
-	}
-
+	public abstract void update();
 
 }
