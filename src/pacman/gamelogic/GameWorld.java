@@ -41,11 +41,13 @@ public class GameWorld {
 			//world.setContactListener(new ContactListener());
 			debugRenderer = new Box2DDebugRenderer();
 			characters = new ArrayList<Character>();
-
-			camera = new OrthographicCamera(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+			camera = new OrthographicCamera();
+			camera.setToOrtho(false); 
+			camera.position.set(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, 0);
+			camera.update();		
 			batch = new SpriteBatch();
 			FileHandle map1 = Gdx.files.internal("config/map1.map");
-			try {
+		try {
 			map = new Map( map1 );
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);

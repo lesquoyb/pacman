@@ -1,6 +1,5 @@
 package pacman.gameobjects;
 
-import pacman.gamelogic.GameWorld;
 import pacman.gamelogic.PacmanGame;
 import pacman.graphics.TextureFactory;
 
@@ -61,8 +60,11 @@ public class Pacman extends Character{
 		if (PacmanGame.isUpPressed()){
 			move(directions.up);
 		}
-		updateTextPos();
-
+		updatePos();
+		
+		super.update();
+		//if()
+		
 		/*
 		
 		if(! GameWorld.map.isObstacle(x,y)){

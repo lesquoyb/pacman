@@ -9,6 +9,7 @@ import pacman.generators.MapGenerator;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 
 public class Map {
 	
@@ -30,9 +31,11 @@ public class Map {
 	}
 	
 	
-	public boolean isObstacle(byte x, byte y){
+	public boolean isWall(Vector2 v){
 		for (GameObject g: elements){
 			if(g instanceof Wall){
+				int x = (int) v.x / tileWidth;
+				int y = (int) v.y / tileHeight;
 				if (g.getX() == x && g.getY() == y){
 					return true;
 				}
