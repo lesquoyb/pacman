@@ -18,9 +18,9 @@ public class Wall extends StaticObject{
 	@Override
 	public void render(SpriteBatch batch){
 		//batch.draw(texture, textX, textY);
-		bmFont.setColor(Color.BLACK);
-		bmFont.draw(batch, "LOOOOOOL", textX,textY);
-		//super.render(batch);
+		//bmFont.setColor(Color.BLACK);
+		//bmFont.draw(batch, "LOOOOOOL", textX,textY);
+		super.render(batch);
 
 
 	}

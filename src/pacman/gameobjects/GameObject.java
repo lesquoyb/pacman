@@ -28,8 +28,8 @@ public abstract class GameObject {
 		this.x = x;
 		this.y = y;
 		bodyDef = new BodyDef();
-		bodyDef.position.x = x * Map.tileWidth ;
-		bodyDef.position.y = - y * Map.tileHeight;
+		bodyDef.position.x = x * Map.tileWidth + texture.getWidth()/2 ;
+		bodyDef.position.y = - y * Map.tileHeight - texture.getHeight()/2;
 		fixtureDef = new FixtureDef();
 		fixtureDef.filter.categoryBits = category;
 		fixtureDef.filter.maskBits = mask;
@@ -37,8 +37,8 @@ public abstract class GameObject {
 		PolygonShape shape = new PolygonShape();
 		shape.setAsBox(texture.getWidth()/2, texture.getHeight()/2);
 		fixtureDef.shape = shape;
-		textX = x * Map.tileWidth;
-		textY = y * Map.tileHeight;
+		textX = x * Map.tileWidth + texture.getWidth()/2;
+		textY = - y * Map.tileHeight - texture.getWidth()/2;
 	}
 	
 	public byte getX(){
@@ -50,17 +50,17 @@ public abstract class GameObject {
 	}
 	
 	protected void updatePos(){
-		textX = body.getPosition().x - texture.getWidth()/2;
-		textY = body.getPosition().y - texture.getHeight()/2;
-		x = (byte) ((byte) textX / Map.tileWidth);
-		y = (byte) ((byte) textY / Map.tileHeight);
+		textX = body.getPosition().x;
+		textY = body.getPosition().y;
+		x = (byte) ( textX / Map.tileWidth);
+		y =  (byte) ( textY / Map.tileHeight);
 	}
 	
 	public abstract void update();
 	
 	protected static BitmapFont bmFont  = new BitmapFont(); //utilisé pour le debug
 	public void render(SpriteBatch batch){
-		batch.draw(texture, textX , textY );
+		batch.draw(texture, textX  , textY);
 		debugRender(batch);
 	}
 	

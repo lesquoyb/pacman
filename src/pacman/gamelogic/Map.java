@@ -34,8 +34,8 @@ public class Map {
 	public boolean isWall(Vector2 v){
 		for (GameObject g: elements){
 			if(g instanceof Wall){
-				int x = (int) v.x / tileWidth;
-				int y = (int) v.y / tileHeight;
+				int x = (int) (v.x / tileWidth);
+				int y = (int) (v.y / tileHeight);
 				if (g.getX() == x && g.getY() == y){
 					return true;
 				}
