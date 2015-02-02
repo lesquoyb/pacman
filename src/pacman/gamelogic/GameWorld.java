@@ -17,6 +17,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Scaling;
+import com.badlogic.gdx.utils.viewport.ScalingViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 
 public class GameWorld {
@@ -24,6 +27,7 @@ public class GameWorld {
 	private SpriteBatch batch;
 	public static Map map;
 	private OrthographicCamera camera;
+	private ScalingViewport viewport;
 	private ArrayList<Character> characters;
 	
 	
@@ -34,7 +38,10 @@ public class GameWorld {
 			camera = new OrthographicCamera();
 			camera.setToOrtho(true); 
 			camera.position.set(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, 0);
-			camera.update();		
+			camera.update();
+			viewport =  new ScalingViewport(Scaling.fit,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+			viewport.setCamera(camera);
+			
 			batch = new SpriteBatch();
 			try {
 				map = new Map(  Gdx.files.internal("config/map1.map") );

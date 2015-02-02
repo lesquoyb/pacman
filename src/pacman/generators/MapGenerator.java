@@ -44,10 +44,10 @@ public class MapGenerator extends Generator{
 	@Override
 	public boolean generate() {
 		InputStream stream =  file.read();
-		byte x = 0;
-		byte y = 0;
-		byte firstLine = -1;
-		ArrayList<Byte> ids = new ArrayList<Byte>();
+		int x = 0;
+		int y = 0;
+		int firstLine = -1;
+		ArrayList<Wormhole> wormholes = new ArrayList<Wormhole>();
 		
 		try {
 
@@ -84,11 +84,12 @@ public class MapGenerator extends Generator{
 					case wormhole:
 						byte id = (byte) stream.read();
 						if ( id < '0' || id > '9'){
-							errorMessage = "Le trou de ver numéro" + (ids.size()+1) + " à la position: "+ (x+1) +", " + (y+1) + " a un identifiant incorrecte (" + id + " )";
+							errorMessage = "Le trou de ver numéro" + (wormholes.size()+1) + " à la position: "+ (x+1) +", " + (y+1) + " a un identifiant incorrecte (" + id + " )";
 							return false;
 						}
-						ids.add(id);
-						map.addElement(new Wormhole(x,y,id));
+						Wormhole temp = new Wormhole(x,y,id);
+						wormholes.add(temp);
+						map.addElement(temp);
 						break;
 					case 13: // carriage return
 						
@@ -114,24 +115,26 @@ public class MapGenerator extends Generator{
 		} catch (IOException e) { e.printStackTrace(); }
 		
 		//we check that each wormhole id exists twice
-		while(ids.size() != 0){
-			if(ids.size()%2 != 0){
+		while(wormholes.size() != 0){
+			if(wormholes.size()%2 != 0){
 				errorMessage = "Tous les trous de vers n'ont pas un bînome.";
 				return false;
 			}
-			byte first = ids.get(0);
-			for(short i = 1 ; i < ids.size() ; i++){
-				byte id = ids.get(i);
+			int first = wormholes.get(0).id;
+			for(int i = 1 ; i < wormholes.size() ; i++){
+				int id = wormholes.get(i).id;
 				if (id == first){
-					ids.remove(i);
+					wormholes.get(0).linked = wormholes.get(i);
+					wormholes.get(i).linked = wormholes.get(0);
+					wormholes.remove(i);
 					break;
 				}
 			}
-			ids.remove(0);
+			wormholes.remove(0);
 		}
 		
-		map.setWidth(x);
-		map.setHeight(y);
+		map.width = x;
+		map.height = y;
 		
 		return true;
 	}

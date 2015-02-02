@@ -46,27 +46,36 @@ public abstract class Character extends MovingObject {
 					break;
 			}
 
-			Wall wall  = GameWorld.map.getWall(to_testX,to_testY);
-			if ( wall != null ){
-				switch (direction){
-				
-					case left:
-						left = wall.right;
-						break;
-						
-					case right:
-						left = wall.left - width;
-						break;
-						
-					case up:
-						top = wall.bottom ;
-						break;
-						
-					case down:
-						top = wall.top - height;
-						break;
+			GameObject obstacle  = GameWorld.map.getObstacle(to_testX,to_testY);
+			if ( obstacle != null ){
+				if(obstacle instanceof Wall){
+					switch (direction){
+					
+						case left:
+							left = obstacle.right;
+							break;
+							
+						case right:
+							left = obstacle.left - width;
+							break;
+							
+						case up:
+							top = obstacle.bottom ;
+							break;
+							
+						case down:
+							top = obstacle.top - height;
+							break;
+					}
 				}
+				else if(obstacle instanceof Wormhole){
+					top = ((Wormhole) obstacle).linked.top;
+					left = ( (Wormhole) obstacle).linked.left;
+				}
+				
+				//dans tous les cas
 				updatePos();
+				
 			}
 		}
 	

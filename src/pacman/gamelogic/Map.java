@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import pacman.gameobjects.GameObject;
 import pacman.gameobjects.StartingPoint;
 import pacman.gameobjects.Wall;
+import pacman.gameobjects.Wormhole;
 import pacman.generators.MapGenerator;
 
 import com.badlogic.gdx.files.FileHandle;
@@ -13,8 +14,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Map {
 	
 	private ArrayList<GameObject> elements;
-	private int width;
-	private int height;
+	public int width;
+	public int height;
 	private ArrayList<StartingPoint> startingPoints;	
 	public static final int tileWidth = 32;
 	public static final int tileHeight = 32;
@@ -30,12 +31,12 @@ public class Map {
 	}
 	
 	
-	public Wall getWall(float x, float y){
+	public GameObject getObstacle(float x, float y){
 		
 		for (GameObject g: elements){
-			if(g instanceof Wall){
+			if(g instanceof Wall || g instanceof Wormhole){
 				if (g.getX() == (int)x/tileWidth  && g.getY() == (int)y/tileHeight){
-					return (Wall) g;
+					return g;
 				}
 			}
 		}
@@ -50,20 +51,7 @@ public class Map {
 		return startingPoints;
 	}
 	
-	public void setWidth(byte width){
-		this.width = width;
-	}
-	
-	public void setHeight(byte height){
-		this.height = height;
-	}
-	public int getWidth(){
-		return width;
-	}
-	
-	public int getHeight(){
-		return height;
-	}
+
 	public void addElement(GameObject o ){
 		elements.add(o);
 	}
