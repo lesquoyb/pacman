@@ -9,13 +9,12 @@ import pacman.generators.MapGenerator;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 
 public class Map {
 	
 	private ArrayList<GameObject> elements;
-	private byte width;
-	private byte height;
+	private int width;
+	private int height;
 	private ArrayList<StartingPoint> startingPoints;	
 	public static final int tileWidth = 32;
 	public static final int tileHeight = 32;
@@ -31,17 +30,16 @@ public class Map {
 	}
 	
 	
-	public boolean isWall(Vector2 v){
+	public Wall getWall(float x, float y){
+		
 		for (GameObject g: elements){
 			if(g instanceof Wall){
-				int x = (int) (v.x / tileWidth);
-				int y = (int) (v.y / tileHeight);
-				if (g.getX() == x && g.getY() == y){
-					return true;
+				if (g.getX() == (int)x/tileWidth  && g.getY() == (int)y/tileHeight){
+					return (Wall) g;
 				}
 			}
 		}
-		return false;
+		return null;
 	}
 	
 	public ArrayList<GameObject> getElements(){
@@ -59,11 +57,11 @@ public class Map {
 	public void setHeight(byte height){
 		this.height = height;
 	}
-	public byte getWidth(){
+	public int getWidth(){
 		return width;
 	}
 	
-	public byte getHeight(){
+	public int getHeight(){
 		return height;
 	}
 	public void addElement(GameObject o ){
@@ -75,9 +73,9 @@ public class Map {
 		startingPoints.add(s);
 	}
 	
-	public void update(){
+	public void update(float delta){
 		for(GameObject object : elements){
-			object.update();
+			object.update(delta);
 		}
 	}
 	

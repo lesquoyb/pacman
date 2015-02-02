@@ -1,67 +1,74 @@
 package pacman.gameobjects;
 
 import pacman.gamelogic.GameWorld;
-import pacman.gamelogic.Map;
-import pacman.graphics.B2DVars;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
 public abstract class Character extends MovingObject {
 
-	public Character(byte x, byte y, Texture texture) {
-		super(x, y, texture,B2DVars.playerLayer,(short)~B2DVars.wallLayer);
-		
-		
+	protected Vector2 movement;
+	protected directions direction;
+
+	public Character(int x, int y, Texture texture) {
+		super(x, y, texture);
+		movement = new Vector2();
+		direction = null;
+
 	}
 
 	
 	
-	private static 	Vector2 bottomLeft = new Vector2() , bottomRight = new Vector2() , topLeft  = new Vector2(),topRight = new Vector2(), replace = new Vector2();
 	@Override
-	public void update(){
-		updatePos();
-		System.out.println(textX + " " + textY +" " + x + " " + y);
-		bottomLeft.x = textX;
-		bottomLeft.y = textY;
-		//tout faux
-		if(GameWorld.map.isWall(bottomLeft)){
-			System.out.println("collision en bas à gauche");
-			replace.x = (((int)(textX / Map.tileWidth)) + 1) * Map.tileWidth;
-			replace.y = textY;
-			body.setTransform(replace, 0);
-			updatePos();
-		}
+	public void update(float delta){
 		
-		bottomRight.x = textX + Map.tileWidth;
-		bottomRight.y = textY;
-		if(GameWorld.map.isWall(bottomRight)){
-			System.out.println("collision en bas à droite");
-			replace.x = (((int)(textX / Map.tileWidth)) - 1) * Map.tileWidth;
-			replace.y = textY;
-			body.setTransform(replace, 0);
+		if(direction != null){		
+			left += movement.x * delta;
+			top += movement.y * delta;
 			updatePos();
+			float to_testX = left, to_testY = bottom;
+			switch(direction){
+				case left:
+					to_testY = center.y;
+					break;
+				case right:
+					to_testX = right;
+					to_testY = center.y;
+					break;
+					
+				case up:
+					to_testX = center.x;
+					to_testY = top;
+					break;
+					
+				case down:
+					to_testX = center.x;
+					break;
+			}
+
+			Wall wall  = GameWorld.map.getWall(to_testX,to_testY);
+			if ( wall != null ){
+				switch (direction){
+				
+					case left:
+						left = wall.right;
+						break;
+						
+					case right:
+						left = wall.left - width;
+						break;
+						
+					case up:
+						top = wall.bottom ;
+						break;
+						
+					case down:
+						top = wall.top - height;
+						break;
+				}
+				updatePos();
+			}
 		}
-		
-		topLeft.x = textX;
-		topLeft.y = textY + Map.tileHeight;
-		if(GameWorld.map.isWall(topLeft)){
-			System.out.println("collision en haut à gauche");
-			replace.x = textX;
-			replace.y = ( (int) (textY / Map.tileWidth) - 1) * Map.tileHeight ;
-			body.setTransform(replace, 0);
-			updatePos();
-			
-		}
-		
-		topRight.x = textX + Map.tileWidth;
-		topRight.y = textY + Map.tileHeight;
-		if(GameWorld.map.isWall(topRight)){
-			System.out.println("collision en haut à droite");
-			replace.x = (((int)(textX / Map.tileWidth)) + 1) * Map.tileWidth;
-			replace.y = ( (int) (textY / Map.tileWidth) + 1) * Map.tileHeight;
-			body.setTransform(replace, 0);
-			updatePos();
-		}
+	
 	}
 }

@@ -6,68 +6,58 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.math.Vector2;
 
 public abstract class GameObject {
 	
 	protected Texture texture;
-	protected BodyDef bodyDef;
-	protected FixtureDef fixtureDef;
-	protected float textX;
-	protected float textY;
-	protected byte x;
-	protected byte y;
-	protected Body body;
+	public float left, right, top, bottom;
+	public int width, height;
+	public int x;
+	public int y;
+	protected Vector2 center;
 	public static String name;
 	
-	protected GameObject(byte x, byte y, Texture texture,short category, short mask){
+	protected GameObject(int x, int y, Texture texture){
 		this.texture = texture;
 		this.x = x;
 		this.y = y;
-		bodyDef = new BodyDef();
-		bodyDef.position.x = x * Map.tileWidth + texture.getWidth()/2 ;
-		bodyDef.position.y = - y * Map.tileHeight - texture.getHeight()/2;
-		fixtureDef = new FixtureDef();
-		fixtureDef.filter.categoryBits = category;
-		fixtureDef.filter.maskBits = mask;
-		//body.setUserData(this);
-		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(texture.getWidth()/2, texture.getHeight()/2);
-		fixtureDef.shape = shape;
-		textX = x * Map.tileWidth + texture.getWidth()/2;
-		textY = - y * Map.tileHeight - texture.getWidth()/2;
+		left = x * Map.tileWidth ;
+		top =  y * Map.tileHeight ;
+		width = texture.getWidth();
+		height = texture.getHeight();
+		center = new Vector2(left + width/2, top + height/2);
 	}
 	
-	public byte getX(){
+	public int getX(){
 		return x;
 	}
 	
-	public byte getY(){
+	public int getY(){
 		return y;
 	}
 	
 	protected void updatePos(){
-		textX = body.getPosition().x;
-		textY = body.getPosition().y;
-		x = (byte) ( textX / Map.tileWidth);
-		y =  (byte) ( textY / Map.tileHeight);
+		x = (int)( left / Map.tileWidth);
+		y =  (int)( top / Map.tileHeight);
+		center.x = left + width/2;
+		center.y = top + height/2;
+		right = left + width;
+		bottom = top + height;
 	}
 	
-	public abstract void update();
+	public abstract void update(float delta);
 	
 	protected static BitmapFont bmFont  = new BitmapFont(); //utilisé pour le debug
 	public void render(SpriteBatch batch){
-		batch.draw(texture, textX  , textY);
-		debugRender(batch);
+		batch.draw(texture, left  , top);
+		//debugRender(batch);
 	}
 	
 	
 	private void debugRender(SpriteBatch batch){
-		bmFont.setColor(Color.WHITE);
-		bmFont.draw(batch, ".", textX,textY);
+		bmFont.setColor(Color.BLACK);
+		bmFont.draw(batch, ".", left,top);
 	}
 	
 	

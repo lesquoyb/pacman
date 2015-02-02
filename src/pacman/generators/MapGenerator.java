@@ -54,7 +54,7 @@ public class MapGenerator extends Generator{
 			short input;
 			
 			do{
-				input = (byte)  stream.read();
+				input = (short)  stream.read();
 
 				switch (input){
 					case floor:

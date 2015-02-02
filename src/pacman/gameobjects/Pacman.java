@@ -7,44 +7,42 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Pacman extends Character{
 
-	//public static final Texture pacmanTexture = new Texture("images/pacman.png");
+
 	public static final String name = "pacman";
-	private Vector2 movement;
-	private static final int speed = 10;
+	private static final int speed = 100  ;
 	
-	public Pacman(byte x, byte y) {
+	public Pacman(int x, int y) {
 		super(x, y, TextureFactory.getTexture(name));
 		movement = new Vector2();
 	}
 
 	protected void move(directions d) {
+		direction = d;
 		switch(d){
 		case down:
 			movement.x = 0;
-			movement.y = - speed;
-			body.setLinearVelocity(new Vector2(0,-10));
+			movement.y =  speed;
 			break;
 		case up:
 			movement.x = 0;
-			movement.y = speed;
-			body.setLinearVelocity(new Vector2(0,10));
+			movement.y = - speed;
 			break;
 		case left:
 			movement.x = - speed ;
 			movement.y = 0;
-			body.setLinearVelocity(new Vector2(-10,0));
 			break;
 			
 		case right:
 			movement.x = speed;
 			movement.y = 0;
-			body.setLinearVelocity(new Vector2(10,0));
 			break;
 		}
 	}
+	
+
 
 	@Override
-	public void update(){
+	public void update(float delta){
 
 		
 		
@@ -60,23 +58,9 @@ public class Pacman extends Character{
 		if (PacmanGame.isUpPressed()){
 			move(directions.up);
 		}
-		updatePos();
 		
-		super.update();
-		//if()
-		
-		/*
-		
-		if(! GameWorld.map.isObstacle(x,y)){
-
-			System.out.println("avant: " +textX + " " + textY);
-			textX += movement.x;
-			textY += movement.y;
-			x = (byte) (textX / GameWorld.map.tileWidth);
-			y = (byte) (textY / GameWorld.map.tileHeight);
-			System.out.println("après: " +textX + " " + textY);
-		}
-		*/
+		super.update(delta);
+	
 	}
 	
 

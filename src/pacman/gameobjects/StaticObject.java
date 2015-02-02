@@ -1,21 +1,19 @@
 package pacman.gameobjects;
 
-import pacman.gamelogic.GameWorld;
-
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
 public abstract class StaticObject extends GameObject{
 
-	protected StaticObject(byte x, byte y, Texture texture,short category, short mask) {
-		super(x, y, texture,category,mask);
-		bodyDef.type = BodyType.StaticBody;
-		body = GameWorld.world.createBody(bodyDef);
-		body.createFixture(fixtureDef);
+	protected StaticObject(int x, int y, Texture texture) {
+		super(x, y, texture);
 		updatePos();
 	}
 
 	@Override
-	public void update() { updatePos();/* do nothing as it's a static object */	}
+	public void update(float delta) { 
+		
+	/* do nothing as it's a static object */	
+	
+	}
 
 }

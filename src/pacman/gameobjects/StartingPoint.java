@@ -6,7 +6,7 @@ public class StartingPoint extends Floor {
 	
 	private characters character;
 	
-	public StartingPoint(byte x, byte y,characters character) {
+	public StartingPoint(int x, int y,characters character) {
 		super(x, y);
 		this.character = character;
 	}
