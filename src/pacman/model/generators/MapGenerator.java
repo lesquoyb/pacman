@@ -23,6 +23,7 @@ import com.badlogic.gdx.files.FileHandle;
  */
 public class MapGenerator extends Generator{
 
+	
 	public final static byte floor = '0';
 	public final static byte wall = '1';
 	public final static byte pacman = 'p';
@@ -109,6 +110,10 @@ public class MapGenerator extends Generator{
 				}
 			}
 			while(input!= -1);
+
+			map.width = x+1;
+			map.height = y+1;
+			
 			
 		} catch (IOException e) { e.printStackTrace(); }
 		
@@ -130,10 +135,7 @@ public class MapGenerator extends Generator{
 			}
 			wormholes.remove(0);
 		}
-		
-		map.width = x;
-		map.height = y;
-		
+				
 		return true;
 	}
 

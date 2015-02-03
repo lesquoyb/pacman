@@ -45,12 +45,12 @@ public class GameWorld {
 
 			
 			batch = new SpriteBatch();
-			try {
-				map = new Map(  Gdx.files.internal("config/map1.map") );
+			//try {
+				map = new Map(  Gdx.files.internal("config/map1.map") );/*
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(null, e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null,"Une erreur est survenue lors de la création de la map"+ e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
 				Gdx.app.exit();
-			}
+			}*/
 
 			camera.update();
 			for(StartingPoint startingPoint : map.getStartingPoints()){

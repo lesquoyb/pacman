@@ -8,12 +8,12 @@ public abstract class Character extends MovingObject {
 
 	protected Vector2 movement;
 	protected directions direction;
-
+	
+	
 	public Character(int x, int y,int width, int height, String anim) {
 		super(x, y, width, height,anim);
 		movement = new Vector2();
 		direction = null;
-
 	}
 
 	
@@ -21,11 +21,10 @@ public abstract class Character extends MovingObject {
 	public directions getDirection(){return direction;}
 	
 	
-	protected boolean canMove(directions d){
+	protected boolean canMove(directions d, float delta){
 		switch(d){
-			case up:
-				return !( GameWorld.map.getObstacle(left, bottom - height) instanceof Wall);
-				
+			case up:				
+					return !( GameWorld.map.getObstacle(left, top - height) instanceof Wall);
 			case down:
 				return !( GameWorld.map.getObstacle(left, bottom + height) instanceof Wall);
 				
@@ -33,9 +32,10 @@ public abstract class Character extends MovingObject {
 				return ! (GameWorld.map.getObstacle(left - width, top ) instanceof Wall);
 				
 			case right:
-				return ! (GameWorld.map.getObstacle(left + width, top) instanceof Wall);
+				return ! (GameWorld.map.getObstacle(right + width, top) instanceof Wall);
 		
 		}
+		assert false;
 		return false;
 	}
 	
