@@ -1,11 +1,10 @@
 package pacman.model.gameobjects;
 
-import com.badlogic.gdx.graphics.Texture;
 
 public abstract class StaticObject extends GameObject{
 
-	protected StaticObject(int x, int y, Texture texture) {
-		super(x, y, texture);
+	protected StaticObject(int x, int y, int width, int height, String anim) {
+		super(x, y, width, height,anim);
 		updatePos();
 	}
 

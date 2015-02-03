@@ -7,11 +7,13 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Pacman extends Character{
 
-
+	
 	private static final int speed = 100  ;
 	//private directions next = null;
-	public Pacman(int x, int y) {
-		super(x, y, ResourceManager.getPacmanText());
+	
+	
+	public Pacman(int x, int y, int width, int height) {
+		super(x, y, width, height, ResourceManager.pacman);
 		movement = new Vector2();
 	}
 

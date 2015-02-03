@@ -8,9 +8,11 @@ public class Wall extends StaticObject{
 
 
 	
-	public Wall(int x, int y) {
-		super(x, y, ResourceManager.getWallText());
+	public Wall(int x, int y,int width, int height) {
+		super(x, y, width, height, ResourceManager.wall);
 	}
+	
+	/*
 	
 	@Override
 	public void render(SpriteBatch batch){
@@ -24,6 +26,7 @@ public class Wall extends StaticObject{
 
 	}
 	
+	*/
 	
 	
 

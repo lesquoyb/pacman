@@ -58,27 +58,27 @@ public class MapGenerator extends Generator{
 
 				switch (input){
 					case floor:
-						map.addElement(new Floor(x,y));
+						map.addFloor(x,y);
 						break;
 					case wall:
-						map.addElement(new Wall(x,y));
+						map.addWall(x,y);
 						break;
 					case pacman:
-						map.addStartingPoint(new StartingPoint(x,y, StartingPoint.characters.pacman));
+						map.addStartingPoint(x,y, StartingPoint.characters.pacman);
 						break;
 					case superpacgum:
 						break;
 					case Bghost :
-						map.addStartingPoint(new StartingPoint(x,y,StartingPoint.characters.Bghost ));
+						map.addStartingPoint(x,y,StartingPoint.characters.Bghost );
 						break;
 					case Rghost :
-						map.addStartingPoint(new StartingPoint(x,y,StartingPoint.characters.Rghost ));
+						map.addStartingPoint(x,y,StartingPoint.characters.Rghost );
 						break;
 					case  Yghost:
-						map.addStartingPoint(new StartingPoint(x,y,StartingPoint.characters.Yghost ));
+						map.addStartingPoint(x,y,StartingPoint.characters.Yghost );
 						break;
 					case Gghost :
-						map.addStartingPoint(new StartingPoint(x,y,StartingPoint.characters.Gghost ));
+						map.addStartingPoint(x,y,StartingPoint.characters.Gghost );
 						break;
 						
 					case wormhole:
@@ -87,9 +87,7 @@ public class MapGenerator extends Generator{
 							errorMessage = "Le trou de ver numéro" + (wormholes.size()+1) + " à la position: "+ (x+1) +", " + (y+1) + " a un identifiant incorrecte (" + id + " )";
 							return false;
 						}
-						Wormhole temp = new Wormhole(x,y,id);
-						wormholes.add(temp);
-						map.addElement(temp);
+						wormholes.add(map.addWormhole(x,y,id));
 						break;
 					case 13: // carriage return
 						

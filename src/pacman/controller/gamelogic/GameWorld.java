@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import pacman.controller.resources.ResourceManager;
 import pacman.model.gameobjects.BlueGhost;
 import pacman.model.gameobjects.Character;
 import pacman.model.gameobjects.GreenGhost;
@@ -57,19 +58,19 @@ public class GameWorld {
 				Character character = null;
 				switch(c){
 					case pacman:
-						character = new Pacman(x, y);
+						character = new Pacman(x, y, map.tileWidth, map.tileHeight);
 						break;
 					case Bghost :
-						character = new BlueGhost(x,y);
+						character = new BlueGhost(x,y, map.tileWidth, map.tileHeight);
 						break;
 					case Rghost :
-						character = new RedGhost(x,y);
+						character = new RedGhost(x,y, map.tileWidth, map.tileHeight);
 						break;
 					case  Yghost:
-						character = new YellowGhost(x,y);
+						character = new YellowGhost(x,y, map.tileWidth, map.tileHeight);
 						break;
 					case Gghost :
-						character = new GreenGhost(x,y);
+						character = new GreenGhost(x,y, map.tileWidth, map.tileHeight);
 						break;
 				}
 					characters.add(character);
@@ -87,7 +88,8 @@ public class GameWorld {
 		batch.begin();
 			map.render(batch);
 			for(Character c : characters){
-				c.render(batch);
+				batch.draw(ResourceManager.getTexture(c.animation),c.left,c.top);
+//				c.render(batch);
 			}
 		batch.end();
 	}

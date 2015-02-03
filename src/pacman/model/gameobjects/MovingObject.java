@@ -1,13 +1,12 @@
 package pacman.model.gameobjects;
 
-import com.badlogic.gdx.graphics.Texture;
 
 public abstract class MovingObject extends GameObject{
 
 	enum directions {left,right,up,down};
 	
-	protected MovingObject(int x, int y, Texture texture) {
-		super(x, y, texture);
+	protected MovingObject(int x, int y, int width, int height, String anim) {
+		super(x, y, width, height,anim);
 	}
 
 

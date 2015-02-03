@@ -2,29 +2,27 @@ package pacman.model.gameobjects;
 
 import pacman.controller.gamelogic.Map;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 public abstract class GameObject {
-	
-	protected Texture texture;
+
+
 	public float left, right, top, bottom;
 	public int width, height;
 	public int x;
 	public int y;
 	protected Vector2 center;
+	public final String animation;
 	
-	protected GameObject(int x, int y, Texture texture){
-		this.texture = texture;
+	
+	protected GameObject(int x, int y,int width,int height, String anim){
 		this.x = x;
 		this.y = y;
+		animation = anim;
 		left = x * Map.tileWidth ;
 		top =  y * Map.tileHeight ;
-		width = texture.getWidth();
-		height = texture.getHeight();
+		this.width = width;
+		this.height = height;
 		center = new Vector2(left + width/2, top + height/2);
 	}
 	
@@ -46,23 +44,6 @@ public abstract class GameObject {
 	}
 	
 	public abstract void update(float delta);
-	
-	protected static BitmapFont bmFont  = new BitmapFont(); //utilisé pour le debug
-	public void render(SpriteBatch batch){
-		batch.draw(texture, left  , top);
-		//debugRender(batch);
-	}
-	
-	
-	private void debugRender(SpriteBatch batch){
-		bmFont.setColor(Color.BLACK);
-		bmFont.draw(batch, ".", left,top);
-	}
-	
-	
-	public void dispose(){
-		texture.dispose();
-	}
 	
 
 }

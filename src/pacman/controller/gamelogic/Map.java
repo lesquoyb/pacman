@@ -2,13 +2,21 @@ package pacman.controller.gamelogic;
 
 import java.util.ArrayList;
 
+import pacman.controller.resources.ResourceManager;
+import pacman.model.gameobjects.BlueGhost;
+import pacman.model.gameobjects.Floor;
 import pacman.model.gameobjects.GameObject;
+import pacman.model.gameobjects.GreenGhost;
+import pacman.model.gameobjects.Pacman;
+import pacman.model.gameobjects.RedGhost;
 import pacman.model.gameobjects.StartingPoint;
 import pacman.model.gameobjects.Wall;
 import pacman.model.gameobjects.Wormhole;
+import pacman.model.gameobjects.YellowGhost;
 import pacman.model.generators.MapGenerator;
 
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Map {
@@ -43,6 +51,21 @@ public class Map {
 		return null;
 	}
 	
+	public void addWall(int x, int y){
+		elements.add( new Wall(x, y, tileWidth, tileHeight ) );
+	}
+	
+
+	public void addFloor(int x, int y){
+		elements.add(new Floor(x, y, tileWidth, tileHeight));
+	}
+	
+	public Wormhole addWormhole(int x, int y, int id){
+		Wormhole w = new Wormhole(x, y, tileWidth, tileHeight, id);
+		elements.add(w);
+		return w;
+	}
+	
 	public ArrayList<GameObject> getElements(){
 		return elements;
 	}
@@ -51,13 +74,10 @@ public class Map {
 		return startingPoints;
 	}
 	
-
-	public void addElement(GameObject o ){
-		elements.add(o);
-	}
 	
-	public void addStartingPoint(StartingPoint s){
-		addElement(s);
+	public void addStartingPoint(int x, int y, StartingPoint.characters c){
+		StartingPoint s = new StartingPoint(x, y, tileWidth, tileHeight, c);
+		elements.add(s);
 		startingPoints.add(s);
 	}
 	
@@ -69,14 +89,16 @@ public class Map {
 	
 	public void render(SpriteBatch batch){
 		for(GameObject object : elements){
-			object.render(batch);
+			batch.draw(ResourceManager.getTexture(object.animation), object.left, object.top);
+//			
+//			object.render(batch);
 		}
 	}
 	
 	
 	public void dispose(){
 		for(GameObject object: elements){
-			object.dispose();
+//			object.dispose();
 		}
 	}
 }

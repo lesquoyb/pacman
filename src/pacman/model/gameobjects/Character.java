@@ -2,7 +2,6 @@ package pacman.model.gameobjects;
 
 import pacman.controller.gamelogic.GameWorld;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
 public abstract class Character extends MovingObject {
@@ -10,8 +9,8 @@ public abstract class Character extends MovingObject {
 	protected Vector2 movement;
 	protected directions direction;
 
-	public Character(int x, int y, Texture texture) {
-		super(x, y, texture);
+	public Character(int x, int y,int width, int height, String anim) {
+		super(x, y, width, height,anim);
 		movement = new Vector2();
 		direction = null;
 
