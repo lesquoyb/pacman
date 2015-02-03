@@ -1,6 +1,6 @@
-package pacman.gameobjects;
+package pacman.model.gameobjects;
 
-import pacman.gamelogic.Map;
+import pacman.controller.gamelogic.Map;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -16,7 +16,6 @@ public abstract class GameObject {
 	public int x;
 	public int y;
 	protected Vector2 center;
-	public static String name;
 	
 	protected GameObject(int x, int y, Texture texture){
 		this.texture = texture;

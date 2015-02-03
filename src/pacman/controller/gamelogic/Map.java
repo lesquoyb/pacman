@@ -1,12 +1,12 @@
-package pacman.gamelogic;
+package pacman.controller.gamelogic;
 
 import java.util.ArrayList;
 
-import pacman.gameobjects.GameObject;
-import pacman.gameobjects.StartingPoint;
-import pacman.gameobjects.Wall;
-import pacman.gameobjects.Wormhole;
-import pacman.generators.MapGenerator;
+import pacman.model.gameobjects.GameObject;
+import pacman.model.gameobjects.StartingPoint;
+import pacman.model.gameobjects.Wall;
+import pacman.model.gameobjects.Wormhole;
+import pacman.model.generators.MapGenerator;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

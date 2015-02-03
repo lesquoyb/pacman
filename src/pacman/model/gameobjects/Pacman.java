@@ -1,24 +1,25 @@
-package pacman.gameobjects;
+package pacman.model.gameobjects;
 
-import pacman.gamelogic.PacmanGame;
-import pacman.graphics.TextureFactory;
+import pacman.controller.gamelogic.PacmanGame;
+import pacman.controller.resources.ResourceManager;
 
 import com.badlogic.gdx.math.Vector2;
 
 public class Pacman extends Character{
 
 
-	public static final String name = "pacman";
 	private static final int speed = 100  ;
-	
+	//private directions next = null;
 	public Pacman(int x, int y) {
-		super(x, y, TextureFactory.getTexture(name));
+		super(x, y, ResourceManager.getPacmanText());
 		movement = new Vector2();
 	}
 
 	protected void move(directions d) {
+		
 		direction = d;
-		switch(d){
+	
+		switch(direction){
 		case down:
 			movement.x = 0;
 			movement.y =  speed;
@@ -58,6 +59,9 @@ public class Pacman extends Character{
 		if (PacmanGame.isUpPressed()){
 			move(directions.up);
 		}
+
+		
+
 		
 		super.update(delta);
 	

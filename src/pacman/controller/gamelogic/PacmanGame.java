@@ -1,4 +1,4 @@
-package pacman.gamelogic;
+package pacman.controller.gamelogic;
 
 import pacman.view.screens.GameScreen;
 

@@ -1,17 +1,17 @@
-package pacman.gamelogic;
+package pacman.controller.gamelogic;
 
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-import pacman.gameobjects.BlueGhost;
-import pacman.gameobjects.Character;
-import pacman.gameobjects.GreenGhost;
-import pacman.gameobjects.Pacman;
-import pacman.gameobjects.RedGhost;
-import pacman.gameobjects.StartingPoint;
-import pacman.gameobjects.StartingPoint.characters;
-import pacman.gameobjects.YellowGhost;
+import pacman.model.gameobjects.BlueGhost;
+import pacman.model.gameobjects.Character;
+import pacman.model.gameobjects.GreenGhost;
+import pacman.model.gameobjects.Pacman;
+import pacman.model.gameobjects.RedGhost;
+import pacman.model.gameobjects.StartingPoint;
+import pacman.model.gameobjects.StartingPoint.characters;
+import pacman.model.gameobjects.YellowGhost;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -19,7 +19,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 
 public class GameWorld {

@@ -1,14 +1,14 @@
-package pacman.generators;
+package pacman.model.generators;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-import pacman.gamelogic.Map;
-import pacman.gameobjects.Floor;
-import pacman.gameobjects.StartingPoint;
-import pacman.gameobjects.Wall;
-import pacman.gameobjects.Wormhole;
+import pacman.controller.gamelogic.Map;
+import pacman.model.gameobjects.Floor;
+import pacman.model.gameobjects.StartingPoint;
+import pacman.model.gameobjects.Wall;
+import pacman.model.gameobjects.Wormhole;
 
 import com.badlogic.gdx.files.FileHandle;
 

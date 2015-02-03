@@ -1,6 +1,6 @@
 package pacman.view.screens;
 
-import pacman.gamelogic.GameWorld;
+import pacman.controller.gamelogic.GameWorld;
 
 import com.badlogic.gdx.Screen;
 

@@ -1,6 +1,6 @@
-package pacman.gameobjects;
+package pacman.model.gameobjects;
 
-import pacman.gamelogic.GameWorld;
+import pacman.controller.gamelogic.GameWorld;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
@@ -18,6 +18,27 @@ public abstract class Character extends MovingObject {
 	}
 
 	
+	
+	public directions getDirection(){return direction;}
+	
+	
+	protected boolean canMove(directions d){
+		switch(d){
+			case up:
+				return !( GameWorld.map.getObstacle(left, bottom - height) instanceof Wall);
+				
+			case down:
+				return !( GameWorld.map.getObstacle(left, bottom + height) instanceof Wall);
+				
+			case left:
+				return ! (GameWorld.map.getObstacle(left - width, top ) instanceof Wall);
+				
+			case right:
+				return ! (GameWorld.map.getObstacle(left + width, top) instanceof Wall);
+		
+		}
+		return false;
+	}
 	
 	@Override
 	public void update(float delta){

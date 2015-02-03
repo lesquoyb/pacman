@@ -1,4 +1,4 @@
-package pacman.generators;
+package pacman.model.generators;
 
 import com.badlogic.gdx.files.FileHandle;
 

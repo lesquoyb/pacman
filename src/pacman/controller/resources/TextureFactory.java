@@ -1,4 +1,4 @@
-package pacman.graphics;
+package pacman.controller.resources;
 
 
 import java.util.HashMap;
@@ -6,7 +6,7 @@ import java.util.HashMap;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
-public  class TextureFactory {
+public final class TextureFactory {
 
 	private static HashMap<String,Texture> textures = new HashMap<String, Texture>() ;
 	private static Texture currentText = null;

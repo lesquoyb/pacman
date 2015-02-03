@@ -1,4 +1,4 @@
-package pacman.gameobjects;
+package pacman.model.gameobjects;
 
 public class StartingPoint extends Floor {
 

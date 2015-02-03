@@ -1,16 +1,15 @@
-package pacman.gameobjects;
+package pacman.model.gameobjects;
 
-import pacman.graphics.TextureFactory;
+import pacman.controller.resources.ResourceManager;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Wall extends StaticObject{
 
 
-	public static final String name = "wall";
 	
 	public Wall(int x, int y) {
-		super(x, y, TextureFactory.getTexture(name));
+		super(x, y, ResourceManager.getWallText());
 	}
 	
 	@Override

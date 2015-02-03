@@ -1,14 +1,13 @@
-package pacman.gameobjects;
+package pacman.model.gameobjects;
 
-import pacman.graphics.TextureFactory;
+import pacman.controller.resources.ResourceManager;
 
 public class BlueGhost extends Ghost{
 
 
-	public static final String name = "fantomeB";
 
 	public BlueGhost(int x, int y) {
-		super(x, y, TextureFactory.getTexture(name));
+		super(x, y, ResourceManager.getBlueGText());
 	}
 
 	@Override
