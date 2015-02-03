@@ -1,6 +1,13 @@
 package pacman.controller.gamelogic;
 
+import pacman.controller.GameController;
+import pacman.controller.MainMenuController;
+import pacman.controller.ScreenController;
+import pacman.controller.SplashController;
+import pacman.controller.resources.ResourceManager;
 import pacman.view.screens.GameScreen;
+import pacman.view.screens.MainMenuScreen;
+import pacman.view.screens.SplashScreen;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -9,25 +16,39 @@ import com.badlogic.gdx.Screen;
 
 public class PacmanGame extends Game {
 		
-	
+	ScreenController screenController;
 	
 	@Override
 	public void create () {
-		setScreen(new GameScreen());
+		screenController = new SplashController(new SplashScreen(), this);
 	}
 
 	@Override
 	public void render () {
+		screenController.update();
 		super.render();
 	}
 	
+	public void goToMainMenu(){
+		screenController = new MainMenuController(this,new MainMenuScreen());
+	}
 	
 	
+	public void startNewGame(){
+		screenController = new GameController(this,new GameScreen());
+	}
+
+	
+	@Override
+	public void dispose(){
+		super.dispose();
+		ResourceManager.dispose();
+	}
 	
 	@Override
 	public void setScreen(Screen screen) {
-		if(screen != null){
-			screen.dispose();			
+		if(this.screen != null){
+			this.screen.dispose();			
 		}
 		super.setScreen(screen);
 	}

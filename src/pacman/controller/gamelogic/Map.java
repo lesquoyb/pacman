@@ -3,20 +3,14 @@ package pacman.controller.gamelogic;
 import java.util.ArrayList;
 
 import pacman.controller.resources.ResourceManager;
-import pacman.model.gameobjects.BlueGhost;
 import pacman.model.gameobjects.Floor;
 import pacman.model.gameobjects.GameObject;
-import pacman.model.gameobjects.GreenGhost;
-import pacman.model.gameobjects.Pacman;
-import pacman.model.gameobjects.RedGhost;
 import pacman.model.gameobjects.StartingPoint;
 import pacman.model.gameobjects.Wall;
 import pacman.model.gameobjects.Wormhole;
-import pacman.model.gameobjects.YellowGhost;
 import pacman.model.generators.MapGenerator;
 
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Map {

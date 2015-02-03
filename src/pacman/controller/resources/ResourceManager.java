@@ -2,6 +2,8 @@ package pacman.controller.resources;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 public final class ResourceManager {
 
@@ -14,6 +16,9 @@ public final class ResourceManager {
 	public static final String wall = "wall";
 	public static final String wormhole = "wormhole32";
 	public static final String floor = "floor";
+	public static final String splash = "splash";
+	public static final String menuFont = "menuFont";
+	public static final String menuAtlas = "menuAtlas";
 		
 
 	static {
@@ -25,27 +30,26 @@ public final class ResourceManager {
 		TextureFactory.loadTexture(wall, Gdx.files.internal("images/wall.jpg"));
 		TextureFactory.loadTexture(wormhole, Gdx.files.internal("images/wormhole32.jpg"));
 		TextureFactory.loadTexture(floor, Gdx.files.internal("images/floor.jpg"));
+		TextureFactory.loadTexture(splash, Gdx.files.internal("ui/splashScreen.jpg"));
 
+		TextureAtlasFactory.loadTextureAtlas(menuAtlas, Gdx.files.internal("ui/buttons.pack"));
+	
+		FontFactory.loadFont(menuFont, Gdx.files.internal("fonts/white_white_rabbit.fnt"));
+	
 	}
 	
 	
 	public static Texture getTexture(String s){ return TextureFactory.getTexture(s);}
 	
-	/*
+	public static BitmapFont getFont(String s){return FontFactory.getFont(s);}
 	
-	public static Texture getPacmanText(){return TextureFactory.getTexture(pacman);}
-	public static Texture getGreenGText(){return TextureFactory.getTexture(GreenG);}
-	public static Texture getBlueGText(){return TextureFactory.getTexture(BlueG);}
-	public static Texture getYellowGText(){return TextureFactory.getTexture(YellowG);}
-	public static Texture getRedGText(){return TextureFactory.getTexture(RedG);}
-	public static Texture getWallText(){return TextureFactory.getTexture(wall);}
-	public static Texture getWormholeText(){return TextureFactory.getTexture(wormhole);}
-	
-	public static Texture getFloorText(){return TextureFactory.getTexture(floor);}
-	
-	*/
+	public static TextureAtlas getTextureAtlas(String s){ return TextureAtlasFactory.getTextAtlas(s);}
 
-
+	public static void dispose(){
+		TextureFactory.dispose();
+		TextureAtlasFactory.dispose();
+		FontFactory.dispose();
+	}
 		
 	
 	

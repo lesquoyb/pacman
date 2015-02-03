@@ -18,8 +18,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.Scaling;
+import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 
 public class GameWorld {
@@ -27,7 +28,7 @@ public class GameWorld {
 	private SpriteBatch batch;
 	public static Map map;
 	private OrthographicCamera camera;
-	private ScalingViewport viewport;
+	private FillViewport viewport;
 	private ArrayList<Character> characters;
 	
 	
@@ -37,10 +38,11 @@ public class GameWorld {
 			characters = new ArrayList<Character>();
 			camera = new OrthographicCamera();
 			camera.setToOrtho(true); 
-			camera.position.set(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, 0);
-			camera.update();
-			viewport =  new ScalingViewport(Scaling.fit,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+			viewport =  new FillViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 			viewport.setCamera(camera);
+			viewport.apply();
+			camera.position.set(camera.viewportWidth/2, camera.viewportHeight / 2, 0);
+
 			
 			batch = new SpriteBatch();
 			try {
@@ -81,7 +83,9 @@ public class GameWorld {
 	
 	
 	public void render(){
-
+		
+		
+		camera.update();
 		Gdx.gl.glClearColor(1, 1, 1, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.setProjectionMatrix(camera.combined);
@@ -95,8 +99,9 @@ public class GameWorld {
 	}
 	
 	public void resize(int width,int height){
-		camera.viewportHeight = height;
-		camera.viewportWidth = width;	
+		viewport.update(width, height);
+		camera.position.set(camera.viewportWidth/2, camera.viewportHeight / 2, 0);
+
 	}
 	
 	public void update(float delta){
