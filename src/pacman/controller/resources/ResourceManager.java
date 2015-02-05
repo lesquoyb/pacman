@@ -2,7 +2,6 @@ package pacman.controller.resources;
 
 import java.util.HashMap;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -46,9 +45,8 @@ public final class ResourceManager {
 		files.put(fondScore, "images/fondScore.png");
 		files.put(defaite, "ui/defaite.jpg");
 		files.put(victoire, "ui/victoire.jpg");
+		files.put(menuAtlas, "ui/buttons.pack");
 
-
-		TextureAtlasFactory.loadTextureAtlas(menuAtlas, Gdx.files.internal("ui/buttons.pack"));
 	
 	
 	}

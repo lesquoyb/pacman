@@ -1,6 +1,7 @@
 package pacman.controller;
 
 import pacman.controller.gamelogic.PacmanGame;
+import pacman.controller.resources.ResourceManager;
 
 import com.badlogic.gdx.Screen;
 
@@ -20,7 +21,8 @@ public abstract class ScreenController {
 	 * Change the screen to the main menu and dispose the previous screen
 	 */
 	public void goToMainMenu(){
-		//view.dispose();
+		view.dispose();
+		ResourceManager.dispose();
 		game.goToMainMenu();
 	}
 	

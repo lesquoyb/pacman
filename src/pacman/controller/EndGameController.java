@@ -8,16 +8,19 @@ public class EndGameController extends ScreenController {
 
 	
 	private float begin;
-	private final int TOTAL = 100;
+	private final long TOTAL = 1500;
 	
 	public EndGameController(PacmanGame g, Screen v) {
 		super(g, v);
-		begin = System.currentTimeMillis();
+		begin = System.nanoTime();
 	}
 
 	@Override
 	public void update() {
-		if( ( System.currentTimeMillis() - begin ) > TOTAL ){
+		System.out.println(System.nanoTime() +" "+ begin);
+		if( ( System.nanoTime() - begin ) > TOTAL ){
+			view.dispose();
+			
 			game.goToMainMenu();
 		}
 	}

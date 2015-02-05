@@ -21,9 +21,11 @@ public class GameController extends ScreenController {
 		p = GameWorld.getPacman();
 		if(p != null){
 			if(p.eatedGum == GameWorld.map.nbGum){
+//				view.dispose();
 				game.endGame(true, "score: " + p.score);
 			}
 			else if( ! p.isAlive() ){
+//				view.dispose();
 				game.endGame(false,"score: " + p.score);
 			}
 		}

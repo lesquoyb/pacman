@@ -2,7 +2,9 @@ package pacman.controller.resources;
 
 import java.util.HashMap;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 public class TextureAtlasFactory {
@@ -12,12 +14,13 @@ public class TextureAtlasFactory {
 	private static HashMap<String,TextureAtlas> textures = new HashMap<String, TextureAtlas>() ;
 	
 	
-	public static void loadTextureAtlas(String s, FileHandle f){
-		textures.put(s,new TextureAtlas(f));
-	}
-	
 	public static TextureAtlas getTextAtlas(String s){
-		return textures.get(s);
+		TextureAtlas temp = textures.get(s);
+		if(temp == null){
+			textures.put(s, new TextureAtlas(Gdx.files.internal(ResourceManager.files.get(s))));
+			temp = textures.get(s);
+		}
+		return temp;
 	}
 	
 	
@@ -25,5 +28,6 @@ public class TextureAtlasFactory {
 		for(TextureAtlas t : textures.values()){
 			t.dispose();
 		}
+		textures.clear();
 	}
 }

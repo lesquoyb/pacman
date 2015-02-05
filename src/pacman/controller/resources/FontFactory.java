@@ -30,6 +30,7 @@ private static HashMap<String,BitmapFont> fonts = new HashMap<String, BitmapFont
 		for(BitmapFont t : fonts.values()){
 			t.dispose();
 		}
+		fonts.clear();
 	}
 	
 }

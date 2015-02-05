@@ -106,9 +106,5 @@ public class Map {
 	}
 	
 	
-	public void dispose(){
-		for(GameObject object: elements){
-//			object.dispose();
-		}
-	}
+	
 }

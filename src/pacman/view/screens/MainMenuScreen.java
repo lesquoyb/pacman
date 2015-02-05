@@ -27,8 +27,8 @@ public class MainMenuScreen implements Screen {
 	private TextButton playBtn, exitBtn;
 	private Label title;
 	private Skin skin;
-	private TextureAtlas atlas;
-	private BitmapFont bmFont;
+//	private TextureAtlas atlas;
+//	private  bmFont;
 	private MainMenuController controller;
 	
 	
@@ -41,8 +41,8 @@ public class MainMenuScreen implements Screen {
 	public void show() {
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
-		bmFont = ResourceManager.getFont(ResourceManager.menuFont);
-		atlas = ResourceManager.getTextureAtlas(ResourceManager.menuAtlas);//new TextureAtlas(Gdx.files.internal(""));
+		BitmapFont bmFont = ResourceManager.getFont(ResourceManager.menuFont);
+		TextureAtlas atlas = ResourceManager.getTextureAtlas(ResourceManager.menuAtlas);//new TextureAtlas(Gdx.files.internal(""));
 		skin = new Skin(atlas);
 		table = new Table(skin);
 		
@@ -124,9 +124,9 @@ public class MainMenuScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		stage.dispose();
-		skin.dispose();
-		atlas.dispose();
+		//stage.dispose();
+		//skin.dispose();
+		//atlas.dispose();
 		//bmFont.dispose();
 	}
 

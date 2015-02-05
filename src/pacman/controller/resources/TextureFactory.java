@@ -25,5 +25,6 @@ public final class TextureFactory {
 		for(Texture t : textures.values()){
 			t.dispose();
 		}
+		textures.clear();
 	}
 }

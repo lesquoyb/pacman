@@ -129,7 +129,7 @@ public class GameWorld {
 	
 	
 	public void dispose(){
-		map.dispose();
+		//map.dispose();
 		batch.dispose();
 	}
 	
