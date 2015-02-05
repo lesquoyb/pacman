@@ -11,12 +11,14 @@ public class Pacman extends Character{
 	
 	private directions next = null;
 	public int eatedGum;
+	public int score;
 	
 	
 	public Pacman(int x, int y, int width, int height) {
 		super(x, y, width, height, ResourceManager.pacman);
 		movement = new Vector2();
 		eatedGum = 0;
+		score = 0;
 	}
 
 	protected void move(directions d) {
@@ -91,6 +93,7 @@ public class Pacman extends Character{
 				if(currentPos.hasGum()){
 					currentPos.setGum(false);
 					eatedGum++;
+					score++;
 				}
 			}
 		}

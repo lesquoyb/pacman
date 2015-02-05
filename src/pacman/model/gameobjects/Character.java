@@ -9,15 +9,17 @@ public abstract class Character extends MovingObject {
 	protected Vector2 movement;
 	protected directions direction;
 	private static final int speed = 100  ;
+	private boolean alive;
 	
 	
 	public Character(int x, int y,int width, int height, String anim) {
 		super(x, y, width, height,anim);
 		movement = new Vector2();
 		direction = null;
+		alive = true;
 	}
 
-	
+	public boolean isAlive(){return alive;}
 	
 	public directions getDirection(){return direction;}
 	

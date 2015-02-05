@@ -24,6 +24,8 @@ public final class ResourceManager {
 	public static final String menuFont = "menuFont";
 	public static final String menuAtlas = "menuAtlas";
 	public static final String fondScore = "fondScore";
+	public static final String defaite = "defaite";
+	public static final String victoire = "victoire";
 	
 	public static HashMap<String,String>  files  = new HashMap<String,String>();
 
@@ -42,22 +44,12 @@ public final class ResourceManager {
 		files.put(floorGum, "images/floorGum.jpg");
 		files.put(menuFont, "fonts/white_white_rabbit.fnt");
 		files.put(fondScore, "images/fondScore.png");
-		
-		//TextureFactory.loadTexture(pacman, Gdx.files.internal("images/pacman.jpg"));
-		/*
-		TextureFactory.loadTexture(GreenG, Gdx.files.internal("images/fantomeV.jpg"));
-		TextureFactory.loadTexture(BlueG, Gdx.files.internal("images/fantomeB.jpg"));
-		TextureFactory.loadTexture(YellowG, Gdx.files.internal("images/fantomeJ.jpg"));
-		TextureFactory.loadTexture(RedG, Gdx.files.internal("images/fantomeR.jpg"));
-		TextureFactory.loadTexture(wall, Gdx.files.internal("images/wall.jpg"));
-		TextureFactory.loadTexture(wormhole, Gdx.files.internal("images/wormhole32.jpg"));
-		TextureFactory.loadTexture(floor, Gdx.files.internal("images/floor.jpg"));
-		TextureFactory.loadTexture(splash, Gdx.files.internal("ui/splashScreen.jpg"));
-		*/
+		files.put(defaite, "ui/defaite.jpg");
+		files.put(victoire, "ui/victoire.jpg");
+
 
 		TextureAtlasFactory.loadTextureAtlas(menuAtlas, Gdx.files.internal("ui/buttons.pack"));
 	
-		//FontFactory.loadFont(menuFont, Gdx.files.internal("fonts/white_white_rabbit.fnt"));
 	
 	}
 	

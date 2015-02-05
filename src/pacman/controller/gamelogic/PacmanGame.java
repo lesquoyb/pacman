@@ -1,10 +1,12 @@
 package pacman.controller.gamelogic;
 
+import pacman.controller.EndGameController;
 import pacman.controller.GameController;
 import pacman.controller.MainMenuController;
 import pacman.controller.ScreenController;
 import pacman.controller.SplashController;
 import pacman.controller.resources.ResourceManager;
+import pacman.view.screens.EndGame;
 import pacman.view.screens.GameScreen;
 import pacman.view.screens.MainMenuScreen;
 import pacman.view.screens.SplashScreen;
@@ -36,6 +38,10 @@ public class PacmanGame extends Game {
 	
 	public void startNewGame(){
 		screenController = new GameController(this,new GameScreen());
+	}
+	
+	public void endGame(boolean victory, String score){
+		screenController = new EndGameController(this,new EndGame(victory,score));
 	}
 
 	

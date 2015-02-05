@@ -30,6 +30,7 @@ public class GameWorld {
 	private OrthographicCamera camera;
 	private FillViewport viewport;
 	private ArrayList<Character> characters;
+	private static Pacman pacman = null;
 	private int score;
 
 	
@@ -67,6 +68,7 @@ public class GameWorld {
 				switch(c){
 					case pacman:
 						character = new Pacman(x, y, Map.tileWidth, Map.tileHeight);
+						pacman = (Pacman) character;
 						break;
 					case Bghost :
 						character = new BlueGhost(x,y, Map.tileWidth, Map.tileHeight);
@@ -130,6 +132,8 @@ public class GameWorld {
 		map.dispose();
 		batch.dispose();
 	}
+	
+	public static Pacman getPacman(){return pacman;}
 
 	
 }
