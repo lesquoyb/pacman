@@ -3,16 +3,11 @@ package pacman.controller.gamelogic;
 import java.util.ArrayList;
 
 import pacman.controller.resources.ResourceManager;
-import pacman.model.gameobjects.BlueGhost;
 import pacman.model.gameobjects.Floor;
 import pacman.model.gameobjects.GameObject;
-import pacman.model.gameobjects.GreenGhost;
-import pacman.model.gameobjects.Pacman;
-import pacman.model.gameobjects.RedGhost;
 import pacman.model.gameobjects.StartingPoint;
 import pacman.model.gameobjects.Wall;
 import pacman.model.gameobjects.Wormhole;
-import pacman.model.gameobjects.YellowGhost;
 import pacman.model.generators.MapGenerator;
 
 import com.badlogic.gdx.files.FileHandle;
@@ -26,79 +21,32 @@ public class Map {
 	private ArrayList<GameObject> elements;
 	public int width;
 	public int height;
+	public int nbGum = -1;
 	private ArrayList<StartingPoint> startingPoints;	
 	public static final int tileWidth = 32;
 	public static final int tileHeight = 32;
-	public gameElements[][] matrix;
-	public Map(FileHandle file){// throws Exception{
+	
+	
+	public Map(FileHandle file)  {// throws Exception{
 		elements = new ArrayList<GameObject>();
 		MapGenerator mg = new MapGenerator(file,this);
 		startingPoints = new ArrayList<StartingPoint>();
 		if (mg.generate() == false){
 			System.out.println(mg.errorMessage);
-//			throw new Exception("La map '"+ file.name() +"' ne respecte pas le format demandé.\n" + mg.errorMessage);
+			//throw new Exception("La map '"+ file.name() +"' ne respecte pas le format demandé.\n" + mg.errorMessage);
 		}
-		createMatrix();
-	}
 	
-	private void createMatrix(){
-		matrix = new gameElements[width][height];
+	}
 
-		int i = 0,j = 0;
-		for(GameObject object : elements){
-			if(object instanceof Wall){
-				matrix[i][j] = gameElements.wall;
-			}
-			else if(object instanceof Floor){
-				matrix[i][j] = gameElements.floor;
-			}
-			else if(object instanceof StartingPoint){
-				
-				switch(((StartingPoint) object).getCharacter()){
-					case pacman:
-						matrix[i][j] = gameElements.pacman;
-						break;
-					case Bghost :
-						matrix[i][j] = gameElements.Bghost;
-						break;
-					case Rghost :
-						matrix[i][j] = gameElements.Rghost;
-						break;
-					case  Yghost:
-						matrix[i][j] = gameElements.Yghost;
-						break;
-					case Gghost :
-						matrix[i][j] = gameElements.Gghost;
-						break;
-					default:
-						assert false;
+	public Floor getFloor(float x, float y){
+		for (GameObject g: elements){
+			if( g instanceof Floor){
+				if (g.getX() == (int)x/tileWidth  && g.getY() == (int)y/tileHeight){
+					return (Floor)g;
 				}
 			}
-			/*
-			else if(object instanceof SuperPacGum){
-				matrix[i][j] = gameElements.superpacgum;					
-			}
-			*/
-			else if(object instanceof Wormhole){
-				matrix[i][j] = gameElements.wormhole;
-				
-			}
-			else{
-				assert false;
-			}
-			
-			i++;
-			if(i == width){
-				j++;
-				i =0;
-			}
-			if(j == height){
-				j = 0;
-				assert elements.iterator().hasNext() == false;
-			}
 		}
-		assert j == i && i == 0;
-			System.out.println(matrix);
+		return null;
 		
 	}
 	public GameObject getObstacle(float x, float y){
@@ -118,8 +66,8 @@ public class Map {
 	}
 	
 
-	public void addFloor(int x, int y){
-		elements.add(new Floor(x, y, tileWidth, tileHeight));
+	public void addFloor(int x, int y,boolean hasGum){
+		elements.add(new Floor(x, y, tileWidth, tileHeight,hasGum));
 	}
 	
 	public Wormhole addWormhole(int x, int y, int id){
@@ -151,7 +99,7 @@ public class Map {
 	
 	public void render(SpriteBatch batch){
 		for(GameObject object : elements){
-			batch.draw(ResourceManager.getTexture(object.animation), object.left, object.top);
+			batch.draw(ResourceManager.getTexture(object.getAnimation()), object.left, object.top);
 //			
 //			object.render(batch);
 		}

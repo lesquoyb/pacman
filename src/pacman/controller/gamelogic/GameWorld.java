@@ -15,21 +15,23 @@ import pacman.model.gameobjects.StartingPoint.characters;
 import pacman.model.gameobjects.YellowGhost;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FillViewport;
-import com.badlogic.gdx.utils.viewport.ScalingViewport;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 
 public class GameWorld {
 	
 	private SpriteBatch batch;
+	private SpriteBatch batchInv;
 	public static Map map;
 	private OrthographicCamera camera;
 	private FillViewport viewport;
 	private ArrayList<Character> characters;
+	private int score;
+
 	
 	
 	
@@ -43,14 +45,18 @@ public class GameWorld {
 			viewport.apply();
 			camera.position.set(camera.viewportWidth/2, camera.viewportHeight / 2, 0);
 
-			
+
+			ResourceManager.setFontColor(ResourceManager.menuFont, Color.BLACK);
 			batch = new SpriteBatch();
-			//try {
-				map = new Map(  Gdx.files.internal("config/map1.map") );/*
+			batchInv = new SpriteBatch();
+			try {
+				map = new Map(  Gdx.files.internal("config/map1.map") );
+			
+			
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(null,"Une erreur est survenue lors de la création de la map"+ e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
 				Gdx.app.exit();
-			}*/
+			}
 
 			camera.update();
 			for(StartingPoint startingPoint : map.getStartingPoints()){
@@ -60,19 +66,19 @@ public class GameWorld {
 				Character character = null;
 				switch(c){
 					case pacman:
-						character = new Pacman(x, y, map.tileWidth, map.tileHeight);
+						character = new Pacman(x, y, Map.tileWidth, Map.tileHeight);
 						break;
 					case Bghost :
-						character = new BlueGhost(x,y, map.tileWidth, map.tileHeight);
+						character = new BlueGhost(x,y, Map.tileWidth, Map.tileHeight);
 						break;
 					case Rghost :
-						character = new RedGhost(x,y, map.tileWidth, map.tileHeight);
+						character = new RedGhost(x,y, Map.tileWidth, Map.tileHeight);
 						break;
 					case  Yghost:
-						character = new YellowGhost(x,y, map.tileWidth, map.tileHeight);
+						character = new YellowGhost(x,y, Map.tileWidth, Map.tileHeight);
 						break;
 					case Gghost :
-						character = new GreenGhost(x,y, map.tileWidth, map.tileHeight);
+						character = new GreenGhost(x,y, Map.tileWidth, Map.tileHeight);
 						break;
 				}
 					characters.add(character);
@@ -92,10 +98,14 @@ public class GameWorld {
 		batch.begin();
 			map.render(batch);
 			for(Character c : characters){
-				batch.draw(ResourceManager.getTexture(c.animation),c.left,c.top);
+				batch.draw(ResourceManager.getTexture(c.getAnimation()),c.left,c.top);
 //				c.render(batch);
 			}
 		batch.end();
+		batchInv.begin();
+		batchInv.draw(ResourceManager.getTexture(ResourceManager.fondScore),0, Gdx.graphics.getHeight()- ResourceManager.getTexture(ResourceManager.fondScore).getHeight());
+		ResourceManager.getFont(ResourceManager.menuFont).draw(batchInv, score + "/" + map.nbGum, 0, Gdx.graphics.getHeight());
+		batchInv.end();
 	}
 	
 	public void resize(int width,int height){
@@ -105,9 +115,13 @@ public class GameWorld {
 	}
 	
 	public void update(float delta){
+		
 		map.update(delta);
 		for(Character c : characters){
 			c.update(delta);
+			if(c instanceof Pacman){
+				score = ((Pacman) c).eatedGum;
+			}
 		}
 	}
 	

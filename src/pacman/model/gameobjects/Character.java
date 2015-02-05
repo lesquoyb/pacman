@@ -8,6 +8,7 @@ public abstract class Character extends MovingObject {
 
 	protected Vector2 movement;
 	protected directions direction;
+	private static final int speed = 100  ;
 	
 	
 	public Character(int x, int y,int width, int height, String anim) {
@@ -21,83 +22,118 @@ public abstract class Character extends MovingObject {
 	public directions getDirection(){return direction;}
 	
 	
-	protected boolean canMove(directions d, float delta){
+	private static Vector2 to_test = new Vector2();
+	/**
+	 * modifie to_test
+	 * @param d
+	 * @param delta
+	 */
+	protected void calculateNewPosition(directions d,float delta){
+		left += movement.x * delta;
+		top += movement.y * delta;
+		updatePos();
+		to_test.x = left;
+		to_test.y = bottom;
 		switch(d){
-			case up:				
-					return !( GameWorld.map.getObstacle(left, top - height) instanceof Wall);
-			case down:
-				return !( GameWorld.map.getObstacle(left, bottom + height) instanceof Wall);
-				
 			case left:
-				return ! (GameWorld.map.getObstacle(left - width, top ) instanceof Wall);
-				
+				to_test.y = center.y;
+				break;
 			case right:
-				return ! (GameWorld.map.getObstacle(right + width, top) instanceof Wall);
-		
+				to_test.x = right;
+				to_test.y = center.y;
+				break;
+				
+			case up:
+				to_test.x = center.x;
+				to_test.y = top;
+				break;
+				
+			case down:
+				to_test.x = center.x;
+				break;
 		}
-		assert false;
-		return false;
+		
 	}
+		
+	
+	/**
+	 * Attention cette méthode utilise le Vector2 {@link}Character.movement et déplace le personnage
+	 * @param d
+	 * @return une instance d'objet rencontré
+	 */
+	protected GameObject tryToMove(directions d,float delta){
+		calculateNewPosition(d,delta);
+		return   GameWorld.map.getObstacle(to_test.x,to_test.y);	
+	}
+
 	
 	@Override
 	public void update(float delta){
-		
-		if(direction != null){		
-			left += movement.x * delta;
-			top += movement.y * delta;
+		if(direction != null){
+			updateMovement(direction);
+			GameObject obstacle = tryToMove(direction, delta);
+			if ( obstacle != null && obstacle instanceof Wall){
+				switch (direction){
+				
+					case left:
+						left = obstacle.right;
+						break;
+						
+					case right:
+						left = obstacle.left - width;
+						break;
+						
+					case up:
+						top = obstacle.bottom ;
+						break;
+						
+					case down:
+						top = obstacle.top - height;
+						break;
+				}
+			}
+			else if(obstacle instanceof Wormhole){
+				//Teleport
+				top = ((Wormhole) obstacle).linked.top;
+				left = ( (Wormhole) obstacle).linked.left;
+			}
+			
+			//dans tous les cas
 			updatePos();
-			float to_testX = left, to_testY = bottom;
-			switch(direction){
-				case left:
-					to_testY = center.y;
-					break;
-				case right:
-					to_testX = right;
-					to_testY = center.y;
-					break;
-					
-				case up:
-					to_testX = center.x;
-					to_testY = top;
-					break;
-					
-				case down:
-					to_testX = center.x;
-					break;
-			}
-
-			GameObject obstacle  = GameWorld.map.getObstacle(to_testX,to_testY);
-			if ( obstacle != null ){
-				if(obstacle instanceof Wall){
-					switch (direction){
-					
-						case left:
-							left = obstacle.right;
-							break;
-							
-						case right:
-							left = obstacle.left - width;
-							break;
-							
-						case up:
-							top = obstacle.bottom ;
-							break;
-							
-						case down:
-							top = obstacle.top - height;
-							break;
-					}
-				}
-				else if(obstacle instanceof Wormhole){
-					top = ((Wormhole) obstacle).linked.top;
-					left = ( (Wormhole) obstacle).linked.left;
-				}
-				
-				//dans tous les cas
-				updatePos();
-				
-			}
-		}
 	
+		}
+		
 	}
+	
+	
+	
+	
+	
+	protected void updateMovement(directions d){
+		switch(d){
+		case down:
+			movement.x = 0;
+			movement.y =  speed;
+			break;
+		case up:
+			movement.x = 0;
+			movement.y = - speed;
+			break;
+		case left:
+			movement.x = - speed ;
+			movement.y = 0;
+			break;
+			
+		case right:
+			movement.x = speed;
+			movement.y = 0;
+			break;
+		}
+	}
+	
+	
+	
+	
+	
+	
 }

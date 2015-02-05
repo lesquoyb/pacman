@@ -2,8 +2,6 @@ package pacman.model.gameobjects;
 
 import pacman.controller.resources.ResourceManager;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
 public class Wall extends StaticObject{
 
 

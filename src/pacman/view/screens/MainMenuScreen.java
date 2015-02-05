@@ -127,7 +127,7 @@ public class MainMenuScreen implements Screen {
 		stage.dispose();
 		skin.dispose();
 		atlas.dispose();
-		bmFont.dispose();
+		//bmFont.dispose();
 	}
 
 }

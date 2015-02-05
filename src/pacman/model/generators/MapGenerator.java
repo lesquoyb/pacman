@@ -5,9 +5,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 import pacman.controller.gamelogic.Map;
-import pacman.model.gameobjects.Floor;
 import pacman.model.gameobjects.StartingPoint;
-import pacman.model.gameobjects.Wall;
 import pacman.model.gameobjects.Wormhole;
 
 import com.badlogic.gdx.files.FileHandle;
@@ -33,6 +31,11 @@ public class MapGenerator extends Generator{
 	public final static byte Yghost = 'y';
 	public final static byte Gghost = 'g';
 	public final static byte wormhole = '@';
+	public final static byte ghostHouse = 'h';
+	
+	
+	
+	
 	
 	private Map map;
 	
@@ -47,6 +50,7 @@ public class MapGenerator extends Generator{
 		InputStream stream =  file.read();
 		int x = 0;
 		int y = 0;
+		int nbGum = 0;
 		int firstLine = -1;
 		ArrayList<Wormhole> wormholes = new ArrayList<Wormhole>();
 		
@@ -59,7 +63,8 @@ public class MapGenerator extends Generator{
 
 				switch (input){
 					case floor:
-						map.addFloor(x,y);
+						map.addFloor(x,y,true);//true because each regular floor has a gum
+						nbGum++;
 						break;
 					case wall:
 						map.addWall(x,y);
@@ -80,6 +85,10 @@ public class MapGenerator extends Generator{
 						break;
 					case Gghost :
 						map.addStartingPoint(x,y,StartingPoint.characters.Gghost );
+						break;
+						
+					case ghostHouse:
+						map.addFloor(x, y,false);
 						break;
 						
 					case wormhole:
@@ -105,14 +114,15 @@ public class MapGenerator extends Generator{
 						x = 0;
 						break;
 				}
-				if(input != 10 && input != 13 && input != ' '){
+				if(input != 10 && input != 13 && input != ' ' && input != -1){
 					x++;
 				}
 			}
 			while(input!= -1);
 
-			map.width = x+1;
+			map.width = x;
 			map.height = y+1;
+			map.nbGum = nbGum;
 			
 			
 		} catch (IOException e) { e.printStackTrace(); }

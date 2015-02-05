@@ -12,7 +12,7 @@ public abstract class GameObject {
 	public int x;
 	public int y;
 	protected Vector2 center;
-	public final String animation;
+	protected String animation;
 	
 	
 	protected GameObject(int x, int y,int width,int height, String anim){
@@ -25,6 +25,8 @@ public abstract class GameObject {
 		this.height = height;
 		center = new Vector2(left + width/2, top + height/2);
 	}
+	
+	public String getAnimation(){return animation;}
 	
 	public int getX(){
 		return x;
