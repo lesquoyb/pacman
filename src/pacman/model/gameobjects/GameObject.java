@@ -37,10 +37,10 @@ public abstract class GameObject {
 	}
 	
 	protected void updatePos(){
-		x = (int)( left / Map.tileWidth);
-		y =  (int)( top / Map.tileHeight);
 		center.x = left + width/2;
 		center.y = top + height/2;
+		x = (int)( center.x / Map.tileWidth);
+		y =  (int)( center.y / Map.tileHeight);
 		right = left + width;
 		bottom = top + height;
 	}

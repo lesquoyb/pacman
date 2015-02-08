@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public final class ResourceManager {
 
@@ -25,6 +26,7 @@ public final class ResourceManager {
 	public static final String fondScore = "fondScore";
 	public static final String defaite = "defaite";
 	public static final String victoire = "victoire";
+	public static final String qContinue = "continue";
 	
 	public static HashMap<String,String>  files  = new HashMap<String,String>();
 
@@ -46,11 +48,14 @@ public final class ResourceManager {
 		files.put(defaite, "ui/defaite.jpg");
 		files.put(victoire, "ui/victoire.jpg");
 		files.put(menuAtlas, "ui/buttons.pack");
+		files.put(qContinue, "ui/continue.jpg");
 
 	
 	
 	}
 	
+	
+	public static TextureRegion getTextureRegion(String s){return AnimationFactory.getTextureRegion(s);}
 	
 	public static Texture getTexture(String s){ return TextureFactory.getTexture(s);}
 	

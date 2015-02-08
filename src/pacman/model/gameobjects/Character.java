@@ -1,140 +1,214 @@
 package pacman.model.gameobjects;
 
 import pacman.controller.gamelogic.GameWorld;
+import pacman.controller.gamelogic.Map;
 
 import com.badlogic.gdx.math.Vector2;
 
 public abstract class Character extends MovingObject {
 
+	
 	protected Vector2 movement;
+	protected directions next;
 	protected directions direction;
-	private static final int speed = 100  ;
+	protected static final int speed = 100  ;
+	protected float remainingPower;
 	private boolean alive;
+	protected boolean travellingIntoWormhole;
 	
 	
 	public Character(int x, int y,int width, int height, String anim) {
 		super(x, y, width, height,anim);
 		movement = new Vector2();
 		direction = null;
+		next = null;
 		alive = true;
+		remainingPower = speed;
+		travellingIntoWormhole = false;
 	}
 
 	public boolean isAlive(){return alive;}
 	
 	public directions getDirection(){return direction;}
-	
-	
-	private static Vector2 to_test = new Vector2();
+
 	/**
-	 * modifie to_test
+	 * return true if the next grid node is not a wall
 	 * @param d
-	 * @param delta
+	 * @return
 	 */
-	protected void calculateNewPosition(directions d,float delta){
-		left += movement.x * delta;
-		top += movement.y * delta;
-		updatePos();
-		to_test.x = left;
-		to_test.y = bottom;
+	protected boolean canMove(directions d){
+		int newX = x, newY = y;
 		switch(d){
 			case left:
-				to_test.y = center.y;
-				break;
-			case right:
-				to_test.x = right;
-				to_test.y = center.y;
+				newX --;
 				break;
 				
+			case right:
+				newX++;
+				break;
+						
 			case up:
-				to_test.x = center.x;
-				to_test.y = top;
+				newY--;
 				break;
 				
 			case down:
-				to_test.x = center.x;
+				newY++;
 				break;
+			default:
+				assert false;
 		}
-		
+		return !( GameWorld.map.getObstacle(newX * Map.tileWidth, newY * Map.tileHeight) instanceof Wall);
 	}
-		
+	
+	
+
+	private float dtX, dtY;
+	/**
+	 * Try to move to the next grid node using the delta value and the current direction
+	 */
+	protected void moveToGridPosition(directions d,float delta){
+		if(left != x * Map.tileWidth || top != y * Map.tileHeight){			
+			switch(d){
+				case left:
+					dtX = x * Map.tileWidth - left ;
+					if( remainingPower*delta > -dtX){
+						effectuateMovement(d, dtX,delta);
+					}
+					else{
+						effectuateMovement(d, -remainingPower * delta,delta);
+					}
+					break;
+				case right:
+					dtX = x * Map.tileWidth - left ;
+					if(remainingPower*delta > dtX){
+						effectuateMovement(d, dtX,delta);
+					}
+					else{
+						effectuateMovement(d, remainingPower * delta,delta);
+					}
+					break;
+					
+				case up:
+					dtY = y * Map.tileWidth - top ;
+					if(remainingPower*delta > - dtY){
+						effectuateMovement(d, dtY,delta);
+					}
+					else{
+						effectuateMovement(d,- remainingPower * delta,delta);
+					}
+					break;
+				case down:
+					dtY = y * Map.tileHeight - top;
+					if(remainingPower*delta > dtY){
+						effectuateMovement(d, dtY,delta);
+					}
+					else{
+						effectuateMovement(d, remainingPower * delta,delta);
+					}
+					break;
+			}	
+		}
+	}
 	
 	/**
-	 * Attention cette méthode utilise le Vector2 {@link}Character.movement et déplace le personnage
+	 * Actually move the character with the pixelToMove given as a signed number
 	 * @param d
-	 * @return une instance d'objet rencontré
+	 * @param force
 	 */
-	protected GameObject tryToMove(directions d,float delta){
-		calculateNewPosition(d,delta);
-		return   GameWorld.map.getObstacle(to_test.x,to_test.y);	
+	private void effectuateMovement(directions d,float pixelsToMove,float delta){
+		switch(d){
+			case left:
+			case right:
+				left += pixelsToMove;
+				break;
+				
+			case up:
+			case down:
+				top += pixelsToMove;
+				break;
+		}
+		remainingPower -= Math.abs(pixelsToMove)/delta ;
+		updatePos();
 	}
+	
+	
+	/**
+	 * Move toward {@link Character.direction}
+	 * Take care of collisions
+	 * @param d
+	 * @param delta
+	 */
+	protected void move(float delta){
+		
+		if(direction != null && remainingPower > 0){
+			
+			//we try to move to fit the grid node perfectly
+			moveToGridPosition(direction, delta);
+			wormholesCollisionsCheck();
+			
+			//if it remains power we try to move to the direction
+			if(remainingPower > 0){
+				if(next != null && next != direction && canMove(next)){
+					direction = next;
+					next = null;
+				}
+				if(canMove(direction)){
+					switch(direction){
+					case left:
+						x --;
+						break;
+					case right:
+						x ++;
+						break;
+					case up:
+						y--;
+						break;
+					case down:
+						y++;
+						break;
+					}
+					moveToGridPosition(direction, delta);
+					wormholesCollisionsCheck();
+				}				
+			}
+		}
 
+	}
 	
 	@Override
-	public void update(float delta){
-		if(direction != null){
-			updateMovement(direction);
-			GameObject obstacle = tryToMove(direction, delta);
-			if ( obstacle != null && obstacle instanceof Wall){
-				switch (direction){
-				
-					case left:
-						left = obstacle.right;
-						break;
-						
-					case right:
-						left = obstacle.left - width;
-						break;
-						
-					case up:
-						top = obstacle.bottom ;
-						break;
-						
-					case down:
-						top = obstacle.top - height;
-						break;
-				}
-			}
-			else if(obstacle instanceof Wormhole){
-				//Teleport
-				top = ((Wormhole) obstacle).linked.top;
-				left = ( (Wormhole) obstacle).linked.left;
-			}
-			
-			//dans tous les cas
-			updatePos();
+	protected void updatePos() {
+		center.x = left + width/2;
+		center.y = top + height/2;
+		right = left + width;
+		bottom = top + height;
+	}
 	
-		}
+	@Override
+	public void update(float delta) {
+		remainingPower = speed;
+		updatePos();
+		move(delta);
 		
+	
 	}
 	
 	
-	
-	
-	
-	protected void updateMovement(directions d){
-		switch(d){
-		case down:
-			movement.x = 0;
-			movement.y =  speed;
-			break;
-		case up:
-			movement.x = 0;
-			movement.y = - speed;
-			break;
-		case left:
-			movement.x = - speed ;
-			movement.y = 0;
-			break;
-			
-		case right:
-			movement.x = speed;
-			movement.y = 0;
-			break;
+	public void wormholesCollisionsCheck(){
+		//check for collisions with gums and wormholes
+		GameObject obstacle = GameWorld.map.getCellWithFloatingPosition(center.x, center.y);
+		if(obstacle instanceof Wormhole && !travellingIntoWormhole){
+			//Teleport
+			top = ((Wormhole) obstacle).linked.top;
+			left = ( (Wormhole) obstacle).linked.left;
+			x = ((Wormhole) obstacle).linked.x;
+			y = ((Wormhole) obstacle).linked.y;
+			travellingIntoWormhole = true;
+			updatePos();
+		}
+		else if(obstacle instanceof Floor){
+			travellingIntoWormhole = false;
 		}
 	}
-	
-	
-	
 	
 	
 	

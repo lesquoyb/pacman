@@ -71,5 +71,9 @@ public class PacmanGame extends Game {
 	public static boolean isRightPressed(){
 		return Gdx.input.isKeyPressed(Keys.RIGHT) || Gdx.input.isKeyPressed(Keys.D);
 	}
+	
+	public static boolean isStartPressed(){
+		return Gdx.input.isKeyPressed(Keys.SPACE) || Gdx.input.isKeyPressed(Keys.ENTER);
+	}
 
 }

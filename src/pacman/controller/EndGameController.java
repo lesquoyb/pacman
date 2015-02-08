@@ -1,27 +1,30 @@
 package pacman.controller;
 
 import pacman.controller.gamelogic.PacmanGame;
-
-import com.badlogic.gdx.Screen;
+import pacman.view.screens.EndGame;
 
 public class EndGameController extends ScreenController {
 
 	
-	private float begin;
-	private final long TOTAL = 1500;
+	private long begin;
+	private final long TOTAL = 2500000;
+	private boolean first = true;
 	
-	public EndGameController(PacmanGame g, Screen v) {
+	public EndGameController(PacmanGame g, EndGame v) {
 		super(g, v);
 		begin = System.nanoTime();
 	}
 
 	@Override
 	public void update() {
-		System.out.println(System.nanoTime() +" "+ begin);
-		if( ( System.nanoTime() - begin ) > TOTAL ){
-			view.dispose();
-			
-			game.goToMainMenu();
+		if( (  ( System.nanoTime() - begin ) > TOTAL ) && first ){
+			( (EndGame) view ).qContinue();
+			first = false;
+		}
+		else if ( ! first){
+			if(PacmanGame.isStartPressed()){
+				game.goToMainMenu();
+			}
 		}
 	}
 

@@ -31,6 +31,11 @@ public class EndGame implements Screen{
 		batch = new SpriteBatch();
 		
 	}
+	
+	
+	public void qContinue(){
+		texture = ResourceManager.getTexture(ResourceManager.qContinue);
+	}
 
 	@Override
 	public void render(float delta) {

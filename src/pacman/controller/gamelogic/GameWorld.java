@@ -32,6 +32,7 @@ public class GameWorld {
 	private ArrayList<Character> characters;
 	private static Pacman pacman = null;
 	private int score;
+	private static final float fpsMin = 1/40f;
 
 	
 	
@@ -101,12 +102,12 @@ public class GameWorld {
 			map.render(batch);
 			for(Character c : characters){
 				batch.draw(ResourceManager.getTexture(c.getAnimation()),c.left,c.top);
-//				c.render(batch);
 			}
 		batch.end();
+		
 		batchInv.begin();
-		batchInv.draw(ResourceManager.getTexture(ResourceManager.fondScore),0, Gdx.graphics.getHeight()- ResourceManager.getTexture(ResourceManager.fondScore).getHeight());
-		ResourceManager.getFont(ResourceManager.menuFont).draw(batchInv, score + "/" + map.nbGum, 0, Gdx.graphics.getHeight());
+			batchInv.draw(ResourceManager.getTexture(ResourceManager.fondScore),0, Gdx.graphics.getHeight()- ResourceManager.getTexture(ResourceManager.fondScore).getHeight());
+			ResourceManager.getFont(ResourceManager.menuFont).draw(batchInv, score + "/" + map.nbGum, 0, Gdx.graphics.getHeight());
 		batchInv.end();
 	}
 	
@@ -116,11 +117,12 @@ public class GameWorld {
 
 	}
 	
+	private float dt;
 	public void update(float delta){
-		
-		map.update(delta);
+		dt = Math.min(delta,fpsMin);
+		map.update(dt);
 		for(Character c : characters){
-			c.update(delta);
+			c.update(dt);
 			if(c instanceof Pacman){
 				score = ((Pacman) c).eatedGum;
 			}

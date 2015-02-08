@@ -3,7 +3,6 @@ package pacman.controller;
 import pacman.controller.gamelogic.GameWorld;
 import pacman.controller.gamelogic.PacmanGame;
 import pacman.model.gameobjects.Pacman;
-import pacman.view.screens.EndGame;
 
 import com.badlogic.gdx.Screen;
 
