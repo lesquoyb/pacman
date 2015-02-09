@@ -1,5 +1,7 @@
 package pacman.model.gameobjects;
 
+import java.util.ArrayList;
+
 import pacman.controller.resources.ResourceManager;
 
 
@@ -12,10 +14,10 @@ public class BlueGhost extends Ghost{
 		super(x, y,width, height, ResourceManager.BlueG);
 	}
 
+	
 	@Override
 	public void update(float delta) {
-		// TODO Auto-generated method stub
-		
+		randomMovement(delta);
 	}
 	
 	

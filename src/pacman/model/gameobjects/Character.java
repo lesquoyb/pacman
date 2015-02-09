@@ -37,6 +37,8 @@ public abstract class Character extends MovingObject {
 	 * @return
 	 */
 	protected boolean canMove(directions d){
+		return canMove(d,x,y);
+		/*
 		int newX = x, newY = y;
 		switch(d){
 			case left:
@@ -58,9 +60,61 @@ public abstract class Character extends MovingObject {
 				assert false;
 		}
 		return !( GameWorld.map.getObstacle(newX * Map.tileWidth, newY * Map.tileHeight) instanceof Wall);
+		*/
 	}
 	
+
 	
+	/**
+	 * return true if we can move from the given position toward the given direction
+	 * @param d
+	 * @param fromX
+	 * @param fromY
+	 * @return
+	 */
+	protected boolean canMove(directions d, int fromX, int fromY){
+		int newX = fromX, newY = fromY;
+		switch(d){
+			case left:
+				if(newX > 0){
+					newX --;
+				}
+				else{
+					return false;
+				}
+				break;
+				
+			case right:
+				if(newX < GameWorld.map.width -1 ){
+					newX++;
+				}
+				else{
+					return false;
+				}
+				break;
+						
+			case up:
+				if(newY > 0 ){
+					newY--;
+				}
+				else{
+					return false;
+				}
+				break;
+				
+			case down:
+				if(newY < GameWorld.map.height - 1){
+					newY++;
+				}
+				else{
+					return false;
+				}
+				break;
+			default:
+				assert false;
+		}
+		return !( GameWorld.map.getObstacle(newX * Map.tileWidth, newY * Map.tileHeight) instanceof Wall);
+	}
 
 	private float dtX, dtY;
 	/**
@@ -146,8 +200,10 @@ public abstract class Character extends MovingObject {
 			moveToGridPosition(direction, delta);
 			wormholesCollisionsCheck();
 			
-			//if it remains power we try to move to the direction
+			//if it remains power
 			if(remainingPower > 0){
+				
+				//first we try to move to the next direction, if it's possible we make it the current direction
 				if(next != null && next != direction && canMove(next)){
 					direction = next;
 					next = null;
@@ -194,8 +250,8 @@ public abstract class Character extends MovingObject {
 	
 	
 	public void wormholesCollisionsCheck(){
-		//check for collisions with gums and wormholes
-		GameObject obstacle = GameWorld.map.getCellWithFloatingPosition(center.x, center.y);
+		
+		GameObject obstacle = GameWorld.map.getCellFromFloatPosition(center.x, center.y);
 		if(obstacle instanceof Wormhole && !travellingIntoWormhole){
 			//Teleport
 			top = ((Wormhole) obstacle).linked.top;

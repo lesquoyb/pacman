@@ -16,7 +16,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Map {
 	
 
-	enum gameElements{floor,wall,pacman,superpacgum,Bghost,Rghost,Yghost,Gghost,wormhole};
+	public enum gameElements{floor,wall,pacman,superpacgum,Bghost,Rghost,Yghost,Gghost,wormhole};
 	
 	public int width;
 	public int height;
@@ -38,6 +38,7 @@ public class Map {
 	
 	}
 
+	
 
 	private int tmpX,tmpY;
 	public Floor getFloor(float x, float y){
@@ -49,7 +50,7 @@ public class Map {
 		return null;
 		
 	}
-	public GameObject getCellWithFloatingPosition(float x, float y){
+	public GameObject getCellFromFloatPosition(float x, float y){
 		tmpX = (int)x/tileWidth ;
 		tmpY =  (int)y/tileHeight;
 		if(tmpX < grid.size() && tmpY < grid.get(tmpX).size()){
