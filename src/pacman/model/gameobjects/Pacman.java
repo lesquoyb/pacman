@@ -4,8 +4,6 @@ import pacman.controller.gamelogic.GameWorld;
 import pacman.controller.gamelogic.PacmanGame;
 import pacman.controller.resources.ResourceManager;
 
-import com.badlogic.gdx.math.Vector2;
-
 public class Pacman extends Character{
 
 

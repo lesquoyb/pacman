@@ -1,14 +1,25 @@
 package pacman.model.gameobjects;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
+
+import com.badlogic.gdx.utils.Array;
+
+import pacman.controller.gamelogic.GameWorld;
 
 
 public abstract class Ghost extends Character{
 
 
+	protected ArrayList<directions> possible = new ArrayList<MovingObject.directions>();
+	protected static Random rand = new Random();
+	
+
 	public Ghost(int x, int y,int width, int height, String anim) {
 		super(x, y, width, height,anim);
+//		tmp = new ArrayList<int[]>();
+//		visited = new ArrayList<int[]>();
 	}
 
 
@@ -16,8 +27,6 @@ public abstract class Ghost extends Character{
 	public abstract void update(float delta);
 
 
-	ArrayList<directions> possible = new ArrayList<MovingObject.directions>();
-	Random rand = new Random();
 	
 	
 	
@@ -45,6 +54,25 @@ public abstract class Ghost extends Character{
 			next = possible.get(rand.nextInt(possible.size()));
 		}
 	}
+	
+	
+	public directions directionToReachPosition(int fromX, int fromY,int toReachX, int toReachY){
+		if(toReachX < fromX && toReachY == fromY){
+			return directions.left;
+		}
+		if(toReachX > fromX && toReachY == fromY){
+			return directions.right;
+		}
+		if(toReachY > fromY && toReachX == fromX){
+			return directions.down;
+		}
+		if(toReachY < fromY && toReachX == fromX){
+			return directions.up;
+		}
+		return null;
+	}
+
+	
 	
 	/**
 	 * return true if the given position is an intersection, append possible directions in {@link Ghost.possible}
@@ -80,6 +108,14 @@ public abstract class Ghost extends Character{
 		}
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * push each possible direction for the next movement into {@link Ghost.possible}
 	 */
@@ -87,15 +123,55 @@ public abstract class Ghost extends Character{
 		possibleMovements(x, y);		
 	}
 	
-	private ArrayList<directions> movements, tmp;
+	
 	public void seekPacman(float delta){
-		tmp = findPacman();
-		if(tmp != null){
-			next = tmp.get(0);
+		
+		ArrayList<int[]> path = GameWorld.pathfinder.AStar(x, y, GameWorld.getPacman().x, GameWorld.getPacman().y);
+		if(path != null && path.size() > 1){
+			Collections.reverse(path);
+			path.remove(0);
 		}
+		if(direction == null){
+			direction = directionToReachPosition(x,y, path.get(0)[0], path.get(0)[1]);
+			path.remove(0);
+		}
+		else{
+			if(next == null && path.size()>0){
+				next = directionToReachPosition(x, y, path.get(0)[0], path.get(0)[1]);
+				path.remove(0);
+			}
+		}
+		
 		super.update(delta);
 		
+		/*
+		if(oldPacmanPos == null){
+			oldPacmanPos = new int[]{GameWorld.getPacman().x,GameWorld.getPacman().y};
+		}
+		if (   		GameWorld.getPacman().x != oldPacmanPos[0] 
+				|| GameWorld.getPacman().y != oldPacmanPos[1]
+				|| (tmp.size() == 0 && (oldPacmanPos[0] != x || oldPacmanPos[1] != y ) )  ){
+			
+			oldPacmanPos = new int[]{GameWorld.getPacman().x,GameWorld.getPacman().y};
+			tmp = findPacman();
+
+		}
+		if(tmp != null && tmp.size()>0){
+			if(direction == null){
+				direction = directionToReachPosition(tmp.get(0)[0], tmp.get(0)[1]);
+//				tmp.remove(0);
+			}
+			else if (x == tmp.get(0)[0] && y == tmp.get(0)[1] && tmp.size() > 1){
+				next = directionToReachPosition(tmp.get(1)[0], tmp.get(1)[1]);
+				tmp.remove(0);
+			}
+		}
+		super.update(delta);
+
+		*/
 		
 	}
+	
+
 	
 }

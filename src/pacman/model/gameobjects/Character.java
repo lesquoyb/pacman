@@ -1,7 +1,5 @@
 package pacman.model.gameobjects;
 
-import java.util.ArrayList;
-
 import pacman.controller.gamelogic.GameWorld;
 import pacman.controller.gamelogic.Map;
 
@@ -19,9 +17,6 @@ public abstract class Character extends MovingObject {
 	public Character(int x, int y,int width, int height, String anim) {
 		super(x, y, width, height,anim);
 		direction = null;
-		ret = new ArrayList<MovingObject.directions>();
-		tmp = new ArrayList<MovingObject.directions>();
-		visited = new ArrayList<int[]>();
 		next = null;
 		alive = true;
 		remainingPower = speed;
@@ -43,53 +38,11 @@ public abstract class Character extends MovingObject {
 	
 	
 	
-	private static final int noMaxDepth = -1;
-	protected ArrayList<directions> findPacman(){
-		return findPacman(noMaxDepth);
-	}
-	private ArrayList<directions> ret, tmp;
-	protected ArrayList<directions> findPacman(int profondeurMax){
-		ret.clear();
-		tmp.clear();
-		ret = findPacmanRecursif(new ArrayList<MovingObject.directions>(), profondeurMax, x, y);
-		return (ret != null ) ? ret : null;
-	}
-	private int[] posRet;
-	private ArrayList<int[]> visited;
-	private int[] currentPosArray;
-	private ArrayList<directions> findPacmanRecursif(ArrayList<directions>precedents, int profondeur, int tmpX, int tmpY){
-		
-		if(profondeur == 0 ){
-			return null;
-		}
-		profondeur--;
-		currentPosArray = new int[]{tmpX,tmpY};
-		if(! visited.contains(currentPosArray)){
-			for(directions d : directions.values()){
-				if(canMove(d, tmpX, tmpY)){
-					System.out.println("avant: " + tmpX + " " +  tmpY);
-					posRet = positionAfterMovement(d, tmpX, tmpY);
-					visited.add(posRet);
-					System.out.println("après: " + posRet[0] + " " + posRet[1]);
-					precedents.add(d);
-					tmp = findPacmanRecursif(precedents, profondeur, posRet[0], posRet[1]);
-					if(tmp != null){
-						return tmp;
-					}
-					else if(precedents.size() > 0){
-						precedents.remove(precedents.size()-1);
-					}
-				}
-			}
-		}
-		else{
-			return null;
-		}
-		assert false;
-		return null;
-	}
 
-	GameObject currentPos;
+	
+
+
+	private GameObject currentPos;
 	/**
 	 * return true if we can move from the given position toward the given direction
 	 * @param d
@@ -149,6 +102,12 @@ public abstract class Character extends MovingObject {
 	}
 	
 	protected int[] positionAfterMovement(directions d, int newX, int newY){
+		currentPos = GameWorld.map.getElement(newX, newY);
+		if(currentPos instanceof Wormhole && !travellingIntoWormhole){
+			newX = ( (Wormhole) currentPos).linked.x;
+			newY = ( (Wormhole) currentPos).linked.y;
+		}
+
 		int[] ret = {newX,newY};
 		switch(d){
 			case left:

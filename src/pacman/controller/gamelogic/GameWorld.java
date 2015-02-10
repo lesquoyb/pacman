@@ -2,8 +2,6 @@ package pacman.controller.gamelogic;
 
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
-
 import pacman.controller.resources.ResourceManager;
 import pacman.model.gameobjects.BlueGhost;
 import pacman.model.gameobjects.Character;
@@ -13,15 +11,13 @@ import pacman.model.gameobjects.RedGhost;
 import pacman.model.gameobjects.StartingPoint;
 import pacman.model.gameobjects.StartingPoint.characters;
 import pacman.model.gameobjects.YellowGhost;
+import pacman.model.generators.Pathfinder;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
-import com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 
 
@@ -37,6 +33,7 @@ public class GameWorld {
 	private int score;
 	private static final float fpsMin = 1/40f;
 	public static int secondsToEnd;
+	public static Pathfinder pathfinder;
 	public final int TIMER_MAX = 300;
 	
 	
@@ -63,11 +60,9 @@ public class GameWorld {
 			} catch (Exception e) {
 				//TODO ouvrir une fênetre pour afficher l'erreur
 				System.out.println("Une erreur est survenue lors de la création de la map: "+ e.getMessage());
-				
-				//JOptionPane.showMessageDialog(null,"Une erreur est survenue lors de la création de la map: "+ e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
 				Gdx.app.exit();
 			}
-
+			pathfinder = new Pathfinder(map.grid);
 			camera.update();
 			for(StartingPoint startingPoint : map.getStartingPoints()){
 				characters c = startingPoint.getCharacter();
