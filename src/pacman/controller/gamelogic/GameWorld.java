@@ -15,10 +15,13 @@ import pacman.model.gameobjects.StartingPoint.characters;
 import pacman.model.gameobjects.YellowGhost;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 
 
@@ -33,12 +36,14 @@ public class GameWorld {
 	private static Pacman pacman = null;
 	private int score;
 	private static final float fpsMin = 1/40f;
-
+	public static int secondsToEnd;
+	public final int TIMER_MAX = 300;
 	
 	
 	
 	public GameWorld(){
 
+			secondsToEnd = TIMER_MAX;
 			characters = new ArrayList<Character>();
 			camera = new OrthographicCamera();
 			camera.setToOrtho(true); 
@@ -56,7 +61,10 @@ public class GameWorld {
 			
 			
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(null,"Une erreur est survenue lors de la création de la map"+ e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+				//TODO ouvrir une fênetre pour afficher l'erreur
+				System.out.println("Une erreur est survenue lors de la création de la map: "+ e.getMessage());
+				
+				//JOptionPane.showMessageDialog(null,"Une erreur est survenue lors de la création de la map: "+ e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
 				Gdx.app.exit();
 			}
 
@@ -108,7 +116,18 @@ public class GameWorld {
 		batchInv.begin();
 			batchInv.draw(ResourceManager.getTexture(ResourceManager.fondScore),0, Gdx.graphics.getHeight()- ResourceManager.getTexture(ResourceManager.fondScore).getHeight());
 			ResourceManager.getFont(ResourceManager.menuFont).draw(batchInv, score + "/" + map.nbGum, 0, Gdx.graphics.getHeight());
+			batchInv.draw(ResourceManager.getTexture(ResourceManager.fondScore),Gdx.graphics.getWidth() - ResourceManager.getTexture(ResourceManager.fondScore).getWidth(), Gdx.graphics.getHeight()- ResourceManager.getTexture(ResourceManager.fondScore).getHeight());
+			ResourceManager.getFont(ResourceManager.menuFont).draw(batchInv,  toTime(secondsToEnd),Gdx.graphics.getWidth() - ResourceManager.getTexture(ResourceManager.fondScore).getWidth(), Gdx.graphics.getHeight());
 		batchInv.end();
+	}
+	
+	private String toTime(int seconds){
+		int minutes = 0, tmp = seconds;
+		while( (tmp / 60) >= 1){
+			minutes++;
+			tmp-= 60;
+		}
+		return Integer.toString(minutes) + ":" + Integer.toString(seconds%60);
 	}
 	
 	public void resize(int width,int height){

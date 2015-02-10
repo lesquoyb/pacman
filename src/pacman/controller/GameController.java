@@ -5,6 +5,8 @@ import pacman.controller.gamelogic.PacmanGame;
 import pacman.model.gameobjects.Pacman;
 
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.utils.Timer;
+import com.badlogic.gdx.utils.Timer.Task;
 
 public class GameController extends ScreenController {
 
@@ -13,6 +15,14 @@ public class GameController extends ScreenController {
 	
 	public GameController(PacmanGame g, Screen v) {
 		super(g, v);
+		Timer t = new Timer();
+		t.scheduleTask(new Task() {
+			
+			@Override
+			public void run() {
+				GameWorld.secondsToEnd--;
+			}
+		}, 0, 1);
 	}
 
 	@Override

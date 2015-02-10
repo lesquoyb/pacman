@@ -1,14 +1,13 @@
 package pacman.model.gameobjects;
 
+import java.util.ArrayList;
+
 import pacman.controller.gamelogic.GameWorld;
 import pacman.controller.gamelogic.Map;
-
-import com.badlogic.gdx.math.Vector2;
 
 public abstract class Character extends MovingObject {
 
 	
-	protected Vector2 movement;
 	protected directions next;
 	protected directions direction;
 	protected static final int speed = 100  ;
@@ -19,8 +18,10 @@ public abstract class Character extends MovingObject {
 	
 	public Character(int x, int y,int width, int height, String anim) {
 		super(x, y, width, height,anim);
-		movement = new Vector2();
 		direction = null;
+		ret = new ArrayList<MovingObject.directions>();
+		tmp = new ArrayList<MovingObject.directions>();
+		visited = new ArrayList<int[]>();
 		next = null;
 		alive = true;
 		remainingPower = speed;
@@ -38,33 +39,57 @@ public abstract class Character extends MovingObject {
 	 */
 	protected boolean canMove(directions d){
 		return canMove(d,x,y);
-		/*
-		int newX = x, newY = y;
-		switch(d){
-			case left:
-				newX --;
-				break;
-				
-			case right:
-				newX++;
-				break;
-						
-			case up:
-				newY--;
-				break;
-				
-			case down:
-				newY++;
-				break;
-			default:
-				assert false;
-		}
-		return !( GameWorld.map.getObstacle(newX * Map.tileWidth, newY * Map.tileHeight) instanceof Wall);
-		*/
 	}
 	
-
 	
+	
+	private static final int noMaxDepth = -1;
+	protected ArrayList<directions> findPacman(){
+		return findPacman(noMaxDepth);
+	}
+	private ArrayList<directions> ret, tmp;
+	protected ArrayList<directions> findPacman(int profondeurMax){
+		ret.clear();
+		tmp.clear();
+		ret = findPacmanRecursif(new ArrayList<MovingObject.directions>(), profondeurMax, x, y);
+		return (ret != null ) ? ret : null;
+	}
+	private int[] posRet;
+	private ArrayList<int[]> visited;
+	private int[] currentPosArray;
+	private ArrayList<directions> findPacmanRecursif(ArrayList<directions>precedents, int profondeur, int tmpX, int tmpY){
+		
+		if(profondeur == 0 ){
+			return null;
+		}
+		profondeur--;
+		currentPosArray = new int[]{tmpX,tmpY};
+		if(! visited.contains(currentPosArray)){
+			for(directions d : directions.values()){
+				if(canMove(d, tmpX, tmpY)){
+					System.out.println("avant: " + tmpX + " " +  tmpY);
+					posRet = positionAfterMovement(d, tmpX, tmpY);
+					visited.add(posRet);
+					System.out.println("après: " + posRet[0] + " " + posRet[1]);
+					precedents.add(d);
+					tmp = findPacmanRecursif(precedents, profondeur, posRet[0], posRet[1]);
+					if(tmp != null){
+						return tmp;
+					}
+					else if(precedents.size() > 0){
+						precedents.remove(precedents.size()-1);
+					}
+				}
+			}
+		}
+		else{
+			return null;
+		}
+		assert false;
+		return null;
+	}
+
+	GameObject currentPos;
 	/**
 	 * return true if we can move from the given position toward the given direction
 	 * @param d
@@ -74,9 +99,16 @@ public abstract class Character extends MovingObject {
 	 */
 	protected boolean canMove(directions d, int fromX, int fromY){
 		int newX = fromX, newY = fromY;
+
+		currentPos = GameWorld.map.getElement(newX, newY);
+		if(currentPos instanceof Wormhole && !travellingIntoWormhole){
+			newX = ( (Wormhole) currentPos).linked.x;
+			newY = ( (Wormhole) currentPos).linked.y;
+		}
+
 		switch(d){
 			case left:
-				if(newX > 0){
+				if(newX > 0 ){
 					newX --;
 				}
 				else{
@@ -85,7 +117,7 @@ public abstract class Character extends MovingObject {
 				break;
 				
 			case right:
-				if(newX < GameWorld.map.width -1 ){
+				if(newX < GameWorld.map.width -1){
 					newX++;
 				}
 				else{
@@ -115,6 +147,51 @@ public abstract class Character extends MovingObject {
 		}
 		return !( GameWorld.map.getObstacle(newX * Map.tileWidth, newY * Map.tileHeight) instanceof Wall);
 	}
+	
+	protected int[] positionAfterMovement(directions d, int newX, int newY){
+		int[] ret = {newX,newY};
+		switch(d){
+			case left:
+				if(newX > 0 ){
+					ret[0] --;
+				}
+				else{
+					return null;
+				}
+				break;
+				
+			case right:
+				if(newX < GameWorld.map.width -1){
+					ret[0]++;
+				}
+				else{
+					return null;
+				}
+				break;
+						
+			case up:
+				if(newY > 0 ){
+					ret[1]--;
+				}
+				else{
+					return null;
+				}
+				break;
+				
+			case down:
+				if(newY < GameWorld.map.height - 1){
+					ret[1]++;
+				}
+				else{
+					return null;
+				}
+				break;
+			default:
+				assert false;
+		}
+		return ret;
+	}
+	
 
 	private float dtX, dtY;
 	/**

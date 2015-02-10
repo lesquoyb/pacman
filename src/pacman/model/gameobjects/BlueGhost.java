@@ -1,7 +1,5 @@
 package pacman.model.gameobjects;
 
-import java.util.ArrayList;
-
 import pacman.controller.resources.ResourceManager;
 
 

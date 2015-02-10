@@ -12,7 +12,7 @@ public class GreenGhost extends Ghost {
 	@Override
 	public void update(float delta) {
 		// TODO IA vert
-		
+		seekPacman(delta);
 	}
 	
 }

@@ -38,7 +38,14 @@ public class Map {
 	
 	}
 
-	
+	public GameObject getElement(int x, int y){
+		if(x < grid.size() && y < grid.get(x).size()){
+			return grid.get(x).get(y);
+		}
+		else{
+			return null;
+		}
+	}
 
 	private int tmpX,tmpY;
 	public Floor getFloor(float x, float y){

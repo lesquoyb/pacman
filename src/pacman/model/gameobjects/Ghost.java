@@ -44,7 +44,6 @@ public abstract class Ghost extends Character{
 			possibleMovements();
 			next = possible.get(rand.nextInt(possible.size()));
 		}
-		
 	}
 	
 	/**
@@ -88,7 +87,14 @@ public abstract class Ghost extends Character{
 		possibleMovements(x, y);		
 	}
 	
+	private ArrayList<directions> movements, tmp;
 	public void seekPacman(float delta){
+		tmp = findPacman();
+		if(tmp != null){
+			next = tmp.get(0);
+		}
+		super.update(delta);
+		
 		
 	}
 	
