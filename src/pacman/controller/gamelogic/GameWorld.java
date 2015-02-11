@@ -113,6 +113,7 @@ public class GameWorld {
 			ResourceManager.getFont(ResourceManager.menuFont).draw(batchInv, score + "/" + map.nbGum, 0, Gdx.graphics.getHeight());
 			batchInv.draw(ResourceManager.getTexture(ResourceManager.fondScore),Gdx.graphics.getWidth() - ResourceManager.getTexture(ResourceManager.fondScore).getWidth(), Gdx.graphics.getHeight()- ResourceManager.getTexture(ResourceManager.fondScore).getHeight());
 			ResourceManager.getFont(ResourceManager.menuFont).draw(batchInv,  toTime(secondsToEnd),Gdx.graphics.getWidth() - ResourceManager.getTexture(ResourceManager.fondScore).getWidth(), Gdx.graphics.getHeight());
+			ResourceManager.getFont(ResourceManager.menuFont).draw(batchInv,Integer.toString(Gdx.graphics.getFramesPerSecond()),0,50);
 		batchInv.end();
 	}
 	

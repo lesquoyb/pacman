@@ -123,14 +123,28 @@ public abstract class Ghost extends Character{
 		possibleMovements(x, y);		
 	}
 	
-	
+	private ArrayList<int[]> path;
+	private Pacman pacman;
 	public void seekPacman(float delta){
-		
-		ArrayList<int[]> path = GameWorld.pathfinder.AStar(x, y, GameWorld.getPacman().x, GameWorld.getPacman().y);
+		if(pacman == null){
+			pacman = GameWorld.getPacman();
+		}
+		/*
+		if(path == null || ( path.size() > 0 && ( path.get(path.size() -1)[0] != pacman.x || path.get(path.size() -1)[1] != pacman.y) ) ){
+			path = GameWorld.pathfinder.AStar(x, y,pacman.x, pacman.y);
+			if(path != null && path.size() > 1){
+				Collections.reverse(path);
+				path.remove(0);
+			}
+		}
+		*/
+		path = GameWorld.pathfinder.AStar(x, y,pacman.x, pacman.y);
 		if(path != null && path.size() > 1){
 			Collections.reverse(path);
 			path.remove(0);
 		}
+		
+		
 		if(direction == null){
 			direction = directionToReachPosition(x,y, path.get(0)[0], path.get(0)[1]);
 			path.remove(0);

@@ -9,6 +9,7 @@ import pacman.controller.gamelogic.Map.gameElements;
 import pacman.model.gameobjects.Floor;
 import pacman.model.gameobjects.GameObject;
 import pacman.model.gameobjects.Wall;
+import pacman.model.gameobjects.Wormhole;
 import pacman.model.gameobjects.MovingObject.directions;
 
 public class Pathfinder {
@@ -233,35 +234,59 @@ public class Pathfinder {
 	}
 	
 	private int tmpX,tmpY;
+	private GameObject currentPos;
 	public ArrayList<Position> neighbors(Position p){
 		neighborsTmp.clear();
-		//TODO: pb le noeud 21:8 n'est pas selectionné
-		for(directions d: directions.values()){
-			tmpX = p.x;
-			tmpY = p.y;
-			switch(d){
-			case left:
-				if(tmpX > 0)
-				tmpX--;
-				break;
-			case right:
-				if(tmpX < GameWorld.map.width){
-					tmpX++;
+		
+		
+		
+		if(p.x < GameWorld.map.width && p.y < GameWorld.map.width && p.x >= 0 && p.y >= 0){
+			for(directions d: directions.values()){
+				tmpX = p.x;
+				tmpY = p.y;
+				currentPos = GameWorld.map.getElement(p.x, p.y);
+				if(currentPos instanceof Wormhole){
+					tmpX = ( (Wormhole) currentPos).linked.x;
+					tmpY = ( (Wormhole) currentPos).linked.y;
 				}
-				break;
-			case up:
-				if(tmpY > 0){
-					tmpY--;
+				switch(d){
+				case left:
+					if(tmpX > 0){
+						tmpX--;
+					}
+					else{
+						continue;
+					}
+					break;
+				case right:
+					if(tmpX < GameWorld.map.width-1){
+						tmpX++;
+					}
+					else{
+						continue;
+					}
+					break;
+				case up:
+					if(tmpY > 0){
+						tmpY--;
+					}
+					else{
+						continue;
+					}
+					break;
+				case down:
+					if(tmpY < GameWorld.map.height-1){
+						tmpY++;
+					}
+					else{
+						continue;
+					}
+					break;
 				}
-				break;
-			case down:
-				if(tmpY < GameWorld.map.height){
-					tmpY++;
+				
+				if ( (tmpX != p.x || tmpY != p.y) && ( matrix[tmpX][tmpY] != gameElements.wall) ){
+					neighborsTmp.add(new Position(tmpX, tmpY));
 				}
-				break;
-			}
-			if ( (tmpX != p.x || tmpY != p.y) && ( matrix[tmpX][tmpY] != gameElements.wall) ){
-				neighborsTmp.add(new Position(tmpX, tmpY));
 			}
 		}
 		return neighborsTmp;

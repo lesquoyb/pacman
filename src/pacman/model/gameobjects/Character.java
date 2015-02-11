@@ -240,7 +240,7 @@ public abstract class Character extends MovingObject {
 			if(remainingPower > 0){
 				
 				//first we try to move to the next direction, if it's possible we make it the current direction
-				if(next != null && next != direction && canMove(next)){
+				if(next != null && canMove(next)){
 					direction = next;
 					next = null;
 				}
