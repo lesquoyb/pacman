@@ -1,9 +1,11 @@
 package pacman.view.screens;
 
+import pacman.controller.gamelogic.GameWorld;
 import pacman.controller.resources.ResourceManager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -18,6 +20,7 @@ public class EndGame implements Screen{
 	public EndGame(boolean victory, String score){
 		this.victory = victory;
 		this.score = score;
+		GameWorld.menuFont.setColor(Color.BLACK);
 	}
 	
 	@Override

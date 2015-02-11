@@ -17,6 +17,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 
@@ -35,11 +36,14 @@ public class GameWorld {
 	public static int secondsToEnd;
 	public static Pathfinder pathfinder;
 	public final int TIMER_MAX = 300;
-	
+	public final int GUM_VALUE = 100;
+	public final int TIME_VALUE = 10;
+	public final static BitmapFont menuFont = ResourceManager.getFont(ResourceManager.menuFont);;
 	
 	
 	public GameWorld(){
-
+			
+			menuFont.setColor(Color.WHITE);
 			secondsToEnd = TIMER_MAX;
 			characters = new ArrayList<Character>();
 			camera = new OrthographicCamera();
@@ -50,7 +54,6 @@ public class GameWorld {
 			camera.position.set(camera.viewportWidth/2, camera.viewportHeight / 2, 0);
 
 
-			ResourceManager.setFontColor(ResourceManager.menuFont, Color.BLACK);
 			batch = new SpriteBatch();
 			batchInv = new SpriteBatch();
 			try {
@@ -109,11 +112,11 @@ public class GameWorld {
 		batch.end();
 		
 		batchInv.begin();
-			batchInv.draw(ResourceManager.getTexture(ResourceManager.fondScore),0, Gdx.graphics.getHeight()- ResourceManager.getTexture(ResourceManager.fondScore).getHeight());
-			ResourceManager.getFont(ResourceManager.menuFont).draw(batchInv, score + "/" + map.nbGum, 0, Gdx.graphics.getHeight());
-			batchInv.draw(ResourceManager.getTexture(ResourceManager.fondScore),Gdx.graphics.getWidth() - ResourceManager.getTexture(ResourceManager.fondScore).getWidth(), Gdx.graphics.getHeight()- ResourceManager.getTexture(ResourceManager.fondScore).getHeight());
-			ResourceManager.getFont(ResourceManager.menuFont).draw(batchInv,  toTime(secondsToEnd),Gdx.graphics.getWidth() - ResourceManager.getTexture(ResourceManager.fondScore).getWidth(), Gdx.graphics.getHeight());
-			ResourceManager.getFont(ResourceManager.menuFont).draw(batchInv,Integer.toString(Gdx.graphics.getFramesPerSecond()),0,50);
+			//batchInv.draw(ResourceManager.getTexture(ResourceManager.fondScore),0, Gdx.graphics.getHeight()- ResourceManager.getTexture(ResourceManager.fondScore).getHeight());
+			menuFont.draw(batchInv, score + "/" + map.nbGum, 0, Gdx.graphics.getHeight());
+			//batchInv.draw(ResourceManager.getTexture(ResourceManager.fondScore),Gdx.graphics.getWidth() - ResourceManager.getTexture(ResourceManager.fondScore).getWidth(), Gdx.graphics.getHeight()- ResourceManager.getTexture(ResourceManager.fondScore).getHeight());
+			menuFont.draw(batchInv,  toTime(secondsToEnd),Gdx.graphics.getWidth() - ResourceManager.getTexture(ResourceManager.fondScore).getWidth(), Gdx.graphics.getHeight());
+			menuFont.draw(batchInv,Integer.toString(Gdx.graphics.getFramesPerSecond()),0,50);
 		batchInv.end();
 	}
 	
@@ -139,7 +142,7 @@ public class GameWorld {
 		for(Character c : characters){
 			c.update(dt);
 			if(c instanceof Pacman){
-				score = ((Pacman) c).eatedGum;
+				score = ((Pacman) c).eatedGum * GUM_VALUE + ( secondsToEnd - TIMER_MAX)* TIME_VALUE ;
 			}
 		}
 	}

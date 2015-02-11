@@ -11,8 +11,12 @@ public class RedGhost extends Ghost {
 
 	@Override
 	public void update(float delta) {
-		// TODO IA Rouge
-		
+		if(Ghost.rand.nextInt(2) == 1 ){
+			seekPacman(delta);
+		}
+		else{
+			randomMovement(delta);
+		}
 	}
 
 	
