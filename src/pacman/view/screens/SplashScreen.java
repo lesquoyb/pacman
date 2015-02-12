@@ -21,7 +21,7 @@ public class SplashScreen implements Screen{
 	@Override
 	public void show() {
 		batch  = new SpriteBatch();
-		splash = new Sprite(ResourceManager.getTexture(ResourceManager.splash) );
+		splash = new Sprite(ResourceManager.getTexture(ResourceManager.splash,false).getTexture() );
 
 		splash.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		splash.setAlpha(1);

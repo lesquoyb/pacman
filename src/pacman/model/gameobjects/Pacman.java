@@ -12,9 +12,10 @@ public class Pacman extends Character{
 
 
 	public Pacman(int x, int y, int width, int height) {
-		super(x, y, width, height, ResourceManager.pacman);
+		super(x, y, width, height, ResourceManager.pacmanLeft, ResourceManager.pacmanRight, ResourceManager.pacmanUp, ResourceManager.pacmanDown);
 		eatedGum = 0;
 		score = 0;
+		animated = true;
 	}
 
 	private directions directTmp;

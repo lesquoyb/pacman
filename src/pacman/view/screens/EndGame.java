@@ -8,11 +8,12 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class EndGame implements Screen{
 
 	private boolean victory;
-	private Texture texture;
+	private TextureRegion texture;
 	private String score;
 	private SpriteBatch batch;
 	
@@ -26,10 +27,10 @@ public class EndGame implements Screen{
 	@Override
 	public void show() {
 		if(victory){
-			texture = ResourceManager.getTexture(ResourceManager.victoire);
+			texture = ResourceManager.getTexture(ResourceManager.victoire,false);
 		}
 		else{
-			texture = ResourceManager.getTexture(ResourceManager.defaite);
+			texture = ResourceManager.getTexture(ResourceManager.defaite,false);
 		}
 		batch = new SpriteBatch();
 		
@@ -37,7 +38,7 @@ public class EndGame implements Screen{
 	
 	
 	public void qContinue(){
-		texture = ResourceManager.getTexture(ResourceManager.qContinue);
+		texture = ResourceManager.getTexture(ResourceManager.qContinue,false);
 	}
 
 	@Override

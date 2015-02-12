@@ -2,6 +2,7 @@ package pacman.controller.gamelogic;
 
 import java.util.ArrayList;
 
+import pacman.controller.resources.AnimationFactory;
 import pacman.controller.resources.ResourceManager;
 import pacman.model.gameobjects.BlueGhost;
 import pacman.model.gameobjects.Character;
@@ -19,6 +20,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 
 
@@ -96,7 +98,7 @@ public class GameWorld {
 
 	}
 	
-	
+	TextureRegion texture;
 	public void render(){
 		
 		
@@ -107,7 +109,8 @@ public class GameWorld {
 		batch.begin();
 			map.render(batch);
 			for(Character c : characters){
-				batch.draw(ResourceManager.getTexture(c.getAnimation()),c.left,c.top);
+				texture = ResourceManager.getTexture(c.getAnimation(),c.isAnimated());
+				batch.draw(texture,c.left + (map.tileWidth - texture.getRegionWidth())/2 ,c.top);
 			}
 		batch.end();
 		
@@ -115,7 +118,7 @@ public class GameWorld {
 			//batchInv.draw(ResourceManager.getTexture(ResourceManager.fondScore),0, Gdx.graphics.getHeight()- ResourceManager.getTexture(ResourceManager.fondScore).getHeight());
 			menuFont.draw(batchInv, score + "/" + map.nbGum, 0, Gdx.graphics.getHeight());
 			//batchInv.draw(ResourceManager.getTexture(ResourceManager.fondScore),Gdx.graphics.getWidth() - ResourceManager.getTexture(ResourceManager.fondScore).getWidth(), Gdx.graphics.getHeight()- ResourceManager.getTexture(ResourceManager.fondScore).getHeight());
-			menuFont.draw(batchInv,  toTime(secondsToEnd),Gdx.graphics.getWidth() - ResourceManager.getTexture(ResourceManager.fondScore).getWidth(), Gdx.graphics.getHeight());
+			menuFont.draw(batchInv,  toTime(secondsToEnd),Gdx.graphics.getWidth() -100, Gdx.graphics.getHeight());
 			menuFont.draw(batchInv,Integer.toString(Gdx.graphics.getFramesPerSecond()),0,50);
 		batchInv.end();
 	}
@@ -137,6 +140,7 @@ public class GameWorld {
 	
 	private float dt;
 	public void update(float delta){
+		AnimationFactory.update(delta);
 		dt = Math.min(delta,fpsMin);
 		map.update(dt);
 		for(Character c : characters){

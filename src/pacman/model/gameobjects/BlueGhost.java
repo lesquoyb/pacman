@@ -9,7 +9,7 @@ public class BlueGhost extends Ghost{
 	
 	
 	public BlueGhost(int x, int y,int width, int height) {
-		super(x, y,width, height, ResourceManager.BlueG);
+		super(x, y,width, height, ResourceManager.BlueGLeft, ResourceManager.BlueGRight, ResourceManager.BlueGUp, ResourceManager.BlueGDown);
 	}
 
 	

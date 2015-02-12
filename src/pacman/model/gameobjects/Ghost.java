@@ -14,8 +14,8 @@ public abstract class Ghost extends Character{
 	protected static Random rand = new Random();
 	
 
-	public Ghost(int x, int y,int width, int height, String anim) {
-		super(x, y, width, height,anim);
+	public Ghost(int x, int y,int width, int height, String leftAnim,String rightAnim, String upAnim, String downAnim) {
+		super(x, y, width, height,leftAnim,rightAnim,upAnim,downAnim);
 	}
 
 
@@ -109,10 +109,6 @@ public abstract class Ghost extends Character{
 	
 	
 	
-	
-	
-	
-	
 	/**
 	 * push each possible direction for the next movement into {@link Ghost.possible}
 	 */
@@ -123,6 +119,7 @@ public abstract class Ghost extends Character{
 	private ArrayList<int[]> path;
 	private Pacman pacman;
 	public void seekPacman(float delta){
+		
 		if(pacman == null){
 			pacman = GameWorld.getPacman();
 		}

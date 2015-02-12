@@ -2,6 +2,7 @@ package pacman.model.gameobjects;
 
 import pacman.controller.gamelogic.GameWorld;
 import pacman.controller.gamelogic.Map;
+import pacman.controller.resources.ResourceManager;
 
 public abstract class Character extends MovingObject {
 
@@ -12,15 +13,25 @@ public abstract class Character extends MovingObject {
 	protected float remainingPower;
 	private boolean alive;
 	protected boolean travellingIntoWormhole;
+	public static String leftAnim;
+	public static String rightAnim;
+	public static String upAnim;
+	public static String downAnim;
 	
 	
-	public Character(int x, int y,int width, int height, String anim) {
-		super(x, y, width, height,anim);
+	public Character(int x, int y,int width, int height, String leftAnim, String rightAnim, String upAnim, String downAnim) {
+		super(x, y, width, height,downAnim);
 		direction = null;
 		next = null;
 		alive = true;
 		remainingPower = speed;
 		travellingIntoWormhole = false;
+		animated = true;
+		this.leftAnim = leftAnim;
+		this.rightAnim = rightAnim;
+		this.upAnim = upAnim;
+		this.downAnim = downAnim;
+		
 	}
 
 	public boolean isAlive(){return alive;}
@@ -277,11 +288,37 @@ public abstract class Character extends MovingObject {
 	
 	@Override
 	public void update(float delta) {
+		
 		remainingPower = speed;
+		
 		updatePos();
+		
 		move(delta);
 		
+		chooseAnimation();
 	
+	}
+	
+	private void chooseAnimation(){
+		if(direction != null){
+			switch(direction){
+			case left:
+				animation = leftAnim;
+				break;
+				
+			case right:
+				animation = rightAnim;
+				break;
+				
+			case up:
+				animation = upAnim;
+				break;
+				
+			case down:
+				animation = downAnim;
+				break;
+			}
+		}
 	}
 	
 	

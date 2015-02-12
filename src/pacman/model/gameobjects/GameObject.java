@@ -13,6 +13,7 @@ public abstract class GameObject {
 	public int y;
 	protected Vector2 center;
 	protected String animation;
+	protected boolean animated;
 	
 	
 	protected GameObject(int x, int y,int width,int height, String anim){
@@ -24,6 +25,7 @@ public abstract class GameObject {
 		this.width = width;
 		this.height = height;
 		center = new Vector2(left + width/2, top + height/2);
+		animated = false;
 	}
 	
 	public String getAnimation(){return animation;}
@@ -35,6 +37,8 @@ public abstract class GameObject {
 	public int getY(){
 		return y;
 	}
+	
+	public boolean isAnimated(){return animated;}
 	
 	protected void updatePos(){
 		center.x = left + width/2;

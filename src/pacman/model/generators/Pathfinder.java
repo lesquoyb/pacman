@@ -138,10 +138,8 @@ public class Pathfinder {
 	private class Position{
 		public int x, y;
 		public Position(int x, int y){this.x = x; this.y = y;}
-//		public Position(int[] a){
-//			new Position(a[0],a[1]);
-//		}
 		public int[] toIntArray(){return new int[]{x,y};}
+		
 		@Override
 		public boolean equals(Object arg0) {
 			if(arg0 instanceof Position){
@@ -236,9 +234,9 @@ public class Pathfinder {
 	private int tmpX,tmpY;
 	private GameObject currentPos;
 	public ArrayList<Position> neighbors(Position p){
+		
+		
 		neighborsTmp.clear();
-		
-		
 		
 		if(p.x < GameWorld.map.width && p.y < GameWorld.map.width && p.x >= 0 && p.y >= 0){
 			for(directions d: directions.values()){

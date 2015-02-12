@@ -6,7 +6,7 @@ public class RedGhost extends Ghost {
 
 	
 	public RedGhost(int x, int y, int width, int height) {
-		super(x, y, width, height, ResourceManager.RedG);
+		super(x, y, width, height, ResourceManager.RedGLeft, ResourceManager.RedGRight, ResourceManager.RedGUp, ResourceManager.RedGDown);
 	}
 
 	@Override
