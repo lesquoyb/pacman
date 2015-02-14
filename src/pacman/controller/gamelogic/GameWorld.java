@@ -21,7 +21,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.utils.viewport.FillViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 
 
 public class GameWorld {
@@ -30,10 +30,10 @@ public class GameWorld {
 	private SpriteBatch batchInv;
 	public static Map map;
 	private OrthographicCamera camera;
-	private FillViewport viewport;
+	private FitViewport viewport;
 	private ArrayList<Character> characters;
 	private static Pacman pacman = null;
-	private int score;
+	public static int score;
 	private static final float fpsMin = 1/40f;
 	public static int secondsToEnd;
 	public static Pathfinder pathfinder;
@@ -48,25 +48,29 @@ public class GameWorld {
 			menuFont.setColor(Color.WHITE);
 			secondsToEnd = TIMER_MAX;
 			characters = new ArrayList<Character>();
-			camera = new OrthographicCamera();
-			camera.setToOrtho(true); 
-			viewport =  new FillViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-			viewport.setCamera(camera);
-			viewport.apply();
-			camera.position.set(camera.viewportWidth/2, camera.viewportHeight / 2, 0);
+		
 
 
 			batch = new SpriteBatch();
 			batchInv = new SpriteBatch();
 			try {
-				map = new Map(  Gdx.files.internal("config/map1.map") );
+				map = new Map(  Gdx.files.internal("config/original.map") );
 			
 			
 			} catch (Exception e) {
-				//TODO ouvrir une fênetre pour afficher l'erreur
-				System.out.println("Une erreur est survenue lors de la création de la map: "+ e.getMessage());
+				//TODO ouvrir une fï¿½netre pour afficher l'erreur
+				System.out.println("Une erreur est survenue lors de la crï¿½ation de la map: "+ e.getMessage());
 				Gdx.app.exit();
 			}
+			
+			camera = new OrthographicCamera();
+			camera.setToOrtho(true); 
+			System.out.println(map.width +" "+ map.height);
+			viewport =  new FitViewport(map.width*Map.tileWidth, map.height*Map.tileHeight);
+			viewport.setCamera(camera);
+			viewport.apply();
+			camera.position.set(camera.viewportWidth/2, camera.viewportHeight / 2, 0);
+			
 			pathfinder = new Pathfinder(map.grid);
 			camera.update();
 			for(StartingPoint startingPoint : map.getStartingPoints()){
@@ -101,23 +105,20 @@ public class GameWorld {
 	TextureRegion texture;
 	public void render(){
 		
-		
 		camera.update();
-		Gdx.gl.glClearColor(1, 1, 1, 0);
+		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 			map.render(batch);
 			for(Character c : characters){
 				texture = ResourceManager.getTexture(c.getAnimation(),c.isAnimated());
-				batch.draw(texture,c.left + (map.tileWidth - texture.getRegionWidth())/2 ,c.top);
+				batch.draw( texture, c.left + (Map.tileWidth - texture.getRegionWidth())/2 , c.top + (Map.tileWidth - texture.getRegionHeight()));
 			}
 		batch.end();
 		
 		batchInv.begin();
-			//batchInv.draw(ResourceManager.getTexture(ResourceManager.fondScore),0, Gdx.graphics.getHeight()- ResourceManager.getTexture(ResourceManager.fondScore).getHeight());
-			menuFont.draw(batchInv, score + "/" + map.nbGum, 0, Gdx.graphics.getHeight());
-			//batchInv.draw(ResourceManager.getTexture(ResourceManager.fondScore),Gdx.graphics.getWidth() - ResourceManager.getTexture(ResourceManager.fondScore).getWidth(), Gdx.graphics.getHeight()- ResourceManager.getTexture(ResourceManager.fondScore).getHeight());
+			menuFont.draw(batchInv, "score: " + score , 0, Gdx.graphics.getHeight());
 			menuFont.draw(batchInv,  toTime(secondsToEnd),Gdx.graphics.getWidth() -100, Gdx.graphics.getHeight());
 			menuFont.draw(batchInv,Integer.toString(Gdx.graphics.getFramesPerSecond()),0,50);
 		batchInv.end();
@@ -135,7 +136,7 @@ public class GameWorld {
 	public void resize(int width,int height){
 		viewport.update(width, height);
 		camera.position.set(camera.viewportWidth/2, camera.viewportHeight / 2, 0);
-
+		camera.update();
 	}
 	
 	private float dt;

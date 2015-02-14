@@ -8,100 +8,13 @@ import pacman.controller.gamelogic.Map;
 import pacman.controller.gamelogic.Map.gameElements;
 import pacman.model.gameobjects.Floor;
 import pacman.model.gameobjects.GameObject;
+import pacman.model.gameobjects.MovingObject.directions;
 import pacman.model.gameobjects.Wall;
 import pacman.model.gameobjects.Wormhole;
-import pacman.model.gameobjects.MovingObject.directions;
 
 public class Pathfinder {
 
-	
-	//TODO faire un singleton + destruction pour pouvoir utiliser sur plusieurs maps
-	
-	
-	/*
-	
-	public directions directionToReachPosition(int fromX, int fromY,int toReachX, int toReachY){
-		if(toReachX < fromX && toReachY == fromY){
-			return directions.left;
-		}
-		if(toReachX > fromX && toReachY == fromY){
-			return directions.right;
-		}
-		if(toReachY > fromY && toReachX == fromX){
-			return directions.down;
-		}
-		if(toReachY < fromY && toReachX == fromX){
-			return directions.up;
-		}
-		return null;
-	}
 
-	
-
-	private static final int noMaxDepth = -1;
-	protected ArrayList<int[]> findPacman(){
-		return findPacman(noMaxDepth);
-	}
-	protected ArrayList<int[]>  tmp;
-	protected ArrayList<int[]> findPacman(int profondeurMax){
-		return findPacmanRecursif(null, profondeurMax, x, y);
-	}
-	
-	
-	private int[] posRet;
-	private ArrayList<int[]> visited, best;
-	private ArrayList<int[]> findPacmanRecursif(ArrayList<int[]>precedents, int profondeur, int tmpX, int tmpY){
-		
-		
-		if(precedents == null){
-			//premier passage: initialisation
-			precedents = new ArrayList<int[]>();
-			best = null;
-			visited = new ArrayList<int[]>();
-			tmp.clear();
-		}
-		else{
-			precedents.add(new int[]{tmpX,tmpY});
-		}
-		
-		
-		if(GameWorld.getPacman().x == tmpX && GameWorld.getPacman().y == tmpY){
-			return precedents;
-		}
-		if(profondeur == 0 ){
-			return null;
-		}
-		profondeur--;
-		
-		if(! alreadyVisited(tmpX, tmpY)){
-			visited.add(new int[]{tmpX,tmpY});
-			for(directions d : directions.values()){
-				if(canMove(d, tmpX, tmpY)){
-					posRet = positionAfterMovement(d, tmpX, tmpY);
-					tmp = findPacmanRecursif(precedents, profondeur, posRet[0], posRet[1]);
-					if(tmp != null){
-						if(best == null || best.size() > tmp.size()){
-							best = new ArrayList<int[]>(tmp);
-						}
-					}
-				}
-			}
-		}
-		return best;
-	}
-	
-	
-	
-	private boolean alreadyVisited(int tmpX, int tmpY){
-		for (int[] tuple : visited){
-			if(tuple[0] == tmpX && tuple[1] == tmpY){
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	*/
 	
 	private Map.gameElements[][] matrix;
 	private ArrayList<int[]> total_path;
@@ -135,6 +48,8 @@ public class Pathfinder {
 		}
 	}
 	
+	
+	
 	private class Position{
 		public int x, y;
 		public Position(int x, int y){this.x = x; this.y = y;}
@@ -159,6 +74,42 @@ public class Pathfinder {
 		
 		
 	}
+	
+	private directions retDir;
+	public directions YFirstFinder(int fromX,int fromY, int toX,int toY){
+		
+		if(fromY != toY){
+			
+			if (fromY>toY) { 
+				if(matrix[fromX][fromY-1] != gameElements.wall){
+					return directions.up;
+				}
+			}
+			else {
+				if(matrix[fromX][fromY+1] != gameElements.wall){
+					return directions.down;
+				}
+			}
+			
+		}
+		if(fromX > toX){
+			if(matrix[fromX-1][fromY] != gameElements.wall){
+				return directions.left;
+			}
+		}
+		return directions.right;
+	}
+	
+	public directions YXirstFinder(int fromX,int fromY, int toX,int toY){
+		if(fromX != toX){
+			return (fromX > toX ) ? directions.left : directions.right;
+		}
+		else{
+			return (fromY>toY) ? directions.up : directions.down;
+		}
+	}
+	
+	
 	private ArrayList<Position> closedset, openset;
 	private HashMap<Position,Position> came_from;
 	private HashMap<Position, Integer>g_score, f_score;

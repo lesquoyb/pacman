@@ -1,0 +1,68 @@
+
+SentinelLeft.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+1 [www.imagesplitter.net]-0-3
+  rotate: false
+  xy: 1, 169
+  size: 37, 82
+  orig: 37, 82
+  offset: 0, 0
+  index: -1
+1 [www.imagesplitter.net]-0-0
+  rotate: false
+  xy: 1, 85
+  size: 37, 82
+  orig: 37, 82
+  offset: 0, 0
+  index: -1
+1 [www.imagesplitter.net]-0-2
+  rotate: false
+  xy: 40, 169
+  size: 37, 82
+  orig: 37, 82
+  offset: 0, 0
+  index: -1
+1 [www.imagesplitter.net]-0-1
+  rotate: false
+  xy: 1, 1
+  size: 37, 82
+  orig: 37, 82
+  offset: 0, 0
+  index: -1
+left [www.imagesplitter.net]-0-4
+  rotate: false
+  xy: 40, 90
+  size: 37, 77
+  orig: 37, 77
+  offset: 0, 0
+  index: -1
+left [www.imagesplitter.net]-0-2
+  rotate: false
+  xy: 79, 174
+  size: 37, 77
+  orig: 37, 77
+  offset: 0, 0
+  index: -1
+left [www.imagesplitter.net]-0-0
+  rotate: false
+  xy: 40, 11
+  size: 37, 77
+  orig: 37, 77
+  offset: 0, 0
+  index: -1
+left [www.imagesplitter.net]-0-3
+  rotate: false
+  xy: 79, 95
+  size: 37, 77
+  orig: 37, 77
+  offset: 0, 0
+  index: -1
+left [www.imagesplitter.net]-0-1
+  rotate: false
+  xy: 79, 16
+  size: 37, 77
+  orig: 37, 77
+  offset: 0, 0
+  index: -1

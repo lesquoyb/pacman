@@ -38,6 +38,13 @@ public class Grid2DIterator<E> implements Iterator<E>{
 		}
 		return null;
 	}
+
+
+	@Override
+	public void remove() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
 

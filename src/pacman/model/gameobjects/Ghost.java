@@ -120,6 +120,8 @@ public abstract class Ghost extends Character{
 	private Pacman pacman;
 	public void seekPacman(float delta){
 		
+		
+		
 		if(pacman == null){
 			pacman = GameWorld.getPacman();
 		}
@@ -144,7 +146,7 @@ public abstract class Ghost extends Character{
 				}
 			}
 		}
-		
+
 		super.update(delta);
 		
 

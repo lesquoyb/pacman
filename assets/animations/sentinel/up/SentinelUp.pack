@@ -1,0 +1,68 @@
+
+SentinelUp.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+up3 [www.imagesplitter.net]-0-0
+  rotate: false
+  xy: 1, 157
+  size: 34, 76
+  orig: 34, 76
+  offset: 0, 0
+  index: -1
+up3 [www.imagesplitter.net]-0-2
+  rotate: false
+  xy: 1, 79
+  size: 34, 76
+  orig: 34, 76
+  offset: 0, 0
+  index: -1
+up1 [www.imagesplitter.net]-0-0
+  rotate: false
+  xy: 37, 157
+  size: 34, 76
+  orig: 34, 76
+  offset: 0, 0
+  index: -1
+up3 [www.imagesplitter.net]-0-1
+  rotate: false
+  xy: 1, 1
+  size: 34, 76
+  orig: 34, 76
+  offset: 0, 0
+  index: -1
+up2 [www.imagesplitter.net]-0-1
+  rotate: false
+  xy: 37, 79
+  size: 34, 76
+  orig: 34, 76
+  offset: 0, 0
+  index: -1
+up2 [www.imagesplitter.net]-0-0
+  rotate: false
+  xy: 73, 157
+  size: 34, 76
+  orig: 34, 76
+  offset: 0, 0
+  index: -1
+up2 [www.imagesplitter.net]-0-2
+  rotate: false
+  xy: 37, 1
+  size: 34, 76
+  orig: 34, 76
+  offset: 0, 0
+  index: -1
+up1 [www.imagesplitter.net]-0-1
+  rotate: false
+  xy: 73, 79
+  size: 34, 76
+  orig: 34, 76
+  offset: 0, 0
+  index: -1
+up1 [www.imagesplitter.net]-0-2
+  rotate: false
+  xy: 73, 1
+  size: 34, 76
+  orig: 34, 76
+  offset: 0, 0
+  index: -1

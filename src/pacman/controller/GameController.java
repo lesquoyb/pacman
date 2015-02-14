@@ -31,11 +31,11 @@ public class GameController extends ScreenController {
 		if(p != null){
 			if(p.eatedGum == GameWorld.map.nbGum){
 //				view.dispose();
-				game.endGame(true, "score: " + p.score);
+				game.endGame(true, "score: " + GameWorld.score);
 			}
 			else if( ! p.isAlive() ){
 //				view.dispose();
-				game.endGame(false,"score: " + p.score);
+				game.endGame(false,"score: " + GameWorld.score + "pacgum ramassée(s): " + Integer.toString(p.eatedGum) + "/"  + Integer.toString(GameWorld.map.nbGum));
 			}
 		}
 

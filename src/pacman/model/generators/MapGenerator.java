@@ -94,11 +94,12 @@ public class MapGenerator extends Generator{
 					case wormhole:
 						byte id = (byte) stream.read();
 						if ( id < '0' || id > '9'){
-							errorMessage = "Le trou de ver numéro" + (wormholes.size()+1) + " à la position: "+ (x+1) +", " + (y+1) + " a un identifiant incorrecte (" + id + " )";
+							errorMessage = "Le trou de ver numï¿½ro" + (wormholes.size()+1) + " ï¿½ la position: "+ (x+1) +", " + (y+1) + " a un identifiant incorrecte (" + id + " )";
 							return false;
 						}
 						wormholes.add(map.addWormhole(x,y,id));
 						break;
+					case 10:
 					case 13: // carriage return
 						
 						// we check that there is the same number of block each line, if not we return false
@@ -106,7 +107,7 @@ public class MapGenerator extends Generator{
 							firstLine = x;
 						}
 						else if (firstLine != x){
-							errorMessage = "le nombre d'élément par ligne n'est pas le même partout (erreur survenue à la ligne: "+ (y + 1) +" ).";
+							errorMessage = "le nombre d'ï¿½lï¿½ment par ligne n'est pas le mï¿½me partout (erreur survenue ï¿½ la ligne: "+ (y + 1) +" ).";
 							return false;
 						}
 						
@@ -130,7 +131,7 @@ public class MapGenerator extends Generator{
 		//we check that each wormhole id exists twice
 		while(wormholes.size() != 0){
 			if(wormholes.size()%2 != 0){
-				errorMessage = "Tous les trous de vers n'ont pas un bînome.";
+				errorMessage = "Tous les trous de vers n'ont pas un bï¿½nome.";
 				return false;
 			}
 			int first = wormholes.get(0).id;

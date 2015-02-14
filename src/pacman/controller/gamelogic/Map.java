@@ -23,8 +23,8 @@ public class Map {
 	public int nbGum = -1;
 	private ArrayList<StartingPoint> startingPoints;	
 	public ArrayList<ArrayList<GameObject>> grid;
-	public static final int tileWidth = 64;
-	public static final int tileHeight = 64;
+	public static final int tileWidth = 32;
+	public static final int tileHeight = 32;
 	
 	
 	public Map(FileHandle file)  throws Exception{

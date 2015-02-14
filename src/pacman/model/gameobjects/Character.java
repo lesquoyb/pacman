@@ -2,7 +2,6 @@ package pacman.model.gameobjects;
 
 import pacman.controller.gamelogic.GameWorld;
 import pacman.controller.gamelogic.Map;
-import pacman.controller.resources.ResourceManager;
 
 public abstract class Character extends MovingObject {
 
@@ -13,10 +12,10 @@ public abstract class Character extends MovingObject {
 	protected float remainingPower;
 	private boolean alive;
 	protected boolean travellingIntoWormhole;
-	public static String leftAnim;
-	public static String rightAnim;
-	public static String upAnim;
-	public static String downAnim;
+	public String leftAnim;
+	public String rightAnim;
+	public String upAnim;
+	public String downAnim;
 	
 	
 	public Character(int x, int y,int width, int height, String leftAnim, String rightAnim, String upAnim, String downAnim) {

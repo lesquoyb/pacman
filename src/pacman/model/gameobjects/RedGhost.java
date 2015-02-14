@@ -11,12 +11,15 @@ public class RedGhost extends Ghost {
 
 	@Override
 	public void update(float delta) {
-		if(Ghost.rand.nextInt(2) == 1 ){
+		
+		
+		if(Ghost.rand.nextInt(6) > 4 ){
 			seekPacman(delta);
 		}
 		else{
 			randomMovement(delta);
 		}
+		
 	}
 
 	

@@ -3,7 +3,6 @@ package pacman.controller.resources;
 import java.util.HashMap;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -23,6 +22,8 @@ public final class ResourceManager {
 	public static final String victoire = "victoire";
 	public static final String qContinue = "continue";
 	
+	
+	
 	//animation
 	public static final String GreenGLeft = "GreenGLeft";
 	public static final String GreenGRight = "GreenGRight";
@@ -32,18 +33,18 @@ public final class ResourceManager {
 	public static final String pacmanRight = "GreenGRight";
 	public static final String pacmanUp = "GreenGUp";
 	public static final String pacmanDown = "GreenGDown";
-	public static final String RedGLeft = "GreenGLeft";
-	public static final String RedGRight = "GreenGRight";
-	public static final String RedGUp = "GreenGUp";
-	public static final String RedGDown = "GreenGDown";
+	public static final String RedGLeft = "RedLeft";
+	public static final String RedGRight = "RedRight";
+	public static final String RedGUp = "RedUp";
+	public static final String RedGDown = "RedDown";
 	public static final String BlueGLeft = "GreenGLeft";
 	public static final String BlueGRight = "GreenGRight";
 	public static final String BlueGUp = "GreenGUp";
 	public static final String BlueGDown = "GreenGDown";
-	public static final String YellowGLeft = "GreenGLeft";
-	public static final String YellowGRight = "GreenGRight";
-	public static final String YellowGUp = "GreenGUp";
-	public static final String YellowGDown = "GreenGDown";
+	public static final String YellowGLeft = "YellowLeft";
+	public static final String YellowGRight = "YellowGRight";
+	public static final String YellowGUp = "YellowUp";
+	public static final String YellowGDown = "YellowDown";
 	
 	
 	public static HashMap<String,String>  files  = new HashMap<String,String>();
@@ -62,10 +63,22 @@ public final class ResourceManager {
 		files.put(menuAtlas, "ui/buttons.pack");
 		files.put(qContinue, "ui/continue.jpg");
 		
+		
+		
+		
+		files.put(RedGDown, "animations/flying robot/down/FlyingRobotDown.pack");
+		files.put(RedGUp, "animations/flying robot/up/FlyingRobotUp.pack");
+		files.put(RedGLeft, "animations/flying robot/left/FlyingRobotLeft.pack");
+		files.put(RedGRight, "animations/flying robot/right/FlyingRobotRight.pack");
+		files.put(YellowGDown, "animations/sentinel/down/SentinelDown.pack");
+		files.put(YellowGUp, "animations/sentinel/up/SentinelUp.pack");
+		files.put(YellowGLeft, "animations/sentinel/left/SentinelLeft.pack");
+		files.put(YellowGRight, "animations/sentinel/right/SentinelRight.pack");
 		files.put(GreenGLeft, "animations/cop/left/GreenGLeft.pack");
 		files.put(GreenGRight, "animations/cop/right/GreenGRight.pack");
 		files.put(GreenGDown, "animations/cop/up/GreenGUp.pack");
 		files.put(GreenGUp, "animations/cop/down/GreenGDown.pack");
+		
 
 		
 	
