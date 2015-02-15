@@ -15,10 +15,8 @@ import pacman.model.gameobjects.YellowGhost;
 import pacman.model.generators.Pathfinder;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Timer;
@@ -159,7 +157,7 @@ public class GameWorld {
 		
 	}
 	
-	public static Character getCharAtPos(int x, int y,Character test){
+	public static Character getCharacterAtPos(int x, int y,Character test){
 		for(Character c : characters){
 			if(c.getX() == x && c.getY() == y && c != test){
 				return c;

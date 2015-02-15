@@ -300,7 +300,7 @@ public abstract class Character extends MovingObject {
 		chooseAnimation();
 		
 		
-		character = GameWorld.getCharAtPos(x, y, this);
+		character = GameWorld.getCharacterAtPos(x, y, this);
 		if(character != null){
 			character.collision(this);
 		}

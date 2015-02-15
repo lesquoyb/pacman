@@ -20,6 +20,7 @@ public final class ResourceManager {
 	public static final String defaite = "defaite";
 	public static final String victoire = "victoire";
 	public static final String qContinue = "continue";
+	public static final String heart = "heart";
 	
 	
 	
@@ -69,6 +70,7 @@ public final class ResourceManager {
 		files.put(victoire, "ui/victoire.jpg");
 		files.put(menuAtlas, "ui/buttons.pack");
 		files.put(qContinue, "ui/continue.jpg");
+		files.put(heart, "images/heart.png");
 		
 		
 		
