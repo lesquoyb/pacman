@@ -26,6 +26,7 @@ public abstract class ScreenController {
 		game.goToMainMenu();
 	}
 	
+	
 	/*
 	 * This method should be used to check if we need to change the screen or not
 	 */

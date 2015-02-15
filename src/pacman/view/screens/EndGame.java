@@ -21,7 +21,7 @@ public class EndGame implements Screen{
 	public EndGame(boolean victory, String score){
 		this.victory = victory;
 		this.score = score;
-		GameWorld.menuFont.setColor(Color.BLACK);
+		ResourceManager.getFont(ResourceManager.menuFont).setColor(Color.BLACK);
 	}
 	
 	@Override

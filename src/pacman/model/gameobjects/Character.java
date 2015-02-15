@@ -1,5 +1,7 @@
 package pacman.model.gameobjects;
 
+import com.badlogic.gdx.Gdx;
+
 import pacman.controller.gamelogic.GameWorld;
 import pacman.controller.gamelogic.Map;
 
@@ -8,9 +10,9 @@ public abstract class Character extends MovingObject {
 	
 	protected directions next;
 	protected directions direction;
-	protected static final int speed = 100  ;
+	protected static final int speed = 300  ;
 	protected float remainingPower;
-	private boolean alive;
+	protected boolean alive;
 	protected boolean travellingIntoWormhole;
 	public String leftAnim;
 	public String rightAnim;
@@ -285,6 +287,7 @@ public abstract class Character extends MovingObject {
 		bottom = top + height;
 	}
 	
+	Character character;
 	@Override
 	public void update(float delta) {
 		
@@ -295,8 +298,16 @@ public abstract class Character extends MovingObject {
 		move(delta);
 		
 		chooseAnimation();
+		
+		
+		character = GameWorld.getCharAtPos(x, y, this);
+		if(character != null){
+			character.collision(this);
+		}
 	
 	}
+	
+	protected abstract void collision(Character c);
 	
 	private void chooseAnimation(){
 		if(direction != null){

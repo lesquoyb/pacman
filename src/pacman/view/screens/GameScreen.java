@@ -7,19 +7,21 @@ import com.badlogic.gdx.Screen;
 public class GameScreen implements Screen {
 
 	
-	private GameWorld world;
+	public GameWorld world;
+	private HUD hud;
 
-	
 	
 	@Override
 	public void show() {
 		world = new GameWorld();
+		hud = new HUD(world);
 	}
 
 	@Override
 	public void render(float delta) {
 		world.update(delta);
 		world.render();
+		hud.draw();
 		
 	}
 

@@ -2,6 +2,7 @@ package pacman.controller.resources;
 
 import java.util.HashMap;
 
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -15,9 +16,7 @@ public final class ResourceManager {
 	public static final String rawFloor = "floor";
 	public static final String floorGum = "floorGum";
 	public static final String splash = "splash";
-	public static final String menuFont = "menuFont";
 	public static final String menuAtlas = "menuAtlas";
-	public static final String fondScore = "fondScore";
 	public static final String defaite = "defaite";
 	public static final String victoire = "victoire";
 	public static final String qContinue = "continue";
@@ -46,18 +45,26 @@ public final class ResourceManager {
 	public static final String YellowGUp = "YellowUp";
 	public static final String YellowGDown = "YellowDown";
 	
+	//sounds
+	public static final String pacmanDeath = "pacmanDeath";
+	public static final String mainTheme = "mainTheme";
+	
+	
+	//fonts
+	public static final String menuFont = "menuFont";
+	public static final String scoreFont = "scoreFont";
+	
 	
 	public static HashMap<String,String>  files  = new HashMap<String,String>();
 
 	static {
 		
+		//images
 		files.put(wall, "images/wall.jpg");
 		files.put(wormhole, "images/wormhole.jpg");
 		files.put(rawFloor, "images/floor.jpg");
 		files.put(splash,"ui/splashScreen.jpg" );
 		files.put(floorGum, "images/floorGum.jpg");
-		files.put(menuFont, "fonts/white_white_rabbit.fnt");
-		files.put(fondScore, "images/fondScore.png");
 		files.put(defaite, "ui/defaite.jpg");
 		files.put(victoire, "ui/victoire.jpg");
 		files.put(menuAtlas, "ui/buttons.pack");
@@ -65,7 +72,7 @@ public final class ResourceManager {
 		
 		
 		
-		
+		//animations
 		files.put(RedGDown, "animations/flying robot/down/FlyingRobotDown.pack");
 		files.put(RedGUp, "animations/flying robot/up/FlyingRobotUp.pack");
 		files.put(RedGLeft, "animations/flying robot/left/FlyingRobotLeft.pack");
@@ -74,17 +81,26 @@ public final class ResourceManager {
 		files.put(YellowGUp, "animations/sentinel/up/SentinelUp.pack");
 		files.put(YellowGLeft, "animations/sentinel/left/SentinelLeft.pack");
 		files.put(YellowGRight, "animations/sentinel/right/SentinelRight.pack");
-		files.put(GreenGLeft, "animations/cop/left/GreenGLeft.pack");
-		files.put(GreenGRight, "animations/cop/right/GreenGRight.pack");
-		files.put(GreenGDown, "animations/cop/up/GreenGUp.pack");
-		files.put(GreenGUp, "animations/cop/down/GreenGDown.pack");
+		files.put(GreenGLeft, "animations/cop/left/copLeft.pack");
+		files.put(GreenGRight, "animations/cop/right/CopRight.pack");
+		files.put(GreenGDown, "animations/cop/up/CopUp.pack");
+		files.put(GreenGUp, "animations/cop/bottom/CopBottom.pack");
 		
 
+		
+		//sounds
+		files.put(mainTheme, "sounds/mainTheme.wav");
+		files.put(pacmanDeath, "sounds/death.wav");
+		
+		//fonts
+		files.put(menuFont, "fonts/fallout.fnt");
+		files.put(scoreFont, "fonts/score.fnt");
 		
 	
 	
 	}
 	
+	public static Music getSound(String s){return SoundFactory.getSound(s);}
 	
 	public static TextureRegion getTextureRegion(String s){return AnimationFactory.getTextureRegion(s);}
 	

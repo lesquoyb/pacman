@@ -21,38 +21,41 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Timer;
+import com.badlogic.gdx.utils.Timer.Task;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 
 public class GameWorld {
 	
 	private SpriteBatch batch;
-	private SpriteBatch batchInv;
 	public static Map map;
 	private OrthographicCamera camera;
 	private FitViewport viewport;
-	private ArrayList<Character> characters;
+	private static ArrayList<Character> characters;
 	private static Pacman pacman = null;
-	public static int score;
+	public int score;
 	private static final float fpsMin = 1/40f;
 	public static int secondsToEnd;
 	public static Pathfinder pathfinder;
 	public final int TIMER_MAX = 300;
 	public final int GUM_VALUE = 100;
 	public final int TIME_VALUE = 10;
-	public final static BitmapFont menuFont = ResourceManager.getFont(ResourceManager.menuFont);;
+	public static int remainingLife = 3;
+	public static int totalGumEated = 0;
 	
 	
 	public GameWorld(){
 			
-			menuFont.setColor(Color.WHITE);
+		remainingLife = 3;
+		totalGumEated = 0;
+		
 			secondsToEnd = TIMER_MAX;
 			characters = new ArrayList<Character>();
 		
 
 
 			batch = new SpriteBatch();
-			batchInv = new SpriteBatch();
 			try {
 				map = new Map(  Gdx.files.internal("config/original.map") );
 			
@@ -65,7 +68,7 @@ public class GameWorld {
 			
 			camera = new OrthographicCamera();
 			camera.setToOrtho(true); 
-			System.out.println(map.width +" "+ map.height);
+
 			viewport =  new FitViewport(map.width*Map.tileWidth, map.height*Map.tileHeight);
 			viewport.setCamera(camera);
 			viewport.apply();
@@ -73,33 +76,70 @@ public class GameWorld {
 			
 			pathfinder = new Pathfinder(map.grid);
 			camera.update();
-			for(StartingPoint startingPoint : map.getStartingPoints()){
-				characters c = startingPoint.getCharacter();
-				int x = startingPoint.getX();
-				int y = startingPoint.getY();
-				Character character = null;
-				switch(c){
-					case pacman:
-						character = new Pacman(x, y, Map.tileWidth, Map.tileHeight);
-						pacman = (Pacman) character;
-						break;
-					case Bghost :
-						character = new BlueGhost(x,y, Map.tileWidth, Map.tileHeight);
-						break;
-					case Rghost :
-						character = new RedGhost(x,y, Map.tileWidth, Map.tileHeight);
-						break;
-					case  Yghost:
-						character = new YellowGhost(x,y, Map.tileWidth, Map.tileHeight);
-						break;
-					case Gghost :
-						character = new GreenGhost(x,y, Map.tileWidth, Map.tileHeight);
-						break;
+			
+			newLife();
+
+
+	}
+	
+	
+	public void newLife(){
+		
+		if(ResourceManager.getSound(ResourceManager.mainTheme).isPlaying()){
+			ResourceManager.getSound(ResourceManager.mainTheme).stop();
+		}
+		
+		characters.clear();
+		
+		placeCharacters();
+		Timer t = new Timer();
+		t.scheduleTask(new Task() {
+
+			byte chrono = 4;
+			
+			@Override
+			public void run() {
+				chrono--;
+				if(chrono < 0){
+					//begin();
 				}
-					characters.add(character);
+				else{
+					System.out.println(chrono);
+					
+				}
 			}
-
-
+		}, 0, 1,3);
+		
+		ResourceManager.getSound(ResourceManager.mainTheme).setLooping(true);
+		ResourceManager.getSound(ResourceManager.mainTheme).play();
+	}
+	
+	private void placeCharacters(){
+		for(StartingPoint startingPoint : map.getStartingPoints()){
+			characters c = startingPoint.getCharacter();
+			int x = startingPoint.getX();
+			int y = startingPoint.getY();
+			Character character = null;
+			switch(c){
+				case pacman:
+					character = new Pacman(x, y, Map.tileWidth, Map.tileHeight);
+					pacman = (Pacman) character;
+					break;
+				case Bghost :
+					character = new BlueGhost(x,y, Map.tileWidth, Map.tileHeight);
+					break;
+				case Rghost :
+					character = new RedGhost(x,y, Map.tileWidth, Map.tileHeight);
+					break;
+				case  Yghost:
+					character = new YellowGhost(x,y, Map.tileWidth, Map.tileHeight);
+					break;
+				case Gghost :
+					character = new GreenGhost(x,y, Map.tileWidth, Map.tileHeight);
+					break;
+			}
+				characters.add(character);
+		}
 	}
 	
 	TextureRegion texture;
@@ -117,26 +157,24 @@ public class GameWorld {
 			}
 		batch.end();
 		
-		batchInv.begin();
-			menuFont.draw(batchInv, "score: " + score , 0, Gdx.graphics.getHeight());
-			menuFont.draw(batchInv,  toTime(secondsToEnd),Gdx.graphics.getWidth() -100, Gdx.graphics.getHeight());
-			menuFont.draw(batchInv,Integer.toString(Gdx.graphics.getFramesPerSecond()),0,50);
-		batchInv.end();
 	}
 	
-	private String toTime(int seconds){
-		int minutes = 0, tmp = seconds;
-		while( (tmp / 60) >= 1){
-			minutes++;
-			tmp-= 60;
+	public static Character getCharAtPos(int x, int y,Character test){
+		for(Character c : characters){
+			if(c.getX() == x && c.getY() == y && c != test){
+				return c;
+			}
 		}
-		return Integer.toString(minutes) + ":" + Integer.toString(seconds%60);
+		return null;
 	}
+	
+
 	
 	public void resize(int width,int height){
 		viewport.update(width, height);
 		camera.position.set(camera.viewportWidth/2, camera.viewportHeight / 2, 0);
 		camera.update();
+		
 	}
 	
 	private float dt;
@@ -147,14 +185,17 @@ public class GameWorld {
 		for(Character c : characters){
 			c.update(dt);
 			if(c instanceof Pacman){
-				score = ((Pacman) c).eatedGum * GUM_VALUE + ( secondsToEnd - TIMER_MAX)* TIME_VALUE ;
+				score = totalGumEated * GUM_VALUE + ( secondsToEnd - TIMER_MAX)* TIME_VALUE ;
 			}
 		}
 	}
 	
 	
 	public void dispose(){
-		//map.dispose();
+		if(ResourceManager.getSound(ResourceManager.mainTheme).isPlaying()){
+			ResourceManager.getSound(ResourceManager.mainTheme).stop();
+		}
+		
 		batch.dispose();
 	}
 	

@@ -19,8 +19,8 @@ import com.badlogic.gdx.Screen;
 public class PacmanGame extends Game {
 		
 	ScreenController screenController;
-	public static final int WIDTH = 1524;
-	public static final int HEIGHT = 832;
+	public static final int WIDTH = 896;
+	public static final int HEIGHT = 928;
 
 	
 	@Override

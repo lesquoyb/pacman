@@ -41,6 +41,7 @@ public abstract class Ghost extends Character{
 		
 		super.update(delta);
 		
+
 		if(isIntersection(x, y)){
 			next = possible.get(rand.nextInt(possible.size()));
 		}
@@ -107,7 +108,7 @@ public abstract class Ghost extends Character{
 	
 	
 	
-	
+	protected void collision(Character c){/* on ne fait rien*/	}
 	
 	/**
 	 * push each possible direction for the next movement into {@link Ghost.possible}

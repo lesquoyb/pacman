@@ -7,14 +7,11 @@ import pacman.controller.resources.ResourceManager;
 public class Pacman extends Character{
 
 
-	public int eatedGum;
-	public int score;
+
 
 
 	public Pacman(int x, int y, int width, int height) {
 		super(x, y, width, height, ResourceManager.pacmanLeft, ResourceManager.pacmanRight, ResourceManager.pacmanUp, ResourceManager.pacmanDown);
-		eatedGum = 0;
-		score = 0;
 		animated = true;
 	}
 
@@ -53,6 +50,13 @@ public class Pacman extends Character{
 		
 	}
 	
+	
+	protected void collision(Character c){
+		if(c instanceof Ghost){
+			alive = false;
+		}
+	}
+	
 	private Floor currentPos;
 	private void gumCollisionsCheck(){
 		
@@ -82,8 +86,7 @@ public class Pacman extends Character{
 			}
 			if(res){
 				currentPos.setGum(false);
-				eatedGum++;
-				score++;
+				GameWorld.totalGumEated++;
 			}
 		}
 	}
