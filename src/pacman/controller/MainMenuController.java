@@ -22,7 +22,7 @@ public class MainMenuController extends ScreenController  {
 
 
 	public void exit(){
-		view.dispose();
+		//view.dispose();
 		Gdx.app.exit();	
 	}
 

@@ -43,6 +43,7 @@ public class GameController extends ScreenController {
 					game.endGame(false,"score: " + world.score + "pacgum ramassée(s): " + Integer.toString(world.totalGumEated) + "/"  + Integer.toString(GameWorld.map.nbGum));
 				}
 				else{
+					
 					((GameScreen)view).world.newLife();
 				}
 			}

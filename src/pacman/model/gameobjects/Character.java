@@ -1,7 +1,5 @@
 package pacman.model.gameobjects;
 
-import com.badlogic.gdx.Gdx;
-
 import pacman.controller.gamelogic.GameWorld;
 import pacman.controller.gamelogic.Map;
 
@@ -10,7 +8,7 @@ public abstract class Character extends MovingObject {
 	
 	protected directions next;
 	protected directions direction;
-	protected static final int speed = 300  ;
+	protected static final int speed = 200  ;
 	protected float remainingPower;
 	protected boolean alive;
 	protected boolean travellingIntoWormhole;
@@ -283,8 +281,8 @@ public abstract class Character extends MovingObject {
 	protected void updatePos() {
 		center.x = left + width/2;
 		center.y = top + height/2;
-		right = left + width;
-		bottom = top + height;
+		right = left +width;
+		bottom = top + Map.tileHeight;
 	}
 	
 	Character character;
@@ -299,12 +297,23 @@ public abstract class Character extends MovingObject {
 		
 		chooseAnimation();
 		
-		
-		character = GameWorld.getCharacterAtPos(x, y, this);
-		if(character != null){
-			character.collision(this);
-		}
+		updatePos();
 	
+	}
+	
+	protected byte i;
+	protected void checkCollision(){
+		for( i = 0 ; i < GameWorld.characters.size();i++){
+			character = GameWorld.characters.get(i);
+			if (character != this){
+				if(    ((left >= character.left && left <= character.right) || (right <= character.right && right >= character.left))
+					&& ((top <= character.top && bottom >= character.top) || (top >= character.top && top <= character.bottom ))
+					){
+					collision(character);
+				}
+			}
+			
+		}
 	}
 	
 	protected abstract void collision(Character c);

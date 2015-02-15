@@ -45,8 +45,8 @@ public abstract class GameObject {
 		center.y = top + height/2;
 		x = (int)( center.x / Map.tileWidth);
 		y =  (int)( center.y / Map.tileHeight);
-		right = left + width;
-		bottom = top + height;
+		right = left + Map.tileWidth;
+		bottom = top + Map.tileHeight;
 	}
 	
 	public abstract void update(float delta);

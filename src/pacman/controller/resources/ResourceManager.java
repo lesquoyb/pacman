@@ -21,6 +21,7 @@ public final class ResourceManager {
 	public static final String victoire = "victoire";
 	public static final String qContinue = "continue";
 	public static final String heart = "heart";
+	public static final String redCircle = "redCircle";
 	
 	
 	
@@ -49,11 +50,13 @@ public final class ResourceManager {
 	//sounds
 	public static final String pacmanDeath = "pacmanDeath";
 	public static final String mainTheme = "mainTheme";
+	public static final String countdown = "countdown";
 	
 	
 	//fonts
 	public static final String menuFont = "menuFont";
 	public static final String scoreFont = "scoreFont";
+	public static final String titleFont = "titleFont";
 	
 	
 	public static HashMap<String,String>  files  = new HashMap<String,String>();
@@ -71,6 +74,7 @@ public final class ResourceManager {
 		files.put(menuAtlas, "ui/buttons.pack");
 		files.put(qContinue, "ui/continue.jpg");
 		files.put(heart, "images/heart.png");
+		files.put(redCircle, "images/circle.png");
 		
 		
 		
@@ -93,10 +97,12 @@ public final class ResourceManager {
 		//sounds
 		files.put(mainTheme, "sounds/mainTheme.wav");
 		files.put(pacmanDeath, "sounds/death.wav");
+		files.put(countdown, "sounds/countdown.wav");
 		
 		//fonts
 		files.put(menuFont, "fonts/fallout.fnt");
 		files.put(scoreFont, "fonts/score.fnt");
+		files.put(titleFont, "fonts/title.fnt");
 		
 	
 	

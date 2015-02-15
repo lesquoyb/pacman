@@ -15,7 +15,7 @@ public class YellowGhost extends Ghost {
 	@Override
 	public void update(float delta) {
 		// TODO IA Jaune
-		
+		seekPacman(delta);
 	}
 	
 	

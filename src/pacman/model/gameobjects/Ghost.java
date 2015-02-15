@@ -127,15 +127,19 @@ public abstract class Ghost extends Character{
 			pacman = GameWorld.getPacman();
 		}
 
+		
+		
 		if(isIntersection(x, y) || path == null || !canMove(direction)){
 			path = GameWorld.pathfinder.AStar(x, y, pacman.x, pacman.y);
-		}
-		if(path != null && path.size() > 1){
-			Collections.reverse(path);
-			path.remove(0);
+			if(path != null && path.size() > 0){
+				Collections.reverse(path);
+				path.remove(0);
+			}
 		}
 		
-		if(path != null){
+		
+		if(path != null && path.size() < 8){
+			
 			if(direction == null ){
 				direction = directionToReachPosition(x,y, path.get(0)[0], path.get(0)[1]);
 				path.remove(0);
@@ -146,9 +150,12 @@ public abstract class Ghost extends Character{
 					path.remove(0);
 				}
 			}
+			
+			super.update(delta);
 		}
-
-		super.update(delta);
+		else{
+			randomMovement(delta);
+		}
 		
 
 		

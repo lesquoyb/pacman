@@ -28,9 +28,9 @@ public class GameWorld {
 	
 	private SpriteBatch batch;
 	public static Map map;
-	private OrthographicCamera camera;
+	public OrthographicCamera camera;
 	private FitViewport viewport;
-	private static ArrayList<Character> characters;
+	public static ArrayList<Character> characters;
 	private static Pacman pacman = null;
 	public int score;
 	private static final float fpsMin = 1/40f;
@@ -41,7 +41,12 @@ public class GameWorld {
 	public final int TIME_VALUE = 10;
 	public static int remainingLife = 3;
 	public static int totalGumEated = 0;
-	
+	public static boolean begin ;
+	public byte chrono;
+
+	private final TextureRegion circle = ResourceManager.getTexture(ResourceManager.redCircle, false);
+	private final int circleHeight = circle.getRegionHeight();
+
 	
 	public GameWorld(){
 			
@@ -83,6 +88,12 @@ public class GameWorld {
 	
 	public void newLife(){
 		
+		
+		begin = false;
+		
+
+		chrono = 4;
+		
 		if(ResourceManager.getSound(ResourceManager.mainTheme).isPlaying()){
 			ResourceManager.getSound(ResourceManager.mainTheme).stop();
 		}
@@ -93,23 +104,23 @@ public class GameWorld {
 		Timer t = new Timer();
 		t.scheduleTask(new Task() {
 
-			byte chrono = 4;
 			
 			@Override
 			public void run() {
 				chrono--;
-				if(chrono < 0){
-					//begin();
-				}
-				else{
-					System.out.println(chrono);
-					
+				if(chrono == 0){
+					begin();
 				}
 			}
 		}, 0, 1,3);
 		
+	}
+	
+	
+	private void begin(){
+		begin = true;
 		ResourceManager.getSound(ResourceManager.mainTheme).setLooping(true);
-		ResourceManager.getSound(ResourceManager.mainTheme).play();
+		ResourceManager.getSound(ResourceManager.mainTheme).play();		
 	}
 	
 	private void placeCharacters(){
@@ -122,6 +133,7 @@ public class GameWorld {
 				case pacman:
 					character = new Pacman(x, y, Map.tileWidth, Map.tileHeight);
 					pacman = (Pacman) character;
+					pacman.update(0);
 					break;
 				case Bghost :
 					character = new BlueGhost(x,y, Map.tileWidth, Map.tileHeight);
@@ -146,16 +158,20 @@ public class GameWorld {
 		camera.update();
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 			map.render(batch);
 			for(Character c : characters){
 				texture = ResourceManager.getTexture(c.getAnimation(),c.isAnimated());
+				batch.draw(circle,pacman.left, pacman.bottom - circleHeight);
 				batch.draw( texture, c.left + (Map.tileWidth - texture.getRegionWidth())/2 , c.top + (Map.tileWidth - texture.getRegionHeight()));
 			}
 		batch.end();
 		
 	}
+	
+	
 	
 	public static Character getCharacterAtPos(int x, int y,Character test){
 		for(Character c : characters){
@@ -177,13 +193,15 @@ public class GameWorld {
 	
 	private float dt;
 	public void update(float delta){
-		AnimationFactory.update(delta);
-		dt = Math.min(delta,fpsMin);
-		map.update(dt);
-		for(Character c : characters){
-			c.update(dt);
-			if(c instanceof Pacman){
-				score = totalGumEated * GUM_VALUE + ( secondsToEnd - TIMER_MAX)* TIME_VALUE ;
+		if(begin){
+			AnimationFactory.update(delta);
+			dt = Math.min(delta,fpsMin);
+			map.update(dt);
+			for(Character c : characters){
+				c.update(dt);
+				if(c instanceof Pacman){
+					score = totalGumEated * GUM_VALUE + ( secondsToEnd - TIMER_MAX)* TIME_VALUE ;
+				}
 			}
 		}
 	}

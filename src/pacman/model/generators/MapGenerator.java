@@ -121,7 +121,7 @@ public class MapGenerator extends Generator{
 			}
 			while(input!= -1);
 
-			map.width = x;
+			map.width = firstLine;
 			map.height = y+1;
 			map.nbGum = nbGum;
 			

@@ -33,9 +33,16 @@ public class HUD {
 			for(int i = 0 ; i < world.remainingLife ; i++){
 				batch.draw(heart, Gdx.graphics.getWidth() - (world.remainingLife - i)* heart.getRegionWidth() -30 ,0); 
 			}
+			if(! world.begin){
+				printChrono();
+			}
+			
 		batch.end();
 	}
 	
+	private void printChrono(){
+		scoreFont.draw(batch, Byte.toString(world.chrono), Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
+	}
 	
 	
 	private String toTime(int seconds){

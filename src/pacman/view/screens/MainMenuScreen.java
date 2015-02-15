@@ -39,12 +39,13 @@ public class MainMenuScreen implements Screen {
 	public void show() {
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
+		BitmapFont titleFont = ResourceManager.getFont(ResourceManager.titleFont);
 		BitmapFont bmFont = ResourceManager.getFont(ResourceManager.menuFont);
 		TextureAtlas atlas = ResourceManager.getTextureAtlas(ResourceManager.menuAtlas);
 		skin = new Skin(atlas);
 		table = new Table(skin);
 		
-		title = new Label("PuckMan l'incroyable", new LabelStyle(bmFont,Color.YELLOW));
+		title = new Label("PuckMan l'incroyable", new LabelStyle(titleFont,Color.YELLOW));
 		title.setFontScale(1.5f);
 		
 		TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
@@ -122,6 +123,7 @@ public class MainMenuScreen implements Screen {
 
 	@Override
 	public void dispose() {
+		stage.dispose();
 	}
 
 }

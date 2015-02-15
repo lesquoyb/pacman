@@ -47,7 +47,7 @@ public class Pacman extends Character{
 		chooseDirection();
 		super.update(delta);
 		gumCollisionsCheck();
-		
+		checkCollision();
 	}
 	
 	
