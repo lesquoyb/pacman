@@ -1,0 +1,82 @@
+
+CopBottom.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+up0
+  rotate: false
+  xy: 1, 63
+  size: 28, 64
+  orig: 28, 64
+  offset: 0, 0
+  index: -1
+up7
+  rotate: false
+  xy: 1, 1
+  size: 21, 60
+  orig: 21, 60
+  offset: 0, 0
+  index: -1
+up9
+  rotate: false
+  xy: 31, 64
+  size: 24, 63
+  orig: 24, 63
+  offset: 0, 0
+  index: -1
+up2
+  rotate: false
+  xy: 57, 65
+  size: 24, 62
+  orig: 24, 62
+  offset: 0, 0
+  index: -1
+up1
+  rotate: false
+  xy: 83, 66
+  size: 25, 61
+  orig: 25, 61
+  offset: 0, 0
+  index: -1
+up10
+  rotate: false
+  xy: 110, 66
+  size: 24, 61
+  orig: 24, 61
+  offset: 0, 0
+  index: -1
+up5
+  rotate: false
+  xy: 136, 65
+  size: 23, 62
+  orig: 23, 62
+  offset: 0, 0
+  index: -1
+up6
+  rotate: false
+  xy: 161, 66
+  size: 23, 61
+  orig: 23, 61
+  offset: 0, 0
+  index: -1
+up8
+  rotate: false
+  xy: 186, 66
+  size: 22, 61
+  orig: 22, 61
+  offset: 0, 0
+  index: -1
+up3
+  rotate: false
+  xy: 210, 66
+  size: 22, 61
+  orig: 22, 61
+  offset: 0, 0
+  index: -1
+up4
+  rotate: false
+  xy: 234, 66
+  size: 21, 61
+  orig: 21, 61
+  offset: 0, 0
+  index: -1
