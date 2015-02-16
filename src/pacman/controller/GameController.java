@@ -6,7 +6,6 @@ import pacman.controller.resources.ResourceManager;
 import pacman.model.gameobjects.Pacman;
 import pacman.view.screens.GameScreen;
 
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
 

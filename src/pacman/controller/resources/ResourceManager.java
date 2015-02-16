@@ -95,9 +95,9 @@ public final class ResourceManager {
 
 		
 		//sounds
-		files.put(mainTheme, "sounds/mainTheme.wav");
-		files.put(pacmanDeath, "sounds/death.wav");
-		files.put(countdown, "sounds/countdown.wav");
+		files.put(mainTheme, "sounds/mainTheme.mp3");
+		files.put(pacmanDeath, "sounds/death.mp3");
+		files.put(countdown, "sounds/countdown.mp3");
 		
 		//fonts
 		files.put(menuFont, "fonts/fallout.fnt");

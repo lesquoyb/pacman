@@ -8,8 +8,8 @@ public abstract class Character extends MovingObject {
 	
 	protected directions next;
 	protected directions direction;
-	protected static final int speed = 200  ;
-	protected float remainingPower;
+	protected static final int speed = 275  ;
+	protected double remainingPower;
 	protected boolean alive;
 	protected boolean travellingIntoWormhole;
 	public String leftAnim;
@@ -215,7 +215,7 @@ public abstract class Character extends MovingObject {
 	 * @param d
 	 * @param force
 	 */
-	private void effectuateMovement(directions d,float pixelsToMove,float delta){
+	private void effectuateMovement(directions d,double pixelsToMove,float delta){
 		switch(d){
 			case left:
 			case right:

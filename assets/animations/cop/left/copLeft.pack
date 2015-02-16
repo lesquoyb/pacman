@@ -1,0 +1,89 @@
+
+CopLeft.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+left6
+  rotate: false
+  xy: 1, 1
+  size: 27, 61
+  orig: 27, 61
+  offset: 0, 0
+  index: -1
+left5
+  rotate: false
+  xy: 30, 2
+  size: 27, 60
+  orig: 27, 60
+  offset: 0, 0
+  index: -1
+left0
+  rotate: false
+  xy: 59, 2
+  size: 26, 60
+  orig: 26, 60
+  offset: 0, 0
+  index: -1
+left7
+  rotate: false
+  xy: 87, 1
+  size: 25, 61
+  orig: 25, 61
+  offset: 0, 0
+  index: -1
+left1
+  rotate: false
+  xy: 114, 2
+  size: 23, 60
+  orig: 23, 60
+  offset: 0, 0
+  index: -1
+left4
+  rotate: false
+  xy: 139, 1
+  size: 22, 61
+  orig: 22, 61
+  offset: 0, 0
+  index: -1
+left8
+  rotate: false
+  xy: 163, 1
+  size: 21, 61
+  orig: 21, 61
+  offset: 0, 0
+  index: -1
+left
+  rotate: false
+  xy: 186, 2
+  size: 21, 60
+  orig: 21, 60
+  offset: 0, 0
+  index: -1
+left10
+  rotate: false
+  xy: 186, 2
+  size: 21, 60
+  orig: 21, 60
+  offset: 0, 0
+  index: -1
+left9
+  rotate: false
+  xy: 209, 1
+  size: 19, 61
+  orig: 19, 61
+  offset: 0, 0
+  index: -1
+left2
+  rotate: false
+  xy: 230, 3
+  size: 19, 59
+  orig: 19, 59
+  offset: 0, 0
+  index: -1
+left3
+  rotate: false
+  xy: 251, 3
+  size: 18, 59
+  orig: 18, 59
+  offset: 0, 0
+  index: -1
