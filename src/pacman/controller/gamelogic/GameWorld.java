@@ -123,6 +123,15 @@ public class GameWorld {
 		ResourceManager.getSound(ResourceManager.mainTheme).play();		
 	}
 	
+	
+	public static void setInvertedMode(){
+		for(Character c : characters){
+			c.switchBehavior();
+		}
+		
+		
+	}
+	
 	private void placeCharacters(){
 		for(StartingPoint startingPoint : map.getStartingPoints()){
 			characters c = startingPoint.getCharacter();
@@ -136,16 +145,16 @@ public class GameWorld {
 					pacman.update(0);
 					break;
 				case Bghost :
-					character = new BlueGhost(x,y, Map.tileWidth, Map.tileHeight);
+					character = new BlueGhost(x,y, Map.tileWidth, Map.tileHeight,startingPoint);
 					break;
 				case Rghost :
-					character = new RedGhost(x,y, Map.tileWidth, Map.tileHeight);
+					character = new RedGhost(x,y, Map.tileWidth, Map.tileHeight,startingPoint);
 					break;
 				case  Yghost:
-					character = new YellowGhost(x,y, Map.tileWidth, Map.tileHeight);
+					character = new YellowGhost(x,y, Map.tileWidth, Map.tileHeight,startingPoint);
 					break;
 				case Gghost :
-					character = new GreenGhost(x,y, Map.tileWidth, Map.tileHeight);
+					character = new GreenGhost(x,y, Map.tileWidth, Map.tileHeight,startingPoint);
 					break;
 			}
 				characters.add(character);

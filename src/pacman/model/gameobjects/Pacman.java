@@ -11,7 +11,7 @@ public class Pacman extends Character{
 
 
 	public Pacman(int x, int y, int width, int height) {
-		super(x, y, width, height, ResourceManager.pacmanLeft, ResourceManager.pacmanRight, ResourceManager.pacmanUp, ResourceManager.pacmanDown);
+		super(x, y, width, height, ResourceManager.pacmanLeft, ResourceManager.pacmanRight, ResourceManager.pacmanUp, ResourceManager.pacmanDown,false);
 		animated = true;
 	}
 
@@ -52,8 +52,14 @@ public class Pacman extends Character{
 	
 	
 	protected void collision(Character c){
+		
 		if(c instanceof Ghost){
-			alive = false;
+			if(eater){
+				((Ghost) c).setAlive(false);
+			}
+			else{
+				alive = false;
+			}
 		}
 	}
 	
@@ -61,7 +67,7 @@ public class Pacman extends Character{
 	private void gumCollisionsCheck(){
 		
 		currentPos = GameWorld.map.getFloor(center.x, center.y);
-		if(currentPos != null && currentPos.hasGum()){
+		if(currentPos != null && (currentPos.hasGum() || currentPos.hasSuper())){
 			
 			boolean res = false;
 			
@@ -85,8 +91,14 @@ public class Pacman extends Character{
 					assert false;
 			}
 			if(res){
-				currentPos.setGum(false);
-				GameWorld.totalGumEated++;
+				if(currentPos.hasGum()){
+					currentPos.setGum(false);
+					GameWorld.totalGumEated++;
+				}
+				else if(currentPos.hasSuper()){
+					currentPos.setSuperPacgum(false);
+					GameWorld.setInvertedMode();
+				}
 			}
 		}
 	}

@@ -1,23 +1,29 @@
 package pacman.model.gameobjects;
 
+import pacman.controller.gamelogic.GameWorld;
 import pacman.controller.resources.ResourceManager;
 
 public class RedGhost extends Ghost {
 
 	
-	public RedGhost(int x, int y, int width, int height) {
-		super(x, y, width, height, ResourceManager.RedGLeft, ResourceManager.RedGRight, ResourceManager.RedGUp, ResourceManager.RedGDown);
+	public RedGhost(int x, int y, int width, int height,StartingPoint sp) {
+		super(x, y, width, height, ResourceManager.RedGLeft, ResourceManager.RedGRight, ResourceManager.RedGUp, ResourceManager.RedGDown,sp);
 	}
 
 	@Override
 	public void update(float delta) {
 		
-		
-		if(Ghost.rand.nextInt(6) > 4 ){
-			seekPacman(delta);
+		if(alive){
+			
+			if(Ghost.rand.nextInt(6) > 4 ){
+				seekPosition(delta,GameWorld.getPacman().x,GameWorld.getPacman().y);
+			}
+			else{
+				randomMovement(delta);
+			}
 		}
 		else{
-			randomMovement(delta);
+			seekPosition(delta, starting_point.x, starting_point.y);
 		}
 		
 	}

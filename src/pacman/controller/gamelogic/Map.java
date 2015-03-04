@@ -33,7 +33,7 @@ public class Map {
 		startingPoints = new ArrayList<StartingPoint>();
 		if (mg.generate() == false){
 			System.out.println(mg.errorMessage);
-			throw new Exception("La map '"+ file.name() +"' ne respecte pas le format demandé.\n" + mg.errorMessage);
+			throw new Exception("La map '"+ file.name() +"' ne respecte pas le format demandï¿½.\n" + mg.errorMessage);
 		}
 	
 	}
@@ -82,8 +82,8 @@ public class Map {
 	}
 	
 
-	public void addFloor(int x, int y,boolean hasGum){
-		Floor floor = (new Floor(x, y, tileWidth, tileHeight,hasGum));
+	public void addFloor(int x, int y,boolean hasGum,boolean superGum){
+		Floor floor = new Floor(x, y, tileWidth, tileHeight,hasGum,superGum);
 		addElementToGrid(floor);
 	}
 	

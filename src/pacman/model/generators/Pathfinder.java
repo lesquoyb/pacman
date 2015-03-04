@@ -112,7 +112,7 @@ public class Pathfinder {
 	
 	private ArrayList<Position> closedset, openset;
 	private HashMap<Position,Position> came_from;
-	private HashMap<Position, Integer>g_score, f_score;
+	private HashMap<Position, Double>g_score, f_score;
 	public ArrayList<int[]> AStar(int startX, int startY, int endX, int endY){
 		//AStar implementation thanks to wikipedia :)
 		Position start = new Position(startX, startY);
@@ -120,11 +120,11 @@ public class Pathfinder {
 		closedset = new ArrayList<Position>();
 		openset = new ArrayList<Position>();
 		came_from = new HashMap<Position, Position>();
-		g_score = new HashMap<Position, Integer>();
-		f_score = new HashMap<Pathfinder.Position, Integer>();
-		int tentative_g_score = 0;
+		g_score = new HashMap<Position, Double>();
+		f_score = new HashMap<Pathfinder.Position, Double>();
+		double tentative_g_score = 0;
 		openset.add(start);
-		g_score.put(start, 0);
+		g_score.put(start, 0.);
 		f_score.put(start, g_score.get(start) + heuristic_cost_estimate(start,goal));
 		
 		while(! openset.isEmpty()){
@@ -156,7 +156,7 @@ public class Pathfinder {
 	
 
 	private Position lowest_f_score_node(){
-		int min = Integer.MAX_VALUE;
+		double min = Double.MAX_VALUE;
 		Position ret = null;
 		for(Position p : openset){
 			if(f_score.get(p) < min){
@@ -177,9 +177,11 @@ public class Pathfinder {
 		return total_path;
 	}
 	
-	private int heuristic_cost_estimate(Position start, Position goal){
+	private double heuristic_cost_estimate(Position start, Position goal){
 		//Manhattan heuristic:
-		return Math.abs(goal.x - start.x) + Math.abs(goal.x - start.y);
+//		return Math.abs(goal.x - start.x) + Math.abs(goal.x - start.y);
+		//
+		return Math.sqrt(Math.pow(goal.x - start.x, 2) + Math.pow(goal.y - start.y,2));
 	}
 	
 	private int tmpX,tmpY;

@@ -15,6 +15,7 @@ public final class ResourceManager {
 	public static final String wormhole = "wormhole";
 	public static final String rawFloor = "floor";
 	public static final String floorGum = "floorGum";
+	public static final String floorSuper = "floorSuper";
 	public static final String splash = "splash";
 	public static final String menuAtlas = "menuAtlas";
 	public static final String defaite = "defaite";
@@ -67,8 +68,9 @@ public final class ResourceManager {
 		files.put(wall, "images/wall.jpg");
 		files.put(wormhole, "images/wormhole.jpg");
 		files.put(rawFloor, "images/floor.jpg");
-		files.put(splash,"ui/splashScreen.jpg" );
+		files.put(floorSuper, "images/floorSuper.jpg");
 		files.put(floorGum, "images/floorGum.jpg");
+		files.put(splash,"ui/splashScreen.jpg" );
 		files.put(defaite, "ui/defaite.jpg");
 		files.put(victoire, "ui/victoire.jpg");
 		files.put(menuAtlas, "ui/buttons.pack");

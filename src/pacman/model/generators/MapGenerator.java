@@ -25,7 +25,7 @@ public class MapGenerator extends Generator{
 	public final static byte floor = '0';
 	public final static byte wall = '1';
 	public final static byte pacman = 'p';
-	public final static byte superpacgum = '3';
+	public final static byte superpacgum = 's';
 	public final static byte Bghost = 'b';
 	public final static byte Rghost = 'r';
 	public final static byte Yghost = 'y';
@@ -63,7 +63,7 @@ public class MapGenerator extends Generator{
 
 				switch (input){
 					case floor:
-						map.addFloor(x,y,true);//true because each regular floor has a gum
+						map.addFloor(x,y,true,false);//true because each regular floor has a gum
 						nbGum++;
 						break;
 					case wall:
@@ -73,6 +73,7 @@ public class MapGenerator extends Generator{
 						map.addStartingPoint(x,y, StartingPoint.characters.pacman);
 						break;
 					case superpacgum:
+						map.addFloor(x, y, false,true);
 						break;
 					case Bghost :
 						map.addStartingPoint(x,y,StartingPoint.characters.Bghost );
@@ -88,7 +89,7 @@ public class MapGenerator extends Generator{
 						break;
 						
 					case ghostHouse:
-						map.addFloor(x, y,false);
+						map.addFloor(x, y,false,false);
 						break;
 						
 					case wormhole:

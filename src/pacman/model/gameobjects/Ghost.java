@@ -12,17 +12,22 @@ public abstract class Ghost extends Character{
 
 	protected ArrayList<directions> possible = new ArrayList<MovingObject.directions>();
 	protected static Random rand = new Random();
+	public final StartingPoint starting_point;
 	
 
-	public Ghost(int x, int y,int width, int height, String leftAnim,String rightAnim, String upAnim, String downAnim) {
-		super(x, y, width, height,leftAnim,rightAnim,upAnim,downAnim);
+	public Ghost(int x, int y,int width, int height, String leftAnim,String rightAnim, String upAnim, String downAnim,StartingPoint sp) {
+		super(x, y, width, height,leftAnim,rightAnim,upAnim,downAnim,true);
+		starting_point = sp;
 	}
-
+	
 
 	@Override
 	public abstract void update(float delta);
 
-
+	public void setAlive(boolean alive){
+		this.alive = alive;
+		switchBehavior();
+	}
 	
 	
 	
@@ -118,19 +123,12 @@ public abstract class Ghost extends Character{
 	}
 	
 	private ArrayList<int[]> path;
-	private Pacman pacman;
-	public void seekPacman(float delta){
+	private final int dist_max = 15;
+	public void seekPosition(float delta,int toReachX,int toReachY){
 		
 		
-		
-		if(pacman == null){
-			pacman = GameWorld.getPacman();
-		}
-
-		
-		
-		if(isIntersection(x, y) || path == null || !canMove(direction)){
-			path = GameWorld.pathfinder.AStar(x, y, pacman.x, pacman.y);
+		if(isIntersection(x, y) || path == null || path.size() > dist_max || !canMove(direction) ){
+			path = GameWorld.pathfinder.AStar(x, y, toReachX, toReachY);
 			if(path != null && path.size() > 0){
 				Collections.reverse(path);
 				path.remove(0);
@@ -138,7 +136,7 @@ public abstract class Ghost extends Character{
 		}
 		
 		
-		if(path != null && path.size() < 8){
+		if(path != null && path.size() <= dist_max){
 			
 			if(direction == null ){
 				direction = directionToReachPosition(x,y, path.get(0)[0], path.get(0)[1]);
@@ -148,6 +146,9 @@ public abstract class Ghost extends Character{
 				if(next == null && path.size()>0){
 					next = directionToReachPosition(x, y, path.get(0)[0], path.get(0)[1]);
 					path.remove(0);
+					if(areOnTheSameAxis(next, direction)){
+						next = null;
+					}
 				}
 			}
 			

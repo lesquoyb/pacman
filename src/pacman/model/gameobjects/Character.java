@@ -11,14 +11,18 @@ public abstract class Character extends MovingObject {
 	protected static final int speed = 275  ;
 	protected double remainingPower;
 	protected boolean alive;
+	public boolean eater;
 	protected boolean travellingIntoWormhole;
 	public String leftAnim;
 	public String rightAnim;
 	public String upAnim;
 	public String downAnim;
+	public String leftDead;
+	public String rightDead;
+	public String upDead;
+	public String downDead;	
 	
-	
-	public Character(int x, int y,int width, int height, String leftAnim, String rightAnim, String upAnim, String downAnim) {
+	public Character(int x, int y,int width, int height, String leftAnim, String rightAnim, String upAnim, String downAnim,boolean eater) {
 		super(x, y, width, height,downAnim);
 		direction = null;
 		next = null;
@@ -30,7 +34,36 @@ public abstract class Character extends MovingObject {
 		this.rightAnim = rightAnim;
 		this.upAnim = upAnim;
 		this.downAnim = downAnim;
+		leftDead = rightAnim;
+		rightDead = leftAnim;
+		upDead = downAnim;
+		downDead = upAnim;
 		
+	}
+	
+	
+	private void switchAnim(){
+		String animTmp = leftAnim;
+		leftAnim = leftDead;
+		leftDead = animTmp;
+		
+		animTmp = rightAnim;
+		rightAnim = rightDead;
+		rightDead = animTmp;
+		
+		animTmp = upAnim;
+		upAnim = upDead;
+		upDead = animTmp;
+		
+		animTmp = downAnim;
+		downAnim = downDead;
+		downDead = animTmp;
+		
+	}
+	
+	public void switchBehavior(){
+		//switchAnim();
+		eater = ! eater;
 	}
 
 	public boolean isAlive(){return alive;}
